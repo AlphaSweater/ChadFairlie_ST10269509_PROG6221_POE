@@ -32,18 +32,22 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 
         public void Scale(double scale)
         {
+            CurrentScale *= scale;
             foreach (var ingredient in Ingredients)
             {
-                // Scale the quantity of the ingredient
                 ingredient.Quantity *= scale;
 
-                // If the unit of measurement is convertible, convert the quantity and unit of measurement
                 if (UnitConverter.IsConvertible(ingredient.UnitOfMeasurement))
                 {
                     (ingredient.Quantity, ingredient.UnitOfMeasurement) = UnitConverter.Convert(ingredient.Quantity, ingredient.UnitOfMeasurement);
                 }
+
+                if (CurrentScale == 1)
+                {
+                    Console.WriteLine(CurrentScale);
+                    ingredient.Quantity = ingredient.OriginalQuantity;
+                }
             }
-            CurrentScale *= scale;
         }
 
         public void ResetScaling()
@@ -51,7 +55,6 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
             foreach (var ingredient in Ingredients)
             {
                 ingredient.Quantity = ingredient.OriginalQuantity;
-                ingredient.UnitOfMeasurement = ingredient.OriginalUnitOfMeasurement;
             }
             CurrentScale = 1.0;
         }
@@ -60,17 +63,19 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
         {
             StringBuilder recipeDetails = new StringBuilder();
 
-            recipeDetails.AppendLine("Recipe Name: " + RecipeName);
-            recipeDetails.AppendLine("Current Scale: " + CurrentScale + "x");
+            recipeDetails.AppendLine($"Recipe Name: {RecipeName}");
+            recipeDetails.AppendLine($"Current Scale: {CurrentScale}x");
             recipeDetails.AppendLine("Ingredients:");
             foreach (Ingredient ingredient in Ingredients)
             {
-                recipeDetails.AppendLine("> " + ingredient.Quantity + " " + ingredient.UnitOfMeasurement + " of " + ingredient.Name);
+                string unit = ingredient.UnitOfMeasurement != null ? $"{ingredient.UnitOfMeasurement}{(ingredient.Quantity > 1 ? "s" : "")} of " : "";
+                string plural = ingredient.UnitOfMeasurement == null && ingredient.Quantity > 1 ? "s" : "";
+                recipeDetails.AppendLine($"> {ingredient.Quantity} {unit}{ingredient.Name}{plural}");
             }
             recipeDetails.AppendLine("Steps:");
             foreach (string step in Steps)
             {
-                recipeDetails.AppendLine("> " + step);
+                recipeDetails.AppendLine($"> {step}");
             }
 
             return recipeDetails.ToString();

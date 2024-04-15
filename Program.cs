@@ -240,9 +240,9 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
             Console.ResetColor();
             Console.Write("/> ");
             string ingredientName = Console.ReadLine();
-            double ingredientQuantity = GetNumberFromUser("Please enter the quantity of this ingredient:");
+            double ingredientQuantity = GetNumberFromUser("\nEnter the quantity of this ingredient:");
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("Please enter the unit of measurement you would use for this ingredient:");
+            Console.WriteLine("\nEnter the unit of measurement you would use for this ingredient:");
             Console.WriteLine("Example: cups, grams, ounces, etc.");
             Console.ResetColor();
             Console.Write("/> ");
