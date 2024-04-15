@@ -10,7 +10,7 @@ If you have no prior experience with coding, don't worry! Just follow these step
 
 1. First, you need to install Visual Studio. You can download it from [here](https://visualstudio.microsoft.com/downloads/). Choose the Community version, which is free for individual developers, open source projects, academic research, education, and small professional teams.
 
-2. Once you have Visual Studio installed, go to the GitHub repository page for this project. You can find it [here](https://github.com/your-github-username/ChadFairlie_ST10269509_PROG6221_POE).
+2. Once you have Visual Studio installed, go to the GitHub repository page for this project. You can find it [here](https://github.com/AlphaSweater/ChadFairlie_ST10269509_PROG6221_POE).
 
 3. On the GitHub repository page, click the green "Code" button and then click "Download ZIP".
 
@@ -22,6 +22,6 @@ If you have no prior experience with coding, don't worry! Just follow these step
 
 7. Once the project is open in Visual Studio, you can compile it by clicking on "Build" in the menu at the top, and then "Build Solution".
 
-8. After the project has been compiled, you can run it by clicking on "Debug" in the menu at the top, and then "Start Debugging".
+8. After the project has been compiled, you can run it by clicking on "Start" in the menu at the top, and then it should start up.
 
 And that's it! You should now see the command-line interface of the application in a new window, ready for you to start entering and managing your recipes.
