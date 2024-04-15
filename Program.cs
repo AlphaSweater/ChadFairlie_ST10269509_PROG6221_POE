@@ -118,7 +118,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
                 while (!shouldReturn)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("==============================================================================");
+                    Console.WriteLine("\n==============================================================================");
                     Console.WriteLine("Your Recipe Details");
                     Console.WriteLine("==============================================================================");
                     Console.ForegroundColor = ConsoleColor.White;
@@ -165,7 +165,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
                 case "1":
                     recipe.Scale(0.5);
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("==============================================================================");
+                    Console.WriteLine("\n==============================================================================");
                     Console.WriteLine("Great! Your recipe has been halved.");
                     Console.WriteLine("==============================================================================");
                     Console.ResetColor();
@@ -174,7 +174,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
                 case "2":
                     recipe.Scale(2);
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("==============================================================================");
+                    Console.WriteLine("\n==============================================================================");
                     Console.WriteLine("Great! Your recipe has been doubled.");
                     Console.WriteLine("==============================================================================");
                     Console.ResetColor();
@@ -183,7 +183,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
                 case "3":
                     recipe.Scale(3);
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("==============================================================================");
+                    Console.WriteLine("\n==============================================================================");
                     Console.WriteLine("Great! Your recipe has been tripled.");
                     Console.WriteLine("==============================================================================");
                     Console.ResetColor();
@@ -191,7 +191,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 
                 case "4":
                     recipe.ResetScaling();
-                    Console.WriteLine("==============================================================================");
+                    Console.WriteLine("\n==============================================================================");
                     Console.WriteLine("Awesome! Your recipe scaling was reset successfully!");
                     Console.WriteLine("==============================================================================");
                     return false;

@@ -17,6 +17,8 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
             { ("pint"), (0.5, "quart", 2) },
             { ("quart"), (0.25, "gallon", 4) },
             { ("ounce"), (0.0625, "pound", 16) },
+            { ("milliliter"), (0.001, "liter", 1000) },
+            { ("gram"), (0.001, "kilogram", 1000) },
         };
 
         private static readonly Dictionary<string, (double, string, double)> DownConversionTable = new Dictionary<string, (double, string, double)>
@@ -27,6 +29,8 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
             { ("quart"), (2, "pint", 1) },
             { ("gallon"), (4, "quart", 1) },
             { ("pound"), (16, "ounce", 1) },
+            { ("liter"), (1000, "milliliter", 1) },
+            { ("kilogram"), (1000, "gram", 1) }
         };
 
         public static bool IsConvertible(string unitOfMeasurement)
