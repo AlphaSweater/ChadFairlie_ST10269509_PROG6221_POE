@@ -44,6 +44,17 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
                 Classes.Ingredient ingredient = new Classes.Ingredient(ingredientName, ingredientQuantity, ingredientUnit);
                 newRecipe.AddIngredient(ingredient);
             }
+
+            Console.WriteLine($"Now please enter the number of steps for the {newRecipe.RecipeName} recipe:");
+            Console.Write("/> ");
+            int stepCount = Convert.ToInt32(Console.ReadLine());
+            for (int i = 0; i < stepCount; i++)
+            {
+                Console.WriteLine($"Please enter the instruction for step number {i + 1}:");
+                Console.Write("/> ");
+                string stepDescription = Console.ReadLine();
+                newRecipe.AddStep(stepDescription);
+            }
         }
     }
 }
