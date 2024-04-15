@@ -12,6 +12,8 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
         public double Quantity { get; set; }
         public double OriginalQuantity { get; set; }
         public string UnitOfMeasurement { get; set; }
+        public string OriginalUnitOfMeasurement { get; set; }
+
 
         public Ingredient(string name, double quantity, string unit)
         {
@@ -19,6 +21,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
             Quantity = quantity;
             OriginalQuantity = quantity;
             UnitOfMeasurement = unit;
+            OriginalUnitOfMeasurement = unit;
         }
     }
 }

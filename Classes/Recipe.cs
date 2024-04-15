@@ -34,7 +34,14 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
         {
             foreach (var ingredient in Ingredients)
             {
+                // Scale the quantity of the ingredient
                 ingredient.Quantity *= scale;
+
+                // If the unit of measurement is convertible, convert the quantity and unit of measurement
+                if (UnitConverter.IsConvertible(ingredient.UnitOfMeasurement))
+                {
+                    (ingredient.Quantity, ingredient.UnitOfMeasurement) = UnitConverter.Convert(ingredient.Quantity, ingredient.UnitOfMeasurement);
+                }
             }
             CurrentScale *= scale;
         }
@@ -44,6 +51,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
             foreach (var ingredient in Ingredients)
             {
                 ingredient.Quantity = ingredient.OriginalQuantity;
+                ingredient.UnitOfMeasurement = ingredient.OriginalUnitOfMeasurement;
             }
             CurrentScale = 1.0;
         }

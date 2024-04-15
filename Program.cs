@@ -81,7 +81,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
             Console.ResetColor();
 
             string recipeName = GetRecipeName();
-            Recipe NewRecipe = new Recipe(recipeName);
+            NewRecipe = new Recipe(recipeName);
 
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine($"\nGreat! Now let's add some ingredients to your {NewRecipe.RecipeName} recipe.");
