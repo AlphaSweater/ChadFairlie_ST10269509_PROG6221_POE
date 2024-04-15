@@ -8,5 +8,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 {
     internal class Recipe
     {
+        public List<Ingredient> Ingredients { get; set; }
+        public List<string> Steps { get; set; }
     }
 }
