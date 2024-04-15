@@ -8,11 +8,14 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 {
     internal class Recipe
     {
+        //------------------------------------------------------------------------------------------------------------------------//
         public string RecipeName { get; set; }
+
         public double CurrentScale { get; private set; } = 1.0;
         public List<Ingredient> Ingredients { get; set; }
         public List<string> Steps { get; set; }
 
+        //------------------------------------------------------------------------------------------------------------------------//
         public Recipe(string name)
         {
             this.RecipeName = name;
@@ -20,16 +23,19 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
             this.Steps = new List<string>();
         }
 
+        //------------------------------------------------------------------------------------------------------------------------//
         public void AddIngredient(Ingredient ingredient)
         {
             this.Ingredients.Add(ingredient);
         }
 
+        //------------------------------------------------------------------------------------------------------------------------//
         public void AddStep(string stepDescription)
         {
             this.Steps.Add(stepDescription);
         }
 
+        //------------------------------------------------------------------------------------------------------------------------//
         public void Scale(double scale)
         {
             CurrentScale *= scale;
@@ -49,6 +55,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
             }
         }
 
+        //------------------------------------------------------------------------------------------------------------------------//
         public void ResetScaling()
         {
             foreach (var ingredient in Ingredients)
@@ -58,6 +65,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
             CurrentScale = 1.0;
         }
 
+        //------------------------------------------------------------------------------------------------------------------------//
         public string PrintRecipe()
         {
             StringBuilder recipeDetails = new StringBuilder();
@@ -79,5 +87,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 
             return recipeDetails.ToString();
         }
+
+        //------------------------------------------------------------------------------------------------------------------------//
     }
 }

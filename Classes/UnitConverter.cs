@@ -8,6 +8,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 {
     internal class UnitConverter
     {
+        //------------------------------------------------------------------------------------------------------------------------//
         private static readonly Dictionary<string, (double, string, double)> UpConversionTable = new Dictionary<string, (double, string, double)>
         {
             { ("teaspoon"), (0.33333, "tablespoon", 3) },
@@ -21,6 +22,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
             { ("gram"), (0.001, "kilogram", 1000) },
         };
 
+        //------------------------------------------------------------------------------------------------------------------------//
         private static readonly Dictionary<string, (double, string, double)> DownConversionTable = new Dictionary<string, (double, string, double)>
         {
             { ("tablespoon"), (3, "teaspoon", 1) },
@@ -33,11 +35,13 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
             { ("kilogram"), (1000, "gram", 1) }
         };
 
+        //------------------------------------------------------------------------------------------------------------------------//
         public static bool IsConvertible(string unitOfMeasurement)
         {
             return UpConversionTable.ContainsKey(unitOfMeasurement) || DownConversionTable.ContainsKey(unitOfMeasurement);
         }
 
+        //------------------------------------------------------------------------------------------------------------------------//
         public static (double, string) Convert(double quantity, string unitOfMeasurement)
         {
             if (UpConversionTable.ContainsKey(unitOfMeasurement) && quantity >= UpConversionTable[unitOfMeasurement].Item3)
@@ -53,5 +57,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 
             return (quantity, unitOfMeasurement);
         }
+
+        //------------------------------------------------------------------------------------------------------------------------//
     }
 }

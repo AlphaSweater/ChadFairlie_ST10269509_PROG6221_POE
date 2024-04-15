@@ -9,8 +9,11 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 {
     internal class Program
     {
+        //------------------------------------------------------------------------------------------------------------------------//
         private Recipe NewRecipe = null;
 
+        //------------------------------------------------------------------------------------------------------------------------//
+        //------------------------------------------------------------------------------------------------------------------------//
         // >>>>>>>>>>>>>>>>>
         // >  Main Method  >
         // >>>>>>>>>>>>>>>>>
@@ -20,6 +23,8 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
             worker.BeginHere();
         }
 
+        //------------------------------------------------------------------------------------------------------------------------//
+        //------------------------------------------------------------------------------------------------------------------------//
         // >>>>>>>>>>>>>>>>>>>>>>>>>>
         // >  Program Start Method  >
         // >>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -69,6 +74,8 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
             }
         }
 
+        //------------------------------------------------------------------------------------------------------------------------//
+        //------------------------------------------------------------------------------------------------------------------------//
         // >>>>>>>>>>>>>>>>>>>>>>>>>
         // >  Menu Option Methods  >
         // >>>>>>>>>>>>>>>>>>>>>>>>>
@@ -110,6 +117,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
             return NewRecipe;
         }
 
+        //------------------------------------------------------------------------------------------------------------------------//
         private void DisplayRecipe(Recipe recipe)
         {
             if (recipe != null)
@@ -141,6 +149,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
             }
         }
 
+        //------------------------------------------------------------------------------------------------------------------------//
         private bool DisplayScalingMenu(Recipe recipe)
         {
             Console.ForegroundColor = ConsoleColor.Green;
@@ -230,6 +239,8 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
             }
         }
 
+        //------------------------------------------------------------------------------------------------------------------------//
+        //------------------------------------------------------------------------------------------------------------------------//
         // >>>>>>>>>>>>>>>>>>>>
         // >  Helper Methods  >
         // >>>>>>>>>>>>>>>>>>>>
@@ -242,11 +253,13 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
             return Console.ReadLine();
         }
 
+        //------------------------------------------------------------------------------------------------------------------------//
         private int GetNumberOfIngredients()
         {
             return (int)GetNumberFromUser("Please enter the number of ingredients in the recipe:");
         }
 
+        //------------------------------------------------------------------------------------------------------------------------//
         private Ingredient GetIngredient(int i)
         {
             Console.ForegroundColor = ConsoleColor.White;
@@ -254,21 +267,23 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
             Console.ResetColor();
             Console.Write("/> ");
             string ingredientName = Console.ReadLine();
-            double ingredientQuantity = GetNumberFromUser("\nEnter the quantity of this ingredient:");
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("\nEnter the unit of measurement you would use for this ingredient:");
-            Console.WriteLine("Example: cups, grams, ounces, etc.");
+            Console.WriteLine("Example: cups, grams, teaspoons, etc.");
             Console.ResetColor();
             Console.Write("/> ");
             string ingredientUnit = Console.ReadLine();
+            double ingredientQuantity = GetNumberFromUser("\nEnter the quantity of this ingredient:");
             return new Ingredient(ingredientName, ingredientQuantity, ingredientUnit);
         }
 
+        //------------------------------------------------------------------------------------------------------------------------//
         private int GetNumberOfSteps()
         {
             return (int)GetNumberFromUser("Please enter the number of steps for the recipe:");
         }
 
+        //------------------------------------------------------------------------------------------------------------------------//
         private string GetStep(int i)
         {
             Console.ForegroundColor = ConsoleColor.White;
@@ -278,6 +293,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
             return $"Step {i + 1} -> " + Console.ReadLine();
         }
 
+        //------------------------------------------------------------------------------------------------------------------------//
         private bool UserConfirmation(string message)
         {
             Console.ForegroundColor = ConsoleColor.Green;
@@ -290,6 +306,8 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
             return response == "y" || response == "yes";
         }
 
+        //------------------------------------------------------------------------------------------------------------------------//
+        //------------------------------------------------------------------------------------------------------------------------//
         // >>>>>>>>>>>>>>>>>>>>>>>>>>>>
         // >  Error Handling Methods  >
         // >>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -336,5 +354,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
                 }
             }
         }
+
+        //------------------------------------------------------------------------------------------------------------------------//
     }
 }
