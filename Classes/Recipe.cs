@@ -44,7 +44,6 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 
                 if (CurrentScale == 1)
                 {
-                    Console.WriteLine(CurrentScale);
                     ingredient.Quantity = ingredient.OriginalQuantity;
                 }
             }

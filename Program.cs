@@ -192,18 +192,30 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
                 case "4":
                     recipe.ResetScaling();
                     Console.WriteLine("==============================================================================");
-                    Console.WriteLine("Your recipe scaling was reset successfully!");
+                    Console.WriteLine("Awesome! Your recipe scaling was reset successfully!");
                     Console.WriteLine("==============================================================================");
                     return false;
 
                 case "5":
-                    NewRecipe = null;
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("\n==============================================================================");
-                    Console.WriteLine("Recipe cleared successfully!");
-                    Console.WriteLine("==============================================================================\n");
-                    Console.ResetColor();
-                    return true;
+                    if (UserConfirmation("Are you sure you want to clear the recipe? (y/n)"))
+                    {
+                        NewRecipe = null;
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("\n==============================================================================");
+                        Console.WriteLine("Recipe cleared successfully!");
+                        Console.WriteLine("==============================================================================\n");
+                        Console.ResetColor();
+                        return true;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("\n==============================================================================");
+                        Console.WriteLine("Recipe was not cleared!");
+                        Console.WriteLine("==============================================================================\n");
+                        Console.ResetColor();
+                        return false;
+                    }
 
                 case "6":
                     return true;
@@ -264,6 +276,18 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
             Console.ResetColor();
             Console.Write("/> ");
             return $"Step {i + 1} -> " + Console.ReadLine();
+        }
+
+        private bool UserConfirmation(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("==============================================================================");
+            Console.WriteLine(message);
+            Console.WriteLine("==============================================================================");
+            Console.ResetColor();
+            Console.Write("/> ");
+            string response = Console.ReadLine().ToLower();
+            return response == "y" || response == "yes";
         }
 
         // >>>>>>>>>>>>>>>>>>>>>>>>>>>>
