@@ -107,7 +107,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
         {
             Console.WriteLine($"Please enter the instruction for step number {i + 1}:");
             Console.Write("/> ");
-            return Console.ReadLine();
+            return $"Step {i + 1} -> " + Console.ReadLine();
         }
     }
 }
