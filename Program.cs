@@ -18,46 +18,27 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
         private void BeginHere()
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("=======================================");
-            Console.WriteLine("---> Welcome to the Recipe Manager <---");
-            Console.WriteLine("=======================================");
+            Console.WriteLine("=============================================================");
+            Console.WriteLine("---> Welcome to the Recipe Manager <-------------------------");
+            Console.WriteLine("=============================================================");
             Console.ResetColor();
 
-            Console.WriteLine("\nPlease enter the name of the recipe you would like to create:");
-            Console.Write("/> ");
-            string recipeName = Console.ReadLine();
-            Classes.Recipe newRecipe = new Classes.Recipe(recipeName);
+            string recipeName = GetRecipeName();
+            Recipe newRecipe = new Recipe(recipeName);
 
             Console.WriteLine($"\nGreat! Now let's add some ingredients to the {newRecipe.RecipeName} recipe.");
-            Console.WriteLine("Please enter the number of ingredients in the recipe:");
-            Console.Write("/> ");
-            int ingredientCount = Convert.ToInt32(Console.ReadLine());
+            int ingredientCount = GetNumberOfIngredients();
             for (int i = 0; i < ingredientCount; i++)
             {
-                Console.WriteLine($"\nPlease enter the name of ingredient number {i + 1}:");
-                Console.Write("/> ");
-                string ingredientName = Console.ReadLine();
-                Console.WriteLine("Please enter the quantity of this ingredient:");
-                Console.Write("/> ");
-                double ingredientQuantity = Convert.ToDouble(Console.ReadLine());
-                Console.WriteLine("Please enter the unit of measurement you would use for this ingredient:");
-                Console.WriteLine("Example: cups, grams, ounces, etc.");
-                Console.Write("/> ");
-                string ingredientUnit = Console.ReadLine();
-                Classes.Ingredient ingredient = new Classes.Ingredient(ingredientName, ingredientQuantity, ingredientUnit);
+                Ingredient ingredient = GetIngredient(i);
                 newRecipe.AddIngredient(ingredient);
             }
 
             Console.WriteLine("\nPerfect! Now let's add the steps to the recipe.");
-            Console.WriteLine($"Please enter the number of steps for the {newRecipe.RecipeName} recipe:");
-            Console.Write("/> ");
-            int stepCount = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine();
+            int stepCount = GetNumberOfSteps();
             for (int i = 0; i < stepCount; i++)
             {
-                Console.WriteLine($"Please enter the instruction for step number {i + 1}:");
-                Console.Write("/> ");
-                string stepDescription = Console.ReadLine();
+                string stepDescription = GetStep(i);
                 newRecipe.AddStep(stepDescription);
             }
 
@@ -68,7 +49,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
             Console.ResetColor();
             Console.WriteLine("Recipe Name: " + newRecipe.RecipeName);
             Console.WriteLine("Ingredients:");
-            foreach (Classes.Ingredient ingredient in newRecipe.Ingredients)
+            foreach (Ingredient ingredient in newRecipe.Ingredients)
             {
                 Console.WriteLine("• " + ingredient.Quantity + " " + ingredient.UnitOfMeasurement + " of " + ingredient.Name);
             }
@@ -77,10 +58,56 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
             {
                 Console.WriteLine("• " + step);
             }
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("=======================================");
+            Console.ResetColor();
 
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("\nPress any key to exit...");
             Console.ReadKey();
+        }
+
+        private string GetRecipeName()
+        {
+            Console.WriteLine("\nPlease enter the name of the recipe you would like to create:");
+            Console.Write("/> ");
+            return Console.ReadLine();
+        }
+
+        private int GetNumberOfIngredients()
+        {
+            Console.WriteLine("Please enter the number of ingredients in the recipe:");
+            Console.Write("/> ");
+            return Convert.ToInt32(Console.ReadLine());
+        }
+
+        private Ingredient GetIngredient(int i)
+        {
+            Console.WriteLine($"\nPlease enter the name of ingredient number {i + 1}:");
+            Console.Write("/> ");
+            string ingredientName = Console.ReadLine();
+            Console.WriteLine("Please enter the quantity of this ingredient:");
+            Console.Write("/> ");
+            double ingredientQuantity = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine("Please enter the unit of measurement you would use for this ingredient:");
+            Console.WriteLine("Example: cups, grams, ounces, etc.");
+            Console.Write("/> ");
+            string ingredientUnit = Console.ReadLine();
+            return new Ingredient(ingredientName, ingredientQuantity, ingredientUnit);
+        }
+
+        private int GetNumberOfSteps()
+        {
+            Console.WriteLine($"Please enter the number of steps for the recipe:");
+            Console.Write("/> ");
+            return Convert.ToInt32(Console.ReadLine());
+        }
+
+        private string GetStep(int i)
+        {
+            Console.WriteLine($"Please enter the instruction for step number {i + 1}:");
+            Console.Write("/> ");
+            return Console.ReadLine();
         }
     }
 }
