@@ -9,12 +9,18 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 {
     internal class Program
     {
+        // >>>>>>>>>>>>>>>>>
+        // >  Main Method  >
+        // >>>>>>>>>>>>>>>>>
         private static void Main(string[] args)
         {
             Program worker = new Program();
             worker.BeginHere();
         }
 
+        // >>>>>>>>>>>>>>>>>>>>>>>>>>
+        // >  Program Start Method  >
+        // >>>>>>>>>>>>>>>>>>>>>>>>>>
         private void BeginHere()
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -67,6 +73,9 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
             Console.ReadKey();
         }
 
+        // >>>>>>>>>>>>>>>>>>>>
+        // >  Helper Methods  >
+        // >>>>>>>>>>>>>>>>>>>>
         private string GetRecipeName()
         {
             Console.WriteLine("\nPlease enter the name of the recipe you would like to create:");
