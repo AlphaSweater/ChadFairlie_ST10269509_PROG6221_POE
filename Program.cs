@@ -28,13 +28,13 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
             while (true)
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("=============================================================");
-                Console.WriteLine("---> Welcome to the Recipe Manager <-------------------------");
-                Console.WriteLine("=============================================================");
+                Console.WriteLine("=======================================");
+                Console.WriteLine("---> Welcome to the Recipe Manager <---");
+                Console.WriteLine("=======================================");
                 Console.WriteLine("1. Create new recipe");
                 Console.WriteLine("2. Display recipe");
                 Console.WriteLine("3. Exit");
-                Console.WriteLine("=============================================================");
+                Console.WriteLine("=======================================");
                 Console.ResetColor();
                 Console.WriteLine("\nEnter your choice: ");
                 Console.Write("/> ");
@@ -57,9 +57,9 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 
                     default:
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("\n=============================================================");
+                        Console.WriteLine("\n=======================================");
                         Console.WriteLine("Invalid choice. Please enter a valid option.");
-                        Console.WriteLine("=============================================================\n");
+                        Console.WriteLine("=======================================\n");
                         Console.ResetColor();
                         break;
                 }
@@ -72,15 +72,15 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
         private Recipe CreateNewRecipe()
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("=============================================================");
-            Console.WriteLine("---> Creating a New Recipe <---------------------------------");
-            Console.WriteLine("=============================================================");
+            Console.WriteLine("=======================================");
+            Console.WriteLine("-------> Creating a New Recipe <-------");
+            Console.WriteLine("=======================================");
             Console.ResetColor();
 
             string recipeName = GetRecipeName();
             Recipe NewRecipe = new Recipe(recipeName);
 
-            Console.WriteLine($"\nGreat! Now let's add some ingredients to the {NewRecipe.RecipeName} recipe.");
+            Console.WriteLine($"\nGreat! Now let's add some ingredients to your {NewRecipe.RecipeName} recipe.");
             int ingredientCount = GetNumberOfIngredients();
             for (int i = 0; i < ingredientCount; i++)
             {
@@ -109,26 +109,22 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
         {
             if (recipe != null)
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("=======================================");
-                Console.WriteLine("Your Recipe Details");
-                Console.WriteLine("=======================================");
-                Console.ForegroundColor = ConsoleColor.White;
+                bool shouldReturn = false;
+                while (!shouldReturn)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("=======================================");
+                    Console.WriteLine("--------> Your Recipe Details <--------");
+                    Console.WriteLine("=======================================");
+                    Console.ForegroundColor = ConsoleColor.White;
 
-                Console.WriteLine("Recipe Name: " + recipe.RecipeName);
-                Console.WriteLine("Ingredients:");
-                foreach (Ingredient ingredient in recipe.Ingredients)
-                {
-                    Console.WriteLine("• " + ingredient.Quantity + " " + ingredient.UnitOfMeasurement + " of " + ingredient.Name);
+                    Console.Write(recipe.PrintRecipe());
+
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("=======================================");
+                    shouldReturn = DisplayScalingMenu(recipe);
                 }
-                Console.WriteLine("Steps:");
-                foreach (string step in recipe.Steps)
-                {
-                    Console.WriteLine("• " + step);
-                }
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("=======================================");
-                DisplayScalingMenu(recipe);
+                Console.WriteLine();
             }
             else
             {
@@ -140,65 +136,70 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
             }
         }
 
-        private void DisplayScalingMenu(Recipe recipe)
+        private bool DisplayScalingMenu(Recipe recipe)
         {
-            while (true)
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("------> Recipe Scaling Options <-------");
+            Console.WriteLine("=======================================");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("1. Scale recipe by 0.5 (half)");
+            Console.WriteLine("2. Scale recipe by 2 (double)");
+            Console.WriteLine("3. Scale recipe by 3 (triple)");
+            Console.WriteLine("4. Reset recipe scaling");
+            Console.WriteLine("5. Clear recipe");
+            Console.WriteLine("6. Return to main menu");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("=======================================");
+            Console.ResetColor();
+            Console.WriteLine("\nEnter your choice: ");
+            Console.Write("/> ");
+            var choice = Console.ReadLine();
+
+            switch (choice)
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("---> Recipe Scaling Options <----------");
-                Console.WriteLine("=======================================");
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("1. Scale recipe by 0.5 (half)");
-                Console.WriteLine("2. Scale recipe by 2 (double)");
-                Console.WriteLine("3. Scale recipe by 3 (triple)");
-                Console.WriteLine("4. Reset recipe scaling");
-                Console.WriteLine("5. Clear recipe");
-                Console.WriteLine("6. Return to main menu");
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("=======================================");
-                Console.ResetColor();
-                Console.WriteLine("\nEnter your choice: ");
-                Console.Write("/> ");
-                var choice = Console.ReadLine();
+                case "1":
+                    recipe.Scale(0.5);
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("\n=======================================");
+                    Console.WriteLine("Recipe scaled by 0.5 successfully!");
+                    Console.WriteLine("=======================================\n");
+                    Console.ResetColor();
+                    return false;
 
-                switch (choice)
-                {
-                    case "1":
-                        DisplayRecipe(recipe);
-                        break;
+                case "2":
+                    recipe.Scale(2);
+                    Console.WriteLine("Recipe scaled by 2 successfully!");
+                    return false;
 
-                    case "2":
-                        DisplayRecipe(recipe);
-                        break;
+                case "3":
+                    recipe.Scale(3);
+                    Console.WriteLine("Recipe scaled by 3 successfully!");
+                    return false;
 
-                    case "3":
-                        DisplayRecipe(recipe);
-                        break;
+                case "4":
+                    recipe.ResetScaling();
+                    Console.WriteLine("Recipe scaling reset successfully!");
+                    return false;
 
-                    case "4":
-                        DisplayRecipe(recipe);
-                        break;
+                case "5":
+                    recipe = null;
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("\n=======================================");
+                    Console.WriteLine("Recipe cleared successfully!");
+                    Console.WriteLine("=======================================\n");
+                    Console.ResetColor();
+                    return true;
 
-                    case "5":
-                        this.NewRecipe = null;
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("\n=======================================");
-                        Console.WriteLine("Recipe cleared successfully!");
-                        Console.WriteLine("=======================================\n");
-                        Console.ResetColor();
-                        return;
+                case "6":
+                    return true;
 
-                    case "6":
-                        return;
-
-                    default:
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("\n=============================================================");
-                        Console.WriteLine("Invalid choice. Please enter a valid option.");
-                        Console.WriteLine("=============================================================\n");
-                        Console.ResetColor();
-                        break;
-                }
+                default:
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("\n=======================================");
+                    Console.WriteLine("Invalid choice. Please enter a valid option.");
+                    Console.WriteLine("=======================================\n");
+                    Console.ResetColor();
+                    return false;
             }
         }
 
@@ -258,9 +259,9 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
                 catch (FormatException)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("\n=============================================================");
+                    Console.WriteLine("\n=======================================");
                     Console.WriteLine("Invalid input. Please enter a valid number.");
-                    Console.WriteLine("=============================================================\n");
+                    Console.WriteLine("=======================================\n");
                     Console.ResetColor();
                 }
             }

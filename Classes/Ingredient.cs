@@ -10,16 +10,14 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
     {
         public string Name { get; set; }
         public double Quantity { get; set; }
+        public double OriginalQuantity { get; set; }
         public string UnitOfMeasurement { get; set; }
-
-        public Ingredient()
-        {
-        }
 
         public Ingredient(string name, double quantity, string unit)
         {
             Name = name;
             Quantity = quantity;
+            OriginalQuantity = quantity;
             UnitOfMeasurement = unit;
         }
     }
