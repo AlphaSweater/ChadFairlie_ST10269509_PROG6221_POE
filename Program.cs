@@ -29,14 +29,17 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("=======================================");
-                Console.WriteLine("---> Welcome to the Recipe Manager <---");
+                Console.WriteLine("Welcome to the Recipe Manager");
                 Console.WriteLine("=======================================");
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("1. Create new recipe");
                 Console.WriteLine("2. Display recipe");
                 Console.WriteLine("3. Exit");
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("=======================================");
-                Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("\nEnter your choice: ");
+                Console.ResetColor();
                 Console.Write("/> ");
                 var choice = Console.ReadLine();
 
@@ -80,6 +83,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
             string recipeName = GetRecipeName();
             Recipe NewRecipe = new Recipe(recipeName);
 
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine($"\nGreat! Now let's add some ingredients to your {NewRecipe.RecipeName} recipe.");
             int ingredientCount = GetNumberOfIngredients();
             for (int i = 0; i < ingredientCount; i++)
@@ -88,6 +92,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
                 NewRecipe.AddIngredient(ingredient);
             }
 
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("\nPerfect! Now let's add the steps to the recipe.");
             int stepCount = GetNumberOfSteps();
             for (int i = 0; i < stepCount; i++)
@@ -160,20 +165,28 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
                 case "1":
                     recipe.Scale(0.5);
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("\n=======================================");
-                    Console.WriteLine("Recipe scaled by 0.5 successfully!");
-                    Console.WriteLine("=======================================\n");
+                    Console.WriteLine("=======================================");
+                    Console.WriteLine("Great! Your recipe has been halved.");
+                    Console.WriteLine("=======================================");
                     Console.ResetColor();
                     return false;
 
                 case "2":
                     recipe.Scale(2);
-                    Console.WriteLine("Recipe scaled by 2 successfully!");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("=======================================");
+                    Console.WriteLine("Great! Your recipe has been doubled.");
+                    Console.WriteLine("=======================================");
+                    Console.ResetColor();
                     return false;
 
                 case "3":
                     recipe.Scale(3);
-                    Console.WriteLine("Recipe scaled by 3 successfully!");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("=======================================");
+                    Console.WriteLine("Great! Your recipe has been tripled.");
+                    Console.WriteLine("=======================================");
+                    Console.ResetColor();
                     return false;
 
                 case "4":
@@ -208,7 +221,9 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
         // >>>>>>>>>>>>>>>>>>>>
         private string GetRecipeName()
         {
-            Console.WriteLine("Please enter the name of the recipe you would like to create:");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("Enter recipe name:");
+            Console.ResetColor();
             Console.Write("/> ");
             return Console.ReadLine();
         }
@@ -220,12 +235,16 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 
         private Ingredient GetIngredient(int i)
         {
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine($"\nPlease enter the name of ingredient number {i + 1}:");
+            Console.ResetColor();
             Console.Write("/> ");
             string ingredientName = Console.ReadLine();
             double ingredientQuantity = GetNumberFromUser("Please enter the quantity of this ingredient:");
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Please enter the unit of measurement you would use for this ingredient:");
             Console.WriteLine("Example: cups, grams, ounces, etc.");
+            Console.ResetColor();
             Console.Write("/> ");
             string ingredientUnit = Console.ReadLine();
             return new Ingredient(ingredientName, ingredientQuantity, ingredientUnit);
@@ -238,7 +257,9 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 
         private string GetStep(int i)
         {
-            Console.WriteLine($"Please enter the instruction for step number {i + 1}:");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine($"\nPlease enter the instruction for step number {i + 1}:");
+            Console.ResetColor();
             Console.Write("/> ");
             return $"Step {i + 1} -> " + Console.ReadLine();
         }
@@ -252,7 +273,9 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
             {
                 try
                 {
+                    Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine(prompt);
+                    Console.ResetColor();
                     Console.Write("/> ");
                     return Convert.ToDouble(Console.ReadLine());
                 }

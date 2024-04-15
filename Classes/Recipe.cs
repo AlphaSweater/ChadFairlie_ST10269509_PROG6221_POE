@@ -53,7 +53,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
             StringBuilder recipeDetails = new StringBuilder();
 
             recipeDetails.AppendLine("Recipe Name: " + RecipeName);
-            recipeDetails.AppendLine("Current Scale: " + CurrentScale);
+            recipeDetails.AppendLine("Current Scale: " + CurrentScale + "x");
             recipeDetails.AppendLine("Ingredients:");
             foreach (Ingredient ingredient in Ingredients)
             {
