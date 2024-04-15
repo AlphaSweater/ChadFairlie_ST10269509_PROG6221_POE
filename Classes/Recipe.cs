@@ -26,7 +26,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 
         public void AddStep(string stepDescription)
         {
-            string step = $"Step {Steps.Count + 1}: \n" + stepDescription + "\n";
+            string step = $"Step {Steps.Count + 1} -> " + stepDescription;
             this.Steps.Add(step);
         }
     }

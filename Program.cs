@@ -55,6 +55,21 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
                 string stepDescription = Console.ReadLine();
                 newRecipe.AddStep(stepDescription);
             }
+
+            Console.WriteLine("Recipe created successfully!");
+            Console.WriteLine("Recipe Name: " + newRecipe.RecipeName);
+            Console.WriteLine("Ingredients:");
+            foreach (Classes.Ingredient ingredient in newRecipe.Ingredients)
+            {
+                Console.WriteLine("• " + ingredient.Quantity + " " + ingredient.UnitOfMeasurement + " " + ingredient.Name);
+            }
+            Console.WriteLine("Steps:");
+            foreach (string step in newRecipe.Steps)
+            {
+                Console.WriteLine("• " + step);
+            }
+            Console.WriteLine("Press any key to exit...");
+            Console.ReadKey();
         }
     }
 }
