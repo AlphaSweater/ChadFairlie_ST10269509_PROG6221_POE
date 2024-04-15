@@ -68,8 +68,8 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
             recipeDetails.AppendLine("Ingredients:");
             foreach (Ingredient ingredient in Ingredients)
             {
-                string unit = ingredient.UnitOfMeasurement != null ? $"{ingredient.UnitOfMeasurement}{(ingredient.Quantity > 1 ? "s" : "")} of " : "";
-                string plural = ingredient.UnitOfMeasurement == null && ingredient.Quantity > 1 ? "s" : "";
+                string unit = !string.IsNullOrEmpty(ingredient.UnitOfMeasurement) ? $"{ingredient.UnitOfMeasurement}{(ingredient.Quantity > 1 ? "s" : "")} of " : "";
+                string plural = string.IsNullOrEmpty(ingredient.UnitOfMeasurement) && ingredient.Quantity > 1 ? "s" : "";
                 recipeDetails.AppendLine($"> {ingredient.Quantity} {unit}{ingredient.Name}{plural}");
             }
             recipeDetails.AppendLine("Steps:");
