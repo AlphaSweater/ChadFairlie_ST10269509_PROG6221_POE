@@ -12,8 +12,9 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
         public List<Ingredient> Ingredients { get; set; }
         public List<string> Steps { get; set; }
 
-        public Recipe()
+        public Recipe(string name)
         {
+            this.RecipeName = name;
             this.Ingredients = new List<Ingredient>();
             this.Steps = new List<string>();
         }
