@@ -57,9 +57,9 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 
                     default:
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("\n=======================================");
+                        Console.WriteLine("\n=============================================================");
                         Console.WriteLine("Invalid choice. Please enter a valid option.");
-                        Console.WriteLine("=======================================\n");
+                        Console.WriteLine("=============================================================\n");
                         Console.ResetColor();
                         break;
                 }
@@ -152,9 +152,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 
         private int GetNumberOfIngredients()
         {
-            Console.WriteLine("Please enter the number of ingredients in the recipe:");
-            Console.Write("/> ");
-            return Convert.ToInt32(Console.ReadLine());
+            return (int)GetNumberFromUser("Please enter the number of ingredients in the recipe:");
         }
 
         private Ingredient GetIngredient(int i)
@@ -162,9 +160,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
             Console.WriteLine($"\nPlease enter the name of ingredient number {i + 1}:");
             Console.Write("/> ");
             string ingredientName = Console.ReadLine();
-            Console.WriteLine("Please enter the quantity of this ingredient:");
-            Console.Write("/> ");
-            double ingredientQuantity = Convert.ToDouble(Console.ReadLine());
+            double ingredientQuantity = GetNumberFromUser("Please enter the quantity of this ingredient:");
             Console.WriteLine("Please enter the unit of measurement you would use for this ingredient:");
             Console.WriteLine("Example: cups, grams, ounces, etc.");
             Console.Write("/> ");
@@ -174,9 +170,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 
         private int GetNumberOfSteps()
         {
-            Console.WriteLine($"Please enter the number of steps for the recipe:");
-            Console.Write("/> ");
-            return Convert.ToInt32(Console.ReadLine());
+            return (int)GetNumberFromUser("Please enter the number of steps for the recipe:");
         }
 
         private string GetStep(int i)
@@ -184,6 +178,30 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
             Console.WriteLine($"Please enter the instruction for step number {i + 1}:");
             Console.Write("/> ");
             return $"Step {i + 1} -> " + Console.ReadLine();
+        }
+
+        // >>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        // >  Error Handling Methods  >
+        // >>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        private double GetNumberFromUser(string prompt)
+        {
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine(prompt);
+                    Console.Write("/> ");
+                    return Convert.ToDouble(Console.ReadLine());
+                }
+                catch (FormatException)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("\n=============================================================");
+                    Console.WriteLine("Invalid input. Please enter a valid number.");
+                    Console.WriteLine("=============================================================\n");
+                    Console.ResetColor();
+                }
+            }
         }
     }
 }
