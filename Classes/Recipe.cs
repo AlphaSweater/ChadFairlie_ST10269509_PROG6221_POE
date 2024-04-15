@@ -8,6 +8,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 {
     internal class Recipe
     {
+        public string RecipeName { get; set; }
         public List<Ingredient> Ingredients { get; set; }
         public List<string> Steps { get; set; }
 
@@ -15,6 +16,11 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
         {
             this.Ingredients = new List<Ingredient>();
             this.Steps = new List<string>();
+        }
+
+        public void AddIngredient(Ingredient ingredient)
+        {
+            this.Ingredients.Add(ingredient);
         }
 
         public void AddStep(string stepDescription)
