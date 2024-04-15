@@ -84,7 +84,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
             NewRecipe = new Recipe(recipeName);
 
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine($"\nGreat! Now let's add some ingredients to your {NewRecipe.RecipeName} recipe.");
+            Console.WriteLine($"\nGreat! Now let's add some ingredients to your {NewRecipe.RecipeName} recipe.\n");
             int ingredientCount = GetNumberOfIngredients();
             for (int i = 0; i < ingredientCount; i++)
             {
@@ -93,7 +93,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
             }
 
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("\nPerfect! Now let's add the steps to the recipe.");
+            Console.WriteLine("\nPerfect! Now let's add the steps to the recipe.\n");
             int stepCount = GetNumberOfSteps();
             for (int i = 0; i < stepCount; i++)
             {
@@ -156,7 +156,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("==============================================================================");
             Console.ResetColor();
-            Console.WriteLine("\nEnter your choice: ");
+            Console.WriteLine("Enter your choice: ");
             Console.Write("/> ");
             var choice = Console.ReadLine();
 
@@ -197,7 +197,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
                     return false;
 
                 case "5":
-                    recipe = null;
+                    NewRecipe = null;
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("\n==============================================================================");
                     Console.WriteLine("Recipe cleared successfully!");
@@ -302,7 +302,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
                     Console.WriteLine("==============================================================================\n");
                     Console.ResetColor();
                 }
-                catch (ArgumentOutOfRangeException ex)
+                catch (ArgumentOutOfRangeException)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("\n==============================================================================");
