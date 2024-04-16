@@ -1,6 +1,7 @@
 ﻿using ChadFairlie_ST10269509_PROG6221_POE.Classes;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -425,7 +426,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
                     Console.Write("/> ");
 
                     // Read the user's input and convert it to a double.
-                    double number = Convert.ToDouble(Console.ReadLine());
+                    double number = Convert.ToDouble(Console.ReadLine(), CultureInfo.InvariantCulture);
 
                     // If the number is negative, throw an ArgumentOutOfRangeException.
                     if (number < 0)
