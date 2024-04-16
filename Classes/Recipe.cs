@@ -10,7 +10,6 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
     // It includes properties for the recipe name, current scale, list of ingredients, and list of cooking steps.
     internal class Recipe
     {
-        //------------------------------------------------------------------------------------------------------------------------//
         // Name of the recipe.
         public string RecipeName { get; set; }
 
@@ -24,6 +23,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
         public List<string> Steps { get; set; }
 
         //------------------------------------------------------------------------------------------------------------------------//
+
         // Constructor for the Recipe class.
         // It initializes the recipe name and creates new lists for ingredients and steps.
         public Recipe(string name)
@@ -34,6 +34,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
         }
 
         //------------------------------------------------------------------------------------------------------------------------//
+
         // Method to add an ingredient to the recipe.
         public void AddIngredient(Ingredient ingredient)
         {
@@ -41,11 +42,14 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
         }
 
         //------------------------------------------------------------------------------------------------------------------------//
+
         // Method to add a cooking step to the recipe.
         public void AddStep(string stepDescription)
         {
             this.Steps.Add(stepDescription);
         }
+
+        //------------------------------------------------------------------------------------------------------------------------//
 
         // Method to scale the quantity of ingredients.
         public void Scale(double scale)
@@ -75,6 +79,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
         }
 
         //------------------------------------------------------------------------------------------------------------------------//
+
         // Method to reset the scaling of the recipe.
         // It resets the quantity of each ingredient to its original quantity and sets the current scale to 1.
         public void ResetScaling()
@@ -87,6 +92,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
         }
 
         //------------------------------------------------------------------------------------------------------------------------//
+
         // Method to print the details of the recipe.
         // It includes the recipe name, current scale, list of ingredients, and list of steps.
         public string PrintRecipe()

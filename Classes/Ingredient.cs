@@ -10,7 +10,6 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
     // It includes properties for the name, quantity, original quantity, and unit of measurement of the ingredient.
     internal class Ingredient
     {
-        //------------------------------------------------------------------------------------------------------------------------//
         // Name of the ingredient.
         public string Name { get; set; }
 
@@ -24,6 +23,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
         public string UnitOfMeasurement { get; set; }
 
         //------------------------------------------------------------------------------------------------------------------------//
+
         // Constructor for the Ingredient class.
         // It initializes the name, quantity, and unit of measurement of the ingredient.
         // If the unit of measurement is convertible (e.g., "cups" to "tablespoons"), it converts the quantity and unit of measurement.
