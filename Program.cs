@@ -10,13 +10,11 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
     internal class Program
     {
         //------------------------------------------------------------------------------------------------------------------------//
-        private Recipe NewRecipe = null;
+        private Recipe CurrentRecipe = null;
 
         //------------------------------------------------------------------------------------------------------------------------//
+        // Main Method
         //------------------------------------------------------------------------------------------------------------------------//
-        // >>>>>>>>>>>>>>>>>
-        // >  Main Method  >
-        // >>>>>>>>>>>>>>>>>
         private static void Main(string[] args)
         {
             Program worker = new Program();
@@ -24,10 +22,8 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
         }
 
         //------------------------------------------------------------------------------------------------------------------------//
+        // Program Start Method
         //------------------------------------------------------------------------------------------------------------------------//
-        // >>>>>>>>>>>>>>>>>>>>>>>>>>
-        // >  Program Start Method  >
-        // >>>>>>>>>>>>>>>>>>>>>>>>>>
         private void BeginHere()
         {
             while (true)
@@ -52,12 +48,12 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
                 {
                     case "1":
                         Console.WriteLine();
-                        NewRecipe = CreateNewRecipe();
+                        CurrentRecipe = CreateNewRecipe();
                         break;
 
                     case "2":
                         Console.WriteLine();
-                        DisplayRecipe(NewRecipe);
+                        DisplayRecipe(CurrentRecipe);
                         break;
 
                     case "3":
@@ -75,10 +71,8 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
         }
 
         //------------------------------------------------------------------------------------------------------------------------//
+        // Menu Option Methods
         //------------------------------------------------------------------------------------------------------------------------//
-        // >>>>>>>>>>>>>>>>>>>>>>>>>
-        // >  Menu Option Methods  >
-        // >>>>>>>>>>>>>>>>>>>>>>>>>
         private Recipe CreateNewRecipe()
         {
             Console.ForegroundColor = ConsoleColor.Green;
@@ -88,15 +82,15 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
             Console.ResetColor();
 
             string recipeName = GetRecipeName();
-            NewRecipe = new Recipe(recipeName);
+            Recipe newRecipe = new Recipe(recipeName);
 
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine($"\nGreat! Now let's add some ingredients to your {NewRecipe.RecipeName} recipe.\n");
+            Console.WriteLine($"\nGreat! Now let's add some ingredients to your {newRecipe.RecipeName} recipe.\n");
             int ingredientCount = GetNumberOfIngredients();
             for (int i = 0; i < ingredientCount; i++)
             {
                 Ingredient ingredient = GetIngredient(i);
-                NewRecipe.AddIngredient(ingredient);
+                newRecipe.AddIngredient(ingredient);
             }
 
             Console.ForegroundColor = ConsoleColor.White;
@@ -105,7 +99,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
             for (int i = 0; i < stepCount; i++)
             {
                 string stepDescription = GetStep(i);
-                NewRecipe.AddStep(stepDescription);
+                newRecipe.AddStep(stepDescription);
             }
 
             Console.ForegroundColor = ConsoleColor.Green;
@@ -114,39 +108,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
             Console.WriteLine("==============================================================================\n");
             Console.ResetColor();
 
-            return NewRecipe;
-        }
-
-        //------------------------------------------------------------------------------------------------------------------------//
-        private void DisplayRecipe(Recipe recipe)
-        {
-            if (recipe != null)
-            {
-                bool shouldReturn = false;
-                while (!shouldReturn)
-                {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("\n==============================================================================");
-                    Console.WriteLine("Your Recipe Details");
-                    Console.WriteLine("==============================================================================");
-                    Console.ForegroundColor = ConsoleColor.White;
-
-                    Console.Write(recipe.PrintRecipe());
-
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("==============================================================================");
-                    shouldReturn = DisplayScalingMenu(recipe);
-                }
-                Console.WriteLine();
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("\n==============================================================================");
-                Console.WriteLine("No recipe created yet.");
-                Console.WriteLine("==============================================================================\n");
-                Console.ResetColor();
-            }
+            return newRecipe;
         }
 
         //------------------------------------------------------------------------------------------------------------------------//
@@ -219,7 +181,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
                 case "6":
                     if (UserConfirmation("Are you sure you want to clear the recipe? (y/n)"))
                     {
-                        NewRecipe = null;
+                        CurrentRecipe = null;
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("\n==============================================================================");
                         Console.WriteLine("Recipe cleared successfully!");
@@ -251,10 +213,8 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
         }
 
         //------------------------------------------------------------------------------------------------------------------------//
+        // Helper Methods
         //------------------------------------------------------------------------------------------------------------------------//
-        // >>>>>>>>>>>>>>>>>>>>
-        // >  Helper Methods  >
-        // >>>>>>>>>>>>>>>>>>>>
         private string GetRecipeName()
         {
             Console.ForegroundColor = ConsoleColor.White;
@@ -305,6 +265,38 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
         }
 
         //------------------------------------------------------------------------------------------------------------------------//
+        private void DisplayRecipe(Recipe recipe)
+        {
+            if (recipe != null)
+            {
+                bool shouldReturn = false;
+                while (!shouldReturn)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("\n==============================================================================");
+                    Console.WriteLine("Your Recipe Details");
+                    Console.WriteLine("==============================================================================");
+                    Console.ForegroundColor = ConsoleColor.White;
+
+                    Console.Write(recipe.PrintRecipe());
+
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("==============================================================================");
+                    shouldReturn = DisplayScalingMenu(recipe);
+                }
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\n==============================================================================");
+                Console.WriteLine("No recipe created yet.");
+                Console.WriteLine("==============================================================================\n");
+                Console.ResetColor();
+            }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------//
         private bool UserConfirmation(string message)
         {
             Console.ForegroundColor = ConsoleColor.Green;
@@ -318,10 +310,8 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
         }
 
         //------------------------------------------------------------------------------------------------------------------------//
+        // Error Handling Methods
         //------------------------------------------------------------------------------------------------------------------------//
-        // >>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        // >  Error Handling Methods  >
-        // >>>>>>>>>>>>>>>>>>>>>>>>>>>>
         private double GetNumberFromUser(string prompt)
         {
             while (true)
