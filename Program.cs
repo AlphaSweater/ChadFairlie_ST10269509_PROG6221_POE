@@ -159,9 +159,10 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
             Console.WriteLine("1. Scale recipe by 0.5 (half)");
             Console.WriteLine("2. Scale recipe by 2 (double)");
             Console.WriteLine("3. Scale recipe by 3 (triple)");
-            Console.WriteLine("4. Reset recipe scaling");
-            Console.WriteLine("5. Clear recipe");
-            Console.WriteLine("6. Return to main menu");
+            Console.WriteLine("4. Scale recipe by by custom factor");
+            Console.WriteLine("5. Reset recipe scaling");
+            Console.WriteLine("6. Clear recipe");
+            Console.WriteLine("7. Return to main menu");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("==============================================================================");
             Console.ResetColor();
@@ -199,13 +200,23 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
                     return false;
 
                 case "4":
+                    double customScale = GetNumberFromUser("Enter the numeric scale factor:");
+                    recipe.Scale(customScale);
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("\n==============================================================================");
+                    Console.WriteLine($"Great! Your recipe has been scaled by a factor of {customScale}.");
+                    Console.WriteLine("==============================================================================");
+                    Console.ResetColor();
+                    return false;
+
+                case "5":
                     recipe.ResetScaling();
                     Console.WriteLine("\n==============================================================================");
                     Console.WriteLine("Awesome! Your recipe scaling was reset successfully!");
                     Console.WriteLine("==============================================================================");
                     return false;
 
-                case "5":
+                case "6":
                     if (UserConfirmation("Are you sure you want to clear the recipe? (y/n)"))
                     {
                         NewRecipe = null;
@@ -226,7 +237,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
                         return false;
                     }
 
-                case "6":
+                case "7":
                     return true;
 
                 default:
@@ -269,7 +280,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
             string ingredientName = Console.ReadLine();
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("\nEnter the unit of measurement you would use for this ingredient:");
-            Console.WriteLine("Example: cups, grams, teaspoons, etc.");
+            Console.WriteLine("Example: cups, grams, teaspoons, slices, etc.");
             Console.ResetColor();
             Console.Write("/> ");
             string ingredientUnit = Console.ReadLine();

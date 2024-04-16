@@ -21,7 +21,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
             Name = name;
             Quantity = quantity;
             OriginalQuantity = quantity;
-            UnitOfMeasurement = unit.ToLowerInvariant().TrimEnd('s');
+            UnitOfMeasurement = unit.ToLower().TrimEnd('s');
 
             if (UnitConverter.IsConvertible(UnitOfMeasurement))
             {
