@@ -1,4 +1,14 @@
-﻿using System;
+﻿// Chad Fairlie
+// ST10269509
+// Group 2
+
+//------------------------------------------------------------------------------------------------------------------------//
+
+// References For This Class:
+//      ChatGPT (Helped with the idea and creation of the Data Dictionary)
+
+//------------------------------------------------------------------------------------------------------------------------//
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

@@ -1,4 +1,9 @@
-﻿using System;
+﻿// Chad Fairlie
+// ST10269509
+// Group 2
+
+//------------------------------------------------------------------------------------------------------------------------//
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,7 +34,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
         // If the unit of measurement is convertible (e.g., "cups" to "tablespoons"), it converts the quantity and unit of measurement.
         public Ingredient(string name, double quantity, string unit)
         {
-            // Remove the 's' from the string to make the name singular
+            // Remove the 's' from the string to make the name singular.
             Name = name.TrimEnd('s');
             Quantity = quantity;
             OriginalQuantity = quantity;

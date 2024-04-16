@@ -1,4 +1,14 @@
-﻿using System;
+﻿// Chad Fairlie
+// ST10269509
+// Group 2
+
+//------------------------------------------------------------------------------------------------------------------------//
+
+// References For This Class:
+//      Bro Code: Provided a helpful video tutorial on Lists in C#. (https://youtu.be/vQzREQUhGSA?si=zi-m4qyNKLMErAu9)
+
+//------------------------------------------------------------------------------------------------------------------------//
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

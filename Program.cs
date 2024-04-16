@@ -1,4 +1,14 @@
-﻿using ChadFairlie_ST10269509_PROG6221_POE.Classes;
+﻿// Chad Fairlie
+// ST10269509
+// Group 2
+
+//------------------------------------------------------------------------------------------------------------------------//
+
+// References For This Class:
+//      ChatGPT (Helped with the formatting of the menu headers and display text)
+
+//------------------------------------------------------------------------------------------------------------------------//
+using ChadFairlie_ST10269509_PROG6221_POE.Classes;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

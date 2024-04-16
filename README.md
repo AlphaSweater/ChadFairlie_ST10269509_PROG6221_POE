@@ -25,3 +25,10 @@ If you have no prior experience with coding, don't worry! Just follow these step
 8. After the project has been compiled, you can run it by clicking on "Start" in the menu at the top, and then it should start up.
 
 And that's it! You should now see the command-line interface of the application in a new window, ready for you to start entering and managing your recipes.
+
+## References
+
+This project was made possible with help and resources from:
+
+- **ChatGPT**: Provided assistance in creating the `UnitConverter` class.
+- **Bro Code**: Provided a helpful [video tutorial](https://youtu.be/vQzREQUhGSA?si=zi-m4qyNKLMErAu9) on Lists in C#.
