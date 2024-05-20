@@ -291,9 +291,9 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 		// This method is responsible for getting the number of ingredients from the user.
 		private int GetNumberOfIngredients()
 		{
-			// Call the GetNumberFromUser method with a prompt for the number of ingredients.
+			// Call the GetNumberFromUser method with a prompt for the number of ingredients and false for allowDecimals.
 			// Cast the returned double to an int and return it as the number of ingredients.
-			return (int)GetNumberFromUser("Please enter the number of ingredients in the recipe:");
+			return (int)GetNumberFromUser("Please enter the number of ingredients in the recipe:", false);
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
@@ -323,6 +323,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 			// Get the quantity of the ingredient from the user by calling the GetNumberFromUser method.
 			double ingredientQuantity = GetNumberFromUser("\nEnter the quantity of this ingredient:");
 
+
 			// Create a new Ingredient object with the provided name, quantity, and unit, and return it.
 			return new Ingredient(ingredientName, ingredientQuantity, ingredientUnit);
 		}
@@ -332,9 +333,9 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 		// This method is responsible for getting the number of steps from the user.
 		private int GetNumberOfSteps()
 		{
-			// Call the GetNumberFromUser method with a prompt for the number of steps.
+			// Call the GetNumberFromUser method with a prompt for the number of steps and false for allowDecimals.
 			// Cast the returned double to an int and return it as the number of steps.
-			return (int)GetNumberFromUser("Please enter the number of steps for the recipe:");
+			return (int)GetNumberFromUser("Please enter the number of steps for the recipe:", false);
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
@@ -422,7 +423,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 		//------------------------------------------------------------------------------------------------------------------------//
 
 		// This method is responsible for getting a valid non-negative number from the user.
-		private double GetNumberFromUser(string prompt)
+		private double GetNumberFromUser(string prompt, bool allowDecimals = true)
 		{
 			// Keep prompting the user until a valid number is entered.
 			while (true)
@@ -444,16 +445,26 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 						throw new ArgumentOutOfRangeException();
 					}
 
+					// If decimals are not allowed and the number is not a whole number, throw a FormatException.
+					if (!allowDecimals && number % 1 != 0)
+					{
+						throw new FormatException();
+					}
+
 					// If the number is valid, return it.
 					return number;
 				}
 				catch (FormatException)
 				{
-					// If the user's input could not be converted to a double,
+					// If the user's input could not be converted to a double or is not a whole number when decimals are not allowed,
 					// display an error message and prompt again.
 					Console.ForegroundColor = ConsoleColor.Red;
 					Console.WriteLine("\n==============================================================================");
 					Console.WriteLine("Invalid input. Please enter a valid number.");
+					if (!allowDecimals)
+					{
+						Console.WriteLine("Decimals are not allowed.");
+					}
 					Console.WriteLine("==============================================================================\n");
 					Console.ResetColor();
 				}
@@ -463,7 +474,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 					// display an error message and prompt again.
 					Console.ForegroundColor = ConsoleColor.Red;
 					Console.WriteLine("\n==============================================================================");
-					Console.WriteLine("Invalid input.Number is too large or too small.");
+					Console.WriteLine("Invalid input. Number is too large or too small.");
 					Console.WriteLine("==============================================================================\n");
 					Console.ResetColor();
 				}
