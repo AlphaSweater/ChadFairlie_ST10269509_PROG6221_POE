@@ -52,7 +52,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 
 			// Store the original unit of measurement and quantity
 			OriginalUnitOfMeasurement = UnitOfMeasurement;
-			OriginalQuantity = quantity;
+			OriginalQuantity = Quantity;
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
