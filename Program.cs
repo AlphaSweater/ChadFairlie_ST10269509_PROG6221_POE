@@ -277,13 +277,8 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 		// This method is responsible for getting the recipe name from the user.
 		private string GetRecipeName()
 		{
-			// Prompt the user to enter the recipe name.
-			Console.ForegroundColor = ConsoleColor.White;
-			Console.WriteLine("Enter recipe name:");
-			Console.ResetColor();
-			Console.Write("/> ");
-			// Read the user's input and return it as the recipe name.
-			return Console.ReadLine();
+			// Call the GetStringFromUser method with a prompt for the recipe name.
+			return GetStringFromUser("Enter recipe name:");
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
@@ -301,28 +296,14 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 		// This method is responsible for getting the details of an ingredient from the user.
 		private Ingredient GetIngredient(int i)
 		{
-			// Prompt the user to enter the name of the ingredient.
-			Console.ForegroundColor = ConsoleColor.White;
-			Console.WriteLine($"\nPlease enter the name of ingredient number {i + 1}:");
-			Console.ResetColor();
-			Console.Write("/> ");
+			// Get the name of the ingredient from the user by calling the GetStringFromUser method.
+			string ingredientName = GetStringFromUser($"\nPlease enter the name of ingredient number {i + 1}:");
 
-			// Read the user's input and store it as the ingredient name.
-			string ingredientName = Console.ReadLine();
-
-			// Prompt the user to enter the unit of measurement for the ingredient.
-			Console.ForegroundColor = ConsoleColor.White;
-			Console.WriteLine("\nEnter the unit of measurement you would use for this ingredient:");
-			Console.WriteLine("Example: cups, grams, teaspoons, slices, etc.");
-			Console.ResetColor();
-			Console.Write("/> ");
-
-			// Read the user's input and store it as the ingredient unit.
-			string ingredientUnit = Console.ReadLine();
+			// Get the unit of measurement for the ingredient from the user by calling the GetStringFromUser method.
+			string ingredientUnit = GetStringFromUser("\nEnter the unit of measurement you would use for this ingredient:\nExample: cups, grams, teaspoons, slices, etc.");
 
 			// Get the quantity of the ingredient from the user by calling the GetNumberFromUser method.
 			double ingredientQuantity = GetNumberFromUser("\nEnter the quantity of this ingredient:");
-
 
 			// Create a new Ingredient object with the provided name, quantity, and unit, and return it.
 			return new Ingredient(ingredientName, ingredientQuantity, ingredientUnit);
@@ -343,14 +324,9 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 		// This method is responsible for getting the description of a step from the user.
 		private string GetStep(int i)
 		{
-			// Prompt the user to enter the instruction for the step.
-			Console.ForegroundColor = ConsoleColor.White;
-			Console.WriteLine($"\nPlease enter the instruction for step number {i + 1}:");
-			Console.ResetColor();
-			Console.Write("/> ");
-
-			// Read the user's input, prefix it with the step number, and return it as the step description.
-			return $"Step {i + 1} -> " + Console.ReadLine();
+			// Get the instruction for the step from the user by calling the GetStringFromUser method,
+			// prefix it with the step number, and return it as the step description.
+			return $"Step {i + 1} -> " + GetStringFromUser($"\nPlease enter the instruction for step number {i + 1}:");
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
@@ -420,6 +396,40 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 
 		//------------------------------------------------------------------------------------------------------------------------//
 		// Error Handling Methods
+		//------------------------------------------------------------------------------------------------------------------------//
+
+		// This method is responsible for getting a non-blank string from the user.
+		private string GetStringFromUser(string prompt)
+		{
+			// Keep prompting the user until a non-blank string is entered.
+			while (true)
+			{
+				// Display the prompt.
+				Console.ForegroundColor = ConsoleColor.White;
+				Console.WriteLine(prompt);
+				Console.ResetColor();
+				Console.Write("/> ");
+
+				// Read the user's input.
+				string input = Console.ReadLine();
+
+				// If the input is blank, display an error message and prompt again.
+				if (string.IsNullOrWhiteSpace(input))
+				{
+					Console.ForegroundColor = ConsoleColor.Red;
+					Console.WriteLine("\n==============================================================================");
+					Console.WriteLine("Invalid input. Please enter a non-blank string.");
+					Console.WriteLine("==============================================================================\n");
+					Console.ResetColor();
+				}
+				else
+				{
+					// If the input is not blank, return it.
+					return input;
+				}
+			}
+		}
+
 		//------------------------------------------------------------------------------------------------------------------------//
 
 		// This method is responsible for getting a valid non-negative number from the user.
