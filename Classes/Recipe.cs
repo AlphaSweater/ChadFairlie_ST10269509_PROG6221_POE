@@ -146,7 +146,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 
 		// Method to print the details of the recipe.
 		// It includes the recipe name, current scale, list of ingredients, and list of steps.
-		public string PrintRecipe()
+		public (string, double) PrintRecipe()
 		{
 			// Create a StringBuilder to efficiently concatenate the recipe details into a single string.
 			StringBuilder recipeDetails = new StringBuilder();
@@ -164,9 +164,8 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 				recipeDetails.AppendLine(ingredient.ToString());
 			}
 
-			// Calculate and display the total calories of the recipe.
+			// Calculate the total calories of the recipe.
 			double totalCalories = CalculateTotalCalories();
-			recipeDetails.AppendLine($"Total Calories: {totalCalories}");
 
 			// Start the list of cooking steps.
 			recipeDetails.AppendLine("Steps:");
@@ -177,8 +176,8 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 				recipeDetails.AppendLine($"> {step}");
 			}
 
-			// Return the recipe details as a string.
-			return recipeDetails.ToString();
+			// Return the recipe details as a string and the total calories.
+			return (recipeDetails.ToString(), totalCalories);
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//

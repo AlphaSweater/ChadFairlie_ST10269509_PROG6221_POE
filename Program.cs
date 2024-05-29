@@ -567,7 +567,34 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 					Console.ForegroundColor = DefaultTextColor;
 
 					// Print the recipe by calling the PrintRecipe method of the Recipe class.
-					Console.Write(recipe.PrintRecipe());
+					var (recipeDetails, totalCalories) = recipe.PrintRecipe();
+
+					// Print the rest of the recipe details.
+					Console.Write(recipeDetails);
+
+					string caloriesMessage;
+					// Change the console color based on the total calories.
+					if (totalCalories > 300)
+					{
+						Console.ForegroundColor = ConsoleColor.Red;
+						caloriesMessage = " (Exceeds 300 calories!)";
+					}
+					else if (totalCalories > 250)
+					{
+						Console.ForegroundColor = ConsoleColor.Yellow;
+						caloriesMessage = " (Moderate in calories)";
+					}
+					else
+					{
+						Console.ForegroundColor = ConsoleColor.Green;
+						caloriesMessage = " (Low in calories)";
+					}
+
+					// Display the total calories of the recipe.
+					Console.WriteLine($"Total Calories: {totalCalories} kcal" + caloriesMessage);
+
+					// Reset the console color.
+					Console.ResetColor();
 
 					Console.ForegroundColor = TitleColor;
 					Console.WriteLine("==============================================================================");
@@ -613,7 +640,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 		private void NotifyCaloriesExceeded()
 		{
 			Console.ForegroundColor = ErrorColor;
-			Console.WriteLine("\nWarning: This recipe exceeds 300 calories!");
+			Console.WriteLine("\nWarning: This recipe exceeds 300 kcal!");
 			Console.ResetColor();
 
 			bool userConfirmation = UserConfirmation("Do you still want to create this recipe? (y/n)");
