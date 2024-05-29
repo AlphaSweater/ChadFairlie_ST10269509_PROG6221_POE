@@ -92,10 +92,10 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 
 			foreach (var ingredient in Ingredients)
 			{
-				totalCalories += (ingredient.Calories * ingredient.Quantity);
+				totalCalories += (ingredient.CaloriesPerUnit * ingredient.Quantity);
 			}
 
-			return totalCalories;
+			return Math.Round(totalCalories, 2);
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
@@ -104,7 +104,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 		public void Scale(double scale)
 		{
 			// Multiply the current scale by the given scale.
-			CurrentScale *= scale;
+			CurrentScale = Math.Round(CurrentScale * scale, 2);
 
 			// Iterate over each ingredient in the recipe.
 			foreach (var ingredient in Ingredients)
@@ -116,7 +116,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 				if (UnitConverter.IsConvertible(ingredient.UnitOfMeasurement))
 				{
 					// If it is, convert the quantity and unit of measurement of the ingredient.
-					(ingredient.Quantity, ingredient.UnitOfMeasurement) = UnitConverter.Convert(ingredient.Quantity, ingredient.UnitOfMeasurement);
+					(ingredient.Quantity, ingredient.UnitOfMeasurement, ingredient.CaloriesPerUnit) = UnitConverter.Convert(ingredient.Quantity, ingredient.UnitOfMeasurement, ingredient.CaloriesPerUnit);
 				}
 
 				// If the current scale is 1, reset the quantity of the ingredient to its original quantity and measurement.
@@ -137,6 +137,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 			{
 				ingredient.Quantity = ingredient.OriginalQuantity;
 				ingredient.UnitOfMeasurement = ingredient.OriginalUnitOfMeasurement; // Reset the unit of measurement
+				ingredient.CaloriesPerUnit = ingredient.OriginalCaloriesPerUnit;
 			}
 			CurrentScale = 1.0;
 		}

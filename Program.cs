@@ -63,7 +63,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 				Console.ForegroundColor = ConsoleColor.White;
 				Console.Write("\nEnter your choice: ");
 				Console.ResetColor();
-				Console.Write("/> ");
+				Console.WriteLine("/> ");
 
 				// Read the user's choice.
 				var choice = Console.ReadLine();
@@ -150,6 +150,17 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 
 			// Get the number of ingredients from the user by calling the GetNumberOfIngredients method.
 			int ingredientCount = GetNumberOfIngredients();
+
+			// Explain what information the user needs to provide for each ingredient.
+			Console.ForegroundColor = ConsoleColor.White;
+			Console.WriteLine("\nBefore we start adding ingredients, please note the following:");
+			Console.WriteLine("For each ingredient, you will need to provide the following details:");
+			Console.ResetColor();
+			Console.WriteLine("1. Name of the ingredient.");
+			Console.WriteLine("2. Unit of Measurement: The unit used to measure the quantity (e.g., cups, tablespoons).");
+			Console.WriteLine("3. Quantity: The amount of the ingredient needed for the recipe.");
+			Console.WriteLine("4. Calories: The number of calories per serving of the ingredient.");
+			Console.WriteLine("5. Food Group: The category to which the ingredient belongs (e.g., protein, vegetables, grains).");
 
 			// For each ingredient, get the details from the user by calling the GetIngredient method
 			// and add it to the new recipe Ingredients list.
@@ -384,21 +395,106 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 			// Get the unit of measurement for the ingredient from the user by calling the GetStringFromUser method.
 			string ingredientUnit = GetStringFromUser("\nEnter the unit of measurement you would use for this ingredient:\nExample: cups, grams, teaspoons, slices, etc.");
 
-			// Get the number of calories for the ingredient per unit of measurement from the user by calling the GetNumberFromUser method.
-			double ingredientCalories = GetNumberFromUser("\nEnter the number of calories per unit of measurement for this ingredient:");
-
 			// Get the quantity of the ingredient from the user by calling the GetNumberFromUser method.
 			double ingredientQuantity = GetNumberFromUser("\nEnter the quantity of this ingredient:");
 
+			// Get the number of calories for the ingredient per unit of measurement from the user by calling the GetNumberFromUser method.
+			double ingredientCalories = GetNumberFromUser("\nEnter the number of calories per unit of measurement for this ingredient:");
+
 			// Get the food group of the ingredient from the user by calling the GetStringFromUser method.
-			string ingredientFoodGroup = GetStringFromUser("\nEnter the food group that this ingredient belongs to:");
+			string ingredientFoodGroup = GetFoodGroup();
 
 			// Create a new Ingredient object with the provided name, quantity, unit, calories, and food group, and return it.
 			return new Ingredient(ingredientName, ingredientQuantity, ingredientUnit, ingredientCalories, ingredientFoodGroup);
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
+		// This method is responsible for getting the food group of an ingredient from the user.
+		private string GetFoodGroup()
+		{
+			// Keep prompting the user until a valid food group is selected.
+			while (true)
+			{
+				// Display the food group menu.
+				Console.ForegroundColor = ConsoleColor.White;
+				Console.WriteLine("\nPlease select the food group that this ingredient belongs to:");
+				Console.WriteLine("1. Protein");
+				Console.WriteLine("2. Vegetables");
+				Console.WriteLine("3. Fruits");
+				Console.WriteLine("4. Grains");
+				Console.WriteLine("5. Dairy");
+				Console.WriteLine("6. Fats and Oils");
+				Console.WriteLine("7. Sweets and Snacks");
+				Console.WriteLine("8. Beverages");
+				Console.WriteLine("9. Learn more about each food group");
+				Console.ResetColor();
+				Console.Write("/> ");
 
+				// Read the user's choice.
+				var choice = Console.ReadLine();
+
+				// Return the appropriate food group based on the user's choice.
+				switch (choice)
+				{
+					case "1":
+						return "Protein";
+
+					case "2":
+						return "Vegetables";
+
+					case "3":
+						return "Fruits";
+
+					case "4":
+						return "Grains";
+
+					case "5":
+						return "Dairy";
+
+					case "6":
+						return "Fats and Oils";
+
+					case "7":
+						return "Sweets and Snacks";
+
+					case "8":
+						return "Beverages";
+
+					case "9":
+						// If the user chose to learn more about each food group, display the information and prompt again.
+						DisplayFoodGroupInformation();
+						break;
+
+					default:
+						// If the user entered an invalid choice, display an error message and prompt again.
+						Console.ForegroundColor = ConsoleColor.Red;
+						Console.WriteLine("\n==============================================================================");
+						Console.WriteLine("Invalid choice. Please enter a valid option.");
+						Console.WriteLine("==============================================================================\n");
+						Console.ResetColor();
+						break;
+				}
+			}
+		}
+
+		//------------------------------------------------------------------------------------------------------------------------//
+		// This method is responsible for displaying information about each food group.
+		private void DisplayFoodGroupInformation()
+		{
+			Console.ForegroundColor = ConsoleColor.White;
+			Console.WriteLine("\nHere is some information about each food group:");
+			Console.WriteLine("1. Protein: Includes options such as meat, poultry, fish, eggs, tofu, legumes, and nuts.");
+			Console.WriteLine("2. Vegetables: Covers a wide range of vegetables like leafy greens, root vegetables, cruciferous vegetables, peppers, onions, and tomatoes.");
+			Console.WriteLine("3. Fruits: Encompasses fruits of all kinds, including berries, citrus fruits, apples, bananas, and tropical fruits.");
+			Console.WriteLine("4. Grains: Represents grains and grain products like rice, pasta, bread, oats, quinoa, barley, and couscous.");
+			Console.WriteLine("5. Dairy: Includes dairy products such as milk, cheese, yogurt, and alternatives like plant-based milk (e.g., almond milk, soy milk).");
+			Console.WriteLine("6. Fats and Oils: Covers fats and oils used in cooking and food preparation, such as olive oil, butter, avocado, and coconut oil.");
+			Console.WriteLine("7. Sweets and Snacks: Represents sugary foods, desserts, and snacks, including candies, chocolates, pastries, cookies, and chips.");
+			Console.WriteLine("8. Beverages: Encompasses various beverages like water, tea, coffee, fruit juices, soft drinks, and alcoholic beverages (if applicable).");
+			Console.ResetColor();
+		}
+
+		//------------------------------------------------------------------------------------------------------------------------//
 		// This method is responsible for getting the number of steps from the user.
 		private int GetNumberOfSteps()
 		{

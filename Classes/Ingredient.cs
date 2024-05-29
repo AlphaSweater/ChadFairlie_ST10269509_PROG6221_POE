@@ -19,22 +19,25 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 		// Name of the ingredient.
 		public string Name { get; set; }
 
-		// Current quantity of the ingredient.
-		public double Quantity { get; set; }
-
-		// Original quantity of the ingredient.
-		public double OriginalQuantity { get; set; }
-
 		// Unit of measurement for the ingredient (e.g., "cup", "tablespoon", etc.).
 		public string UnitOfMeasurement { get; set; }
 
 		// Add a property to store the original unit of measurement
 		public string OriginalUnitOfMeasurement { get; set; }
 
-		public double Calories { get; set; }
+		// Current quantity of the ingredient.
+		public double Quantity { get; set; }
 
-		public double OriginalCalories { get; set; }
+		// Original quantity of the ingredient.
+		public double OriginalQuantity { get; set; }
 
+		// Calories of the ingredient per unit.
+		public double CaloriesPerUnit { get; set; }
+
+		// Original calories of the ingredient per unit.
+		public double OriginalCaloriesPerUnit { get; set; }
+
+		// Food group of the ingredient.
 		public string FoodGroup { get; set; }
 
 		//------------------------------------------------------------------------------------------------------------------------//
@@ -51,20 +54,20 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 			// Convert to lowercase and make the unit singular for the data dictionary in UnitConverter.
 			UnitOfMeasurement = unit.ToLower().TrimEnd('s');
 
-			// Check if the unit of measurement is convertible, and if so, convert the quantity and unit of measurement.
+			CaloriesPerUnit = calories;
+
+			// Check if the unit of measurement is convertible, and if so, convert the quantity, unit of measurement, and CaloriesPerUnit.
 			if (UnitConverter.IsConvertible(UnitOfMeasurement))
 			{
-				(Quantity, UnitOfMeasurement) = UnitConverter.Convert(Quantity, UnitOfMeasurement);
+				(Quantity, UnitOfMeasurement, CaloriesPerUnit) = UnitConverter.Convert(Quantity, UnitOfMeasurement, CaloriesPerUnit);
 			}
-
-			Calories = calories;
 
 			FoodGroup = foodGroup;
 
 			// Store the original unit of measurement, quantity and calories
 			OriginalUnitOfMeasurement = UnitOfMeasurement;
 			OriginalQuantity = Quantity;
-			OriginalCalories = calories;
+			OriginalCaloriesPerUnit = CaloriesPerUnit;
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
@@ -75,7 +78,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 			// If the unit of measurement is empty, check if the quantity is more than 1, and if so, make the ingredient name plural.
 			string unit = !string.IsNullOrEmpty(UnitOfMeasurement) ? $"{UnitOfMeasurement}{(Quantity > 1 ? "s" : "")} of " : "";
 			string plural = string.IsNullOrEmpty(UnitOfMeasurement) && Quantity > 1 ? "s" : "";
-			return $"> {Quantity} {unit}{Name}{plural} ({Calories} calories each, {FoodGroup})";
+			return $"> {Quantity} {unit}{Name}{plural} ({CaloriesPerUnit} calories each, {FoodGroup})";
 		}
 	}
 }
