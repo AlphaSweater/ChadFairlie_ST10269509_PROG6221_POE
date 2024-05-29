@@ -20,7 +20,9 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 {
 	internal class Program
 	{
-		// CurrentRecipe holds the recipe currently being worked on.
+		// List to hold all recipes.
+		private List<Recipe> recipes = new List<Recipe>();
+
 		private Recipe CurrentRecipe = null;
 
 		//------------------------------------------------------------------------------------------------------------------------//
@@ -57,7 +59,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 
 				// Prompt the user to enter their choice.
 				Console.ForegroundColor = ConsoleColor.White;
-				Console.WriteLine("\nEnter your choice: ");
+				Console.Write("\nEnter your choice: ");
 				Console.ResetColor();
 				Console.Write("/> ");
 
@@ -71,12 +73,24 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 						// If the user chose to create a new recipe, call the CreateNewRecipe method.
 						Console.WriteLine();
 						CurrentRecipe = CreateNewRecipe();
+						recipes.Add(CurrentRecipe);
 						break;
 
 					case "2":
 						// If the user chose to display the recipe, call the DisplayRecipe method.
 						Console.WriteLine();
-						DisplayRecipe(CurrentRecipe);
+						if (recipes.Count == 0)
+						{
+							Console.ForegroundColor = ConsoleColor.Red;
+							Console.WriteLine("\n==============================================================================");
+							Console.WriteLine("No recipes available.");
+							Console.WriteLine("==============================================================================\n");
+							Console.ResetColor();
+						}
+						else
+						{
+							DisplayRecipes();
+						}
 						break;
 
 					case "3":
@@ -155,6 +169,37 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 
 		//------------------------------------------------------------------------------------------------------------------------//
 
+		private void DisplayRecipes()
+		{
+			Console.ForegroundColor = ConsoleColor.Green;
+			Console.WriteLine("==============================================================================");
+			Console.WriteLine("List of Recipes");
+			Console.WriteLine("==============================================================================");
+			Console.ResetColor();
+
+			for (int i = 0; i < recipes.Count; i++)
+			{
+				Console.WriteLine($"{i + 1}. {recipes[i].RecipeName}");
+			}
+
+			Console.ForegroundColor = ConsoleColor.White;
+			Console.WriteLine("\nEnter the number of the recipe you want to view: ");
+			Console.ResetColor();
+			int choice = (int)GetNumberFromUser("Enter your choice", false); // Use GetNumberFromUser method to get the choice
+			if (choice > 0 && choice <= recipes.Count)
+			{
+				DisplayRecipe(recipes[choice - 1]);
+			}
+			else
+			{
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine("\n==============================================================================");
+				Console.WriteLine("Invalid choice. Returning to the main menu.");
+				Console.WriteLine("==============================================================================\n");
+				Console.ResetColor();
+			}
+		}
+
 		// This method is responsible for displaying the scaling options for a recipe.
 		private bool DisplayScalingMenu(Recipe recipe)
 		{
@@ -166,7 +211,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 			Console.WriteLine("1. Scale recipe by 0.5 (half)");
 			Console.WriteLine("2. Scale recipe by 2 (double)");
 			Console.WriteLine("3. Scale recipe by 3 (triple)");
-			Console.WriteLine("4. Scale recipe by by custom factor");
+			Console.WriteLine("4. Scale recipe by custom factor");
 			Console.WriteLine("5. Reset recipe scaling");
 			Console.WriteLine("6. Clear recipe");
 			Console.WriteLine("7. Return to main menu");
@@ -237,6 +282,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 					// confirm the action with the user and clear the recipe if confirmed.
 					if (UserConfirmation("Are you sure you want to clear the recipe? (y/n)"))
 					{
+						recipes.Remove(recipe);
 						CurrentRecipe = null;
 						Console.ForegroundColor = ConsoleColor.Green;
 						Console.WriteLine("\n==============================================================================");
