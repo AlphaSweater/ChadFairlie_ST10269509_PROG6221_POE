@@ -92,7 +92,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 
 			foreach (var ingredient in Ingredients)
 			{
-				totalCalories += ingredient.Calories;
+				totalCalories += (ingredient.Calories * ingredient.Quantity);
 			}
 
 			return totalCalories;
@@ -111,9 +111,6 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 			{
 				// Scale the quantity of the ingredient.
 				ingredient.Quantity *= scale;
-
-				// Scale the calories of the ingredient.
-				ingredient.Calories *= scale;
 
 				// Check if the unit of measurement of the ingredient is convertible.
 				if (UnitConverter.IsConvertible(ingredient.UnitOfMeasurement))
@@ -139,7 +136,6 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 			foreach (var ingredient in Ingredients)
 			{
 				ingredient.Quantity = ingredient.OriginalQuantity;
-				ingredient.Calories = ingredient.OriginalCalories;
 				ingredient.UnitOfMeasurement = ingredient.OriginalUnitOfMeasurement; // Reset the unit of measurement
 			}
 			CurrentScale = 1.0;

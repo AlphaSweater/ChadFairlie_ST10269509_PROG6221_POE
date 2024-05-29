@@ -384,10 +384,11 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 			// Get the unit of measurement for the ingredient from the user by calling the GetStringFromUser method.
 			string ingredientUnit = GetStringFromUser("\nEnter the unit of measurement you would use for this ingredient:\nExample: cups, grams, teaspoons, slices, etc.");
 
+			// Get the number of calories for the ingredient per unit of measurement from the user by calling the GetNumberFromUser method.
+			double ingredientCalories = GetNumberFromUser("\nEnter the number of calories per unit of measurement for this ingredient:");
+
 			// Get the quantity of the ingredient from the user by calling the GetNumberFromUser method.
 			double ingredientQuantity = GetNumberFromUser("\nEnter the quantity of this ingredient:");
-			// Get the number of calories for the ingredient from the user by calling the GetNumberFromUser method.
-			double ingredientCalories = GetNumberFromUser("\nEnter the number of calories for this ingredient:");
 
 			// Get the food group of the ingredient from the user by calling the GetStringFromUser method.
 			string ingredientFoodGroup = GetStringFromUser("\nEnter the food group that this ingredient belongs to:");

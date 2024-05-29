@@ -75,7 +75,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 			// If the unit of measurement is empty, check if the quantity is more than 1, and if so, make the ingredient name plural.
 			string unit = !string.IsNullOrEmpty(UnitOfMeasurement) ? $"{UnitOfMeasurement}{(Quantity > 1 ? "s" : "")} of " : "";
 			string plural = string.IsNullOrEmpty(UnitOfMeasurement) && Quantity > 1 ? "s" : "";
-			return $"> {Quantity} {unit}{Name}{plural} ({Calories} calories, {FoodGroup})";
+			return $"> {Quantity} {unit}{Name}{plural} ({Calories} calories each, {FoodGroup})";
 		}
 	}
 }
