@@ -184,6 +184,8 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 				ingredients.Add(ingredient);
 			}
 
+			// TODO: Work on making early calorie limit check
+
 			// Prompt the user to add steps to the recipe.
 			Console.ForegroundColor = DefaultTextColor;
 			Console.WriteLine("\nPerfect! Now let's add the steps to the recipe.\n");
@@ -640,7 +642,9 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 		private void NotifyCaloriesExceeded()
 		{
 			Console.ForegroundColor = ErrorColor;
+			Console.WriteLine("\n==============================================================================");
 			Console.WriteLine("\nWarning: This recipe exceeds 300 kcal!");
+			Console.WriteLine("==============================================================================\n");
 			Console.ResetColor();
 
 			bool userConfirmation = UserConfirmation("Do you still want to create this recipe? (y/n)");
