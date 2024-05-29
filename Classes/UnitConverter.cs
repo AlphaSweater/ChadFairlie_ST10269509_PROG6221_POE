@@ -25,10 +25,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 		{
 			{ ("teaspoon"), (0.33333, "tablespoon", 3) },
 			{ ("tablespoon"), (0.0625, "cup", 16) },
-			{ ("fluid ounce"), (0.125, "cup", 8) },
-			{ ("cup"), (0.5, "pint", 2) },
-			{ ("pint"), (0.5, "quart", 2) },
-			{ ("quart"), (0.25, "gallon", 4) },
+			{ ("cup"), (16, "gallon", 16) },  // Convert to gallons only when above 16 cups
 			{ ("ounce"), (0.0625, "pound", 16) },
 			{ ("milliliter"), (0.001, "liter", 1000) },
 			{ ("gram"), (0.001, "kilogram", 1000) },
@@ -42,9 +39,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 		{
 			{ ("tablespoon"), (3, "teaspoon", 1) },
 			{ ("cup"), (16, "tablespoon", 1) },
-			{ ("pint"), (2, "cup", 1) },
-			{ ("quart"), (2, "pint", 1) },
-			{ ("gallon"), (4, "quart", 1) },
+			{ ("gallon"), (16, "cup", 1) },  // Convert gallons back to cups when quantity is below 1 gallon
 			{ ("pound"), (16, "ounce", 1) },
 			{ ("liter"), (1000, "milliliter", 1) },
 			{ ("kilogram"), (1000, "gram", 1) }
