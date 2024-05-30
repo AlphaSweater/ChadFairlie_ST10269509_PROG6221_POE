@@ -4,6 +4,16 @@
 
 This project is a command-line application developed in C# and Visual Studio. It's designed to help users create, store, and manage recipes. The application allows users to enter and store the ingredients and steps for a recipe. It also provides functionality to scale the recipe by a factor of 0.5 (half), 2 (double), or 3 (triple), reset the recipe scale to the original values, and clear all the data to enter a new recipe. The data is stored in memory while the software is running and does not persist between runs.
 
+### Classes
+
+**•	Program.cs:** This is the main class that runs the application. It handles user input, displays the user interface, and manages the flow of the application.
+
+**•	Recipe.cs:** This class represents a cooking recipe. It includes properties for the recipe name, current scale, list of ingredients, and list of cooking steps. It also provides methods to add ingredients and steps, calculate total calories, scale the recipe, reset scaling, and print the recipe.
+
+**•	Ingredient.cs:** This class represents a single ingredient used in a recipe. It includes properties for the name, quantity, original quantity, unit of measurement, calories per unit, and food group of the ingredient. It also provides a method to convert the quantity and unit of measurement if they are convertible.
+
+**•	UnitConverter.cs:** This class provides functionality to convert between different units of measurement. It includes methods to check if a unit of measurement is convertible and to convert the quantity, unit of measurement, and calories per unit.
+
 ## How to Compile and Run the Software
 
 If you have no prior experience with coding, don't worry! Just follow these step-by-step instructions:
@@ -25,6 +35,22 @@ If you have no prior experience with coding, don't worry! Just follow these step
 8. After the project has been compiled, you can run it by clicking on "Start" in the menu at the top, and then it should start up.
 
 And that's it! You should now see the command-line interface of the application in a new window, ready for you to start entering and managing your recipes.
+
+## Updates In Part 2
+
+**•	Multiple Recipe Storage:** The program can now store multiple recipes at once in memory, allowing users to create and manage a collection of recipes.
+
+**•	Recipe Selection:** Users can now view a list of all stored recipes and select a specific recipe to view and scale.
+
+**•	Enhanced Recipe Creation:** The process of creating a recipe has been improved with informative prompts to guide the user in entering values. Users now need to enter the calories per unit of measurement for each ingredient and specify the food group to which each ingredient belongs.
+
+**•	Calorie Information:** The total calories of a recipe are now calculated and displayed when viewing the recipe, providing users with important nutritional information. An alert is also displayed while adding ingredients if the total calorie count exceeds 300.
+
+**•	Ingredient Sorting:** The list of ingredients in a recipe is now sorted alphabetically for easier reading and management.
+
+**•	Unit Tests:** Added unit tests for the CalculateTotalCalories method to ensure its accuracy and reliability.
+
+**•	Input Validation:** Fixed a bug where entering 0 for the number of ingredients or steps, or a blank string for names, would cause the program to not display anything. The program now has proper validation for these cases and will prompt the user to enter valid values.
 
 ## References
 
