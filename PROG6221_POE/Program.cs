@@ -25,6 +25,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 		private List<Recipe> recipes = new List<Recipe>();
 
 		private Recipe CurrentRecipe = null;
+		private bool Alerted = false;
 
 		private bool CanelRecipe = false;
 
@@ -33,7 +34,8 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 		// Color Definitions
 		//------------------------------------------------------------------------------------------------------------------------//
 
-		private static readonly ConsoleColor TitleColor = ConsoleColor.Cyan;
+		private static readonly ConsoleColor TitleColor = ConsoleColor.Blue;
+		private static readonly ConsoleColor SubTitleColor = ConsoleColor.Cyan;
 		private static readonly ConsoleColor InstructionColor = ConsoleColor.White;
 		private static readonly ConsoleColor InputLabelColor = ConsoleColor.Green;
 		private static readonly ConsoleColor SuccessColor = ConsoleColor.Green;
@@ -148,6 +150,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 		private Recipe CreateNewRecipe()
 		{
 			Recipe newRecipe = new Recipe();
+			Alerted = false;
 
 			// Subscribe to the OnCaloriesExceeded event of the recipe.
 			newRecipe.OnCaloriesExceeded += NotifyCaloriesExceeded;
@@ -173,14 +176,16 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 			int ingredientCount = GetNumberOfIngredients();
 
 			// Explain what information the user needs to provide for each ingredient.
-			Console.ForegroundColor = DefaultTextColor;
-			Console.WriteLine("\nBefore we start adding ingredients, please note the following:");
+			Console.ForegroundColor = SubTitleColor;
+			Console.WriteLine("\n------------------------------------------------------------------------------");
+			Console.WriteLine("Before we start adding ingredients, please note the following:");
 			Console.WriteLine("For each ingredient, you will need to provide the following details:");
-			Console.ResetColor();
+			Console.WriteLine("------------------------------------------------------------------------------");
+			Console.ForegroundColor = DefaultTextColor;
 			Console.WriteLine("1. Name of the ingredient.");
 			Console.WriteLine("2. Unit of Measurement: The unit used to measure the quantity (e.g., cups, tablespoons).");
 			Console.WriteLine("3. Quantity: The amount of the ingredient needed for the recipe.");
-			Console.WriteLine("4. Calories: The number of calories per serving of the ingredient.");
+			Console.WriteLine("4. Calories: The number of calories per unit of measurement of the ingredient.");
 			Console.WriteLine("5. Food Group: The category to which the ingredient belongs (e.g., protein, vegetables, grains).");
 
 			// For each ingredient, get the details from the user by calling the GetIngredient method
@@ -199,7 +204,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 				}
 
 				Ingredient ingredient = GetIngredient(i);
-				newRecipe.Ingredients.Add(ingredient);
+				newRecipe = newRecipe.AddIngredient(ingredient);
 			}
 
 			// Prompt the user to add steps to the recipe.
@@ -216,6 +221,9 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 				string stepDescription = GetStep(i);
 				steps.Add(stepDescription);
 			}
+
+			// Add the steps to the new recipe.
+			newRecipe = newRecipe.AddSteps(steps);
 
 			// Display a success message and return the newly created recipe.
 			Console.ForegroundColor = SuccessColor;
@@ -517,11 +525,13 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 		// This method is responsible for displaying information about each food group.
 		private void DisplayFoodGroupInformation()
 		{
+			Console.ForegroundColor = SubTitleColor;
+			Console.WriteLine("\n------------------------------------------------------------------------------");
+			Console.WriteLine("Here is some information about each food group:");
+			Console.WriteLine("------------------------------------------------------------------------------");
 			Console.ForegroundColor = DefaultTextColor;
-			Console.WriteLine("\nHere is some information about each food group:");
-			Console.ResetColor();
 			Console.WriteLine("1. Protein: Includes options such as meat, poultry, fish, eggs, tofu, legumes, and nuts.");
-			Console.WriteLine("2. Vegetables: Covers a wide range of vegetables like leafy greens, root vegetables, cruciferous vegetables, peppers, onions, and tomatoes.");
+			Console.WriteLine("2. Vegetables: Covers a wide range of vegetables like leafy greens, root vegetables, Cruciferous vegetables, peppers, onions, and tomatoes.");
 			Console.WriteLine("3. Fruits: Encompasses fruits of all kinds, including berries, citrus fruits, apples, bananas, and tropical fruits.");
 			Console.WriteLine("4. Grains: Represents grains and grain products like rice, pasta, bread, oats, quinoa, barley, and couscous.");
 			Console.WriteLine("5. Dairy: Includes dairy products such as milk, cheese, yogurt, and alternatives like plant-based milk (e.g., almond milk, soy milk).");
@@ -581,20 +591,25 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 
 					string caloriesMessage;
 					// Change the console color based on the total calories.
-					if (totalCalories > 300)
+					if (totalCalories > 500)
 					{
 						Console.ForegroundColor = ConsoleColor.Red;
-						caloriesMessage = " (Exceeds 300 calories!)";
+						caloriesMessage = " (High Calorie Content! Consider reducing portion size or substituting ingredients.)";
 					}
-					else if (totalCalories > 250)
+					else if (totalCalories > 300)
 					{
 						Console.ForegroundColor = ConsoleColor.Yellow;
-						caloriesMessage = " (Moderate in calories)";
+						caloriesMessage = " (Moderate Calorie Content. Good for a main meal.)";
+					}
+					else if (totalCalories > 150)
+					{
+						Console.ForegroundColor = ConsoleColor.Green;
+						caloriesMessage = " (Low Calorie Content. Good for a light meal or snack.)";
 					}
 					else
 					{
-						Console.ForegroundColor = ConsoleColor.Green;
-						caloriesMessage = " (Low in calories)";
+						Console.ForegroundColor = ConsoleColor.Blue;
+						caloriesMessage = " (Very Low Calorie Content. Consider adding more nutritious ingredients.)";
 					}
 
 					// Display the total calories of the recipe.
@@ -644,23 +659,35 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		//------------------------------------------------------------------------------------------------------------------------//
-		// Error Handling Methods
+		// Event Handling Methods
 		//------------------------------------------------------------------------------------------------------------------------//
-
 		// This method is responsible for Notifying the user when the calories exceed 300.
-		private void NotifyCaloriesExceeded()
+		private void NotifyCaloriesExceeded(double totalCalories)
 		{
-			Console.ForegroundColor = ErrorColor;
+			if (Alerted)
+			{
+				return;
+			}
+
+			string caloriesMessage;
+			// Change the console color based on the total calories.
+			if (totalCalories > 500)
+			{
+				Console.ForegroundColor = ConsoleColor.Red;
+				caloriesMessage = " (High Calorie Content! Consider reducing portion size or substituting ingredients.)";
+			}
+			else
+			{
+				Console.ForegroundColor = ConsoleColor.Yellow;
+				caloriesMessage = " (Moderate Calorie Content. Good for a main meal.)";
+			}
+
 			Console.WriteLine("\n==============================================================================");
-			Console.WriteLine("Warning: This recipe exceeds 300 kcal!");
-			Console.WriteLine("==============================================================================\n");
+			Console.WriteLine($"Alert: This recipe has now exceeded 300 kcal \nThe current total calories is {totalCalories} kcal" + caloriesMessage);
+			Console.WriteLine("==============================================================================");
 			Console.ResetColor();
 
-			bool userConfirmation = UserConfirmation("Do you still want to create this recipe? (y/n)");
-			if (!userConfirmation)
-			{
-				CanelRecipe = true;
-			}
+			Alerted = true;
 		}
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
@@ -701,7 +728,6 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
-
 		// This method is responsible for getting a valid non-negative number from the user.
 		private double GetNumberFromUser(string prompt, bool allowDecimals = true)
 		{

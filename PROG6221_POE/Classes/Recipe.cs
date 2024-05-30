@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 {
-	public delegate void ExceededCaloriesDelegate();
+	public delegate void ExceededCaloriesDelegate(double totalCalories);
 
 	// The Recipe class represents a cooking recipe.
 	// It includes properties for the recipe name, current scale, list of ingredients, and list of cooking steps.
@@ -50,33 +50,37 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		// Method to add a list of ingredients to the recipe.
-		public void AddIngredient(Ingredient ingredient)
+		public Recipe AddIngredient(Ingredient ingredient)
 		{
 			this.Ingredients.Add(ingredient);
 
-			double totalCalories = CalculateTotalCalories(this);
+			double totalCalories = this.CalculateTotalCalories();
 			if (totalCalories > 300)
 			{
-				OnCaloriesExceeded?.Invoke();
+				OnCaloriesExceeded?.Invoke(totalCalories);
 			}
+
+			return this;
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
 		// Method to add a list of steps to the recipe.
-		public void AddSteps(List<string> steps)
+		public Recipe AddSteps(List<string> steps)
 		{
 			foreach (var step in steps)
 			{
 				this.Steps.Add(step);
 			}
+
+			return this;
 		}
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
-		public double CalculateTotalCalories(Recipe recipe)
+		public double CalculateTotalCalories()
 		{
 			double totalCalories = 0;
 
-			foreach (var ingredient in recipe.Ingredients)
+			foreach (var ingredient in this.Ingredients)
 			{
 				totalCalories += (ingredient.CaloriesPerUnit * ingredient.Quantity);
 			}
