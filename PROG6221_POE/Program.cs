@@ -185,15 +185,22 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 
 			// For each ingredient, get the details from the user by calling the GetIngredient method
 			// and add it to the new recipe Ingredients list.
-			List<Ingredient> ingredients = new List<Ingredient>();
 			for (int i = 0; i < ingredientCount; i++)
 			{
-				Ingredient ingredient = GetIngredient(i);
-				ingredients.Add(ingredient);
-			}
+				if (CanelRecipe)
+				{
+					// Display a failure message and return the newly created recipe.
+					Console.ForegroundColor = ErrorColor;
+					Console.WriteLine("\n==============================================================================");
+					Console.WriteLine("Recipe was not created!");
+					Console.WriteLine("==============================================================================\n");
+					Console.ResetColor();
+					return null;
+				}
 
-			// Add the ingredients to the new recipe.
-			newRecipe.AddIngredients(ingredients);
+				Ingredient ingredient = GetIngredient(i);
+				newRecipe.Ingredients.Add(ingredient);
+			}
 
 			// Prompt the user to add steps to the recipe.
 			Console.ForegroundColor = DefaultTextColor;
@@ -208,17 +215,6 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 			{
 				string stepDescription = GetStep(i);
 				steps.Add(stepDescription);
-			}
-
-			if (CanelRecipe)
-			{
-				// Display a failure message and return the newly created recipe.
-				Console.ForegroundColor = ErrorColor;
-				Console.WriteLine("\n==============================================================================");
-				Console.WriteLine("Recipe was not created!");
-				Console.WriteLine("==============================================================================\n");
-				Console.ResetColor();
-				return null;
 			}
 
 			// Display a success message and return the newly created recipe.

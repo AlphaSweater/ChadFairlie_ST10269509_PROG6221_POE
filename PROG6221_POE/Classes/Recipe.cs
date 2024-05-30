@@ -50,14 +50,11 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		// Method to add a list of ingredients to the recipe.
-		public void AddIngredients(List<Ingredient> ingredients)
+		public void AddIngredient(Ingredient ingredient)
 		{
-			foreach (var ingredient in ingredients)
-			{
-				this.Ingredients.Add(ingredient);
-			}
+			this.Ingredients.Add(ingredient);
 
-			double totalCalories = CalculateTotalCalories();
+			double totalCalories = CalculateTotalCalories(this);
 			if (totalCalories > 300)
 			{
 				OnCaloriesExceeded?.Invoke();
@@ -75,11 +72,11 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 		}
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
-		public double CalculateTotalCalories()
+		public double CalculateTotalCalories(Recipe recipe)
 		{
 			double totalCalories = 0;
 
-			foreach (var ingredient in Ingredients)
+			foreach (var ingredient in recipe.Ingredients)
 			{
 				totalCalories += (ingredient.CaloriesPerUnit * ingredient.Quantity);
 			}
