@@ -52,6 +52,11 @@ And that's it! You should now see the command-line interface of the application 
 
 **•	Input Validation:** Fixed a bug where entering 0 for the number of ingredients or steps, or a blank string for names, would cause the program to not display anything. The program now has proper validation for these cases and will prompt the user to enter valid values.
 
+### Lecturers Feedback
+Based on the feedback received from the lecturer, changes have been made to the program to improve input validation. Previously, if a user entered a 0 for the number of ingredients or steps in a recipe, the program would simply skip to the next section, allowing a recipe to be saved with no ingredients or steps. This has been addressed by implementing validation checks to ensure that the number of ingredients and steps cannot be 0.
+
+Additionally, the program previously allowed recipes to be saved with blank names if the user entered a blank string. This has been rectified by adding a validation check to ensure that all entered strings are not blank. These changes enhance the user experience by preventing the creation of incomplete or improperly named recipes.
+
 ## References
 
 This project was made possible with help and resources from:
