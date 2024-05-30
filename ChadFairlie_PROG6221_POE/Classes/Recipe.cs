@@ -76,15 +76,20 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 		}
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
+		// This method calculates the total calories of the recipe.
 		public double CalculateTotalCalories()
 		{
+			// Initialize a variable to store the total calories.
 			double totalCalories = 0;
 
+			// Iterate over each ingredient in the recipe.
 			foreach (var ingredient in this.Ingredients)
 			{
+				// Add the calories of the ingredient (calories per unit * quantity) to the total calories.
 				totalCalories += (ingredient.CaloriesPerUnit * ingredient.Quantity);
 			}
 
+			// Return the total calories, rounded to 2 decimal places.
 			return Math.Round(totalCalories, 2);
 		}
 

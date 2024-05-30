@@ -255,10 +255,8 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 			Console.ForegroundColor = TitleColor;
 			Console.WriteLine("==============================================================================");
 
-			Console.ForegroundColor = InputLabelColor;
-			Console.WriteLine("\nEnter the number of the recipe you want to view: ");
-			Console.ResetColor();
-			int choice = (int)GetNumberFromUser("Enter your choice", false); // Use GetNumberFromUser method to get the choice
+			// Use GetNumberFromUser method to get the choice
+			int choice = (int)GetNumberFromUser("\nEnter the number of the recipe you want to view: ", false);
 			if (choice > 0 && choice <= sortedRecipes.Count)
 			{
 				DisplayRecipe(sortedRecipes[choice - 1]);
@@ -418,7 +416,6 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
-
 		// This method is responsible for getting the number of ingredients from the user.
 		private int GetNumberOfIngredients()
 		{
@@ -428,7 +425,6 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
-
 		// This method is responsible for getting the details of an ingredient from the user.
 		private Ingredient GetIngredient(int i)
 		{
@@ -525,6 +521,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 		// This method is responsible for displaying information about each food group.
 		private void DisplayFoodGroupInformation()
 		{
+			// Information regarding each food group.
 			Console.ForegroundColor = SubTitleColor;
 			Console.WriteLine("\n------------------------------------------------------------------------------");
 			Console.WriteLine("Here is some information about each food group:");
@@ -661,32 +658,39 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 		//------------------------------------------------------------------------------------------------------------------------//
 		// Event Handling Methods
 		//------------------------------------------------------------------------------------------------------------------------//
-		// This method is responsible for Notifying the user when the calories exceed 300.
+		// This method is called when the total calories of the recipe exceed 300.
 		private void NotifyCaloriesExceeded(double totalCalories)
 		{
+			// If the user has already been alerted, don't alert them again.
 			if (Alerted)
 			{
 				return;
 			}
 
 			string caloriesMessage;
-			// Change the console color based on the total calories.
+			// Change the console color and message based on the total calories.
 			if (totalCalories > 500)
 			{
+				// If the total calories are more than 500, set the console color to red and suggest reducing portion size or substituting ingredients.
 				Console.ForegroundColor = ConsoleColor.Red;
 				caloriesMessage = " (High Calorie Content! Consider reducing portion size or substituting ingredients.)";
 			}
 			else
 			{
+				// If the total calories are between 300 and 500, set the console color to yellow and suggest that the recipe is good for a main meal.
 				Console.ForegroundColor = ConsoleColor.Yellow;
 				caloriesMessage = " (Moderate Calorie Content. Good for a main meal.)";
 			}
 
+			// Display an alert message with the total calories and the specific message.
 			Console.WriteLine("\n==============================================================================");
 			Console.WriteLine($"Alert: This recipe has now exceeded 300 kcal \nThe current total calories is {totalCalories} kcal" + caloriesMessage);
 			Console.WriteLine("==============================================================================");
+
+			// Reset the console color to the default.
 			Console.ResetColor();
 
+			// Set the Alerted flag to true so the user won't be alerted again for this recipe.
 			Alerted = true;
 		}
 
