@@ -16,10 +16,13 @@ using System.Threading.Tasks;
 
 namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 {
+	public delegate void ExceededCaloriesDelegate(double totalCalories);
+
 	// The Recipe class represents a cooking recipe.
 	// It includes properties for the recipe name, current scale, list of ingredients, and list of cooking steps.
-	internal class Recipe
+	public class Recipe
 	{
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		// Name of the recipe.
 		public string RecipeName { get; set; }
 
@@ -32,40 +35,70 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 		// List of steps to follow to cook the recipe.
 		public List<string> Steps { get; set; }
 
-		//------------------------------------------------------------------------------------------------------------------------//
+		// Delegate event to notify when the calories exceed 300.
+		public event ExceededCaloriesDelegate OnCaloriesExceeded;
+
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 
 		// Constructor for the Recipe class.
 		// It initializes the recipe name and creates new lists for ingredients and steps.
-		public Recipe(string name)
+		public Recipe()
 		{
-			this.RecipeName = name;
 			this.Ingredients = new List<Ingredient>();
 			this.Steps = new List<string>();
 		}
 
-		//------------------------------------------------------------------------------------------------------------------------//
-
-		// Method to add an ingredient to the recipe.
-		public void AddIngredient(Ingredient ingredient)
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
+		// Method to add a list of ingredients to the recipe.
+		public Recipe AddIngredient(Ingredient ingredient)
 		{
 			this.Ingredients.Add(ingredient);
+
+			double totalCalories = this.CalculateTotalCalories();
+			if (totalCalories > 300)
+			{
+				OnCaloriesExceeded?.Invoke(totalCalories);
+			}
+
+			return this;
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
-
-		// Method to add a cooking step to the recipe.
-		public void AddStep(string stepDescription)
+		// Method to add a list of steps to the recipe.
+		public Recipe AddSteps(List<string> steps)
 		{
-			this.Steps.Add(stepDescription);
+			foreach (var step in steps)
+			{
+				this.Steps.Add(step);
+			}
+
+			return this;
 		}
 
-		//------------------------------------------------------------------------------------------------------------------------//
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
+		// This method calculates the total calories of the recipe.
+		public double CalculateTotalCalories()
+		{
+			// Initialize a variable to store the total calories.
+			double totalCalories = 0;
 
+			// Iterate over each ingredient in the recipe.
+			foreach (var ingredient in this.Ingredients)
+			{
+				// Add the calories of the ingredient (calories per unit * quantity) to the total calories.
+				totalCalories += (ingredient.CaloriesPerUnit * ingredient.Quantity);
+			}
+
+			// Return the total calories, rounded to 2 decimal places.
+			return Math.Round(totalCalories, 2);
+		}
+
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		// Method to scale the quantity of ingredients.
 		public void Scale(double scale)
 		{
 			// Multiply the current scale by the given scale.
-			CurrentScale *= scale;
+			CurrentScale = Math.Round(CurrentScale * scale, 2);
 
 			// Iterate over each ingredient in the recipe.
 			foreach (var ingredient in Ingredients)
@@ -77,7 +110,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 				if (UnitConverter.IsConvertible(ingredient.UnitOfMeasurement))
 				{
 					// If it is, convert the quantity and unit of measurement of the ingredient.
-					(ingredient.Quantity, ingredient.UnitOfMeasurement) = UnitConverter.Convert(ingredient.Quantity, ingredient.UnitOfMeasurement);
+					(ingredient.Quantity, ingredient.UnitOfMeasurement, ingredient.CaloriesPerUnit) = UnitConverter.Convert(ingredient.Quantity, ingredient.UnitOfMeasurement, ingredient.CaloriesPerUnit);
 				}
 
 				// If the current scale is 1, reset the quantity of the ingredient to its original quantity and measurement.
@@ -98,15 +131,15 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 			{
 				ingredient.Quantity = ingredient.OriginalQuantity;
 				ingredient.UnitOfMeasurement = ingredient.OriginalUnitOfMeasurement; // Reset the unit of measurement
+				ingredient.CaloriesPerUnit = ingredient.OriginalCaloriesPerUnit;
 			}
 			CurrentScale = 1.0;
 		}
 
-		//------------------------------------------------------------------------------------------------------------------------//
-
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		// Method to print the details of the recipe.
 		// It includes the recipe name, current scale, list of ingredients, and list of steps.
-		public string PrintRecipe()
+		public (string, double) PrintRecipe()
 		{
 			// Create a StringBuilder to efficiently concatenate the recipe details into a single string.
 			StringBuilder recipeDetails = new StringBuilder();
@@ -121,13 +154,11 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 			// Add each ingredient to the string.
 			foreach (Ingredient ingredient in Ingredients)
 			{
-				// Check if the unit of measurement is not empty.
-				// If not, add the unit of measurement and "of" to the ingredient string, and make the unit plural if the quantity is more than 1.
-				// If the unit of measurement is empty, check if the quantity is more than 1, and if so, make the ingredient name plural.
-				string unit = !string.IsNullOrEmpty(ingredient.UnitOfMeasurement) ? $"{ingredient.UnitOfMeasurement}{(ingredient.Quantity > 1 ? "s" : "")} of " : "";
-				string plural = string.IsNullOrEmpty(ingredient.UnitOfMeasurement) && ingredient.Quantity > 1 ? "s" : "";
-				recipeDetails.AppendLine($"> {ingredient.Quantity} {unit}{ingredient.Name}{plural}");
+				recipeDetails.AppendLine(ingredient.ToString());
 			}
+
+			// Calculate the total calories of the recipe.
+			double totalCalories = CalculateTotalCalories();
 
 			// Start the list of cooking steps.
 			recipeDetails.AppendLine("Steps:");
@@ -138,10 +169,10 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 				recipeDetails.AppendLine($"> {step}");
 			}
 
-			// Return the recipe details as a string.
-			return recipeDetails.ToString();
+			// Return the recipe details as a string and the total calories.
+			return (recipeDetails.ToString(), totalCalories);
 		}
 
-		//------------------------------------------------------------------------------------------------------------------------//
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 	}
 }

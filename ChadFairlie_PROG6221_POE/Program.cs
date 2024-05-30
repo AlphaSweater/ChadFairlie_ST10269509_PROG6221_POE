@@ -2,12 +2,12 @@
 // ST10269509
 // Group 2
 
-//------------------------------------------------------------------------------------------------------------------------//
+//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 
 // References For This Class:
 //      ChatGPT (Helped with the formatting of the menu headers and display text)
 
-//------------------------------------------------------------------------------------------------------------------------//
+//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//using ChadFairlie_ST10269509_PROG6221_POE.Classes;
 using ChadFairlie_ST10269509_PROG6221_POE.Classes;
 using System;
 using System.Collections.Generic;
@@ -20,9 +20,31 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 {
 	internal class Program
 	{
-		// CurrentRecipe holds the recipe currently being worked on.
-		private Recipe CurrentRecipe = null;
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
+		// List to hold all recipes.
+		private List<Recipe> recipes = new List<Recipe>();
 
+		private Recipe CurrentRecipe = null;
+		private bool Alerted = false;
+
+		private bool CanelRecipe = false;
+
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
+		//------------------------------------------------------------------------------------------------------------------------//
+		// Color Definitions
+		//------------------------------------------------------------------------------------------------------------------------//
+
+		private static readonly ConsoleColor TitleColor = ConsoleColor.Blue;
+		private static readonly ConsoleColor SubTitleColor = ConsoleColor.Cyan;
+		private static readonly ConsoleColor InstructionColor = ConsoleColor.White;
+		private static readonly ConsoleColor InputLabelColor = ConsoleColor.Green;
+		private static readonly ConsoleColor SuccessColor = ConsoleColor.Green;
+		private static readonly ConsoleColor ErrorColor = ConsoleColor.Red;
+		private static readonly ConsoleColor DebugColor = ConsoleColor.DarkGray;
+		private static readonly ConsoleColor HighlightColor = ConsoleColor.Yellow;
+		private static readonly ConsoleColor DefaultTextColor = ConsoleColor.White;
+
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		//------------------------------------------------------------------------------------------------------------------------//
 		// Main Method
 		//------------------------------------------------------------------------------------------------------------------------//
@@ -34,6 +56,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 			worker.BeginHere();
 		}
 
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		//------------------------------------------------------------------------------------------------------------------------//
 		// Program Start Method
 		//------------------------------------------------------------------------------------------------------------------------//
@@ -44,20 +67,20 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 			while (true)
 			{
 				// Display the start menu.
-				Console.ForegroundColor = ConsoleColor.Yellow;
+				Console.ForegroundColor = TitleColor;
 				Console.WriteLine("==============================================================================");
 				Console.WriteLine("Welcome to the Recipe Manager");
 				Console.WriteLine("==============================================================================");
-				Console.ForegroundColor = ConsoleColor.White;
+				Console.ForegroundColor = DefaultTextColor;
 				Console.WriteLine("1. Create new recipe");
-				Console.WriteLine("2. Display recipe");
+				Console.WriteLine("2. Display recipes");
 				Console.WriteLine("3. Exit");
-				Console.ForegroundColor = ConsoleColor.Yellow;
+				Console.ForegroundColor = TitleColor;
 				Console.WriteLine("==============================================================================");
 
 				// Prompt the user to enter their choice.
-				Console.ForegroundColor = ConsoleColor.White;
-				Console.WriteLine("\nEnter your choice: ");
+				Console.ForegroundColor = InputLabelColor;
+				Console.Write("Enter your choice: \n");
 				Console.ResetColor();
 				Console.Write("/> ");
 
@@ -70,13 +93,36 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 					case "1":
 						// If the user chose to create a new recipe, call the CreateNewRecipe method.
 						Console.WriteLine();
+
+						// Reset the flag to cancel the recipe creation.
+						CanelRecipe = false;
+
+						// Create a new recipe.
 						CurrentRecipe = CreateNewRecipe();
+
+						// If the new recipe is not null, add it to the recipes list.
+						if (CurrentRecipe != null)
+						{
+							recipes.Add(CurrentRecipe);
+						}
+
 						break;
 
 					case "2":
 						// If the user chose to display the recipe, call the DisplayRecipe method.
 						Console.WriteLine();
-						DisplayRecipe(CurrentRecipe);
+						if (recipes.Count == 0)
+						{
+							Console.ForegroundColor = ErrorColor;
+							Console.WriteLine("==============================================================================");
+							Console.WriteLine("No recipes available.");
+							Console.WriteLine("==============================================================================\n");
+							Console.ResetColor();
+						}
+						else
+						{
+							DisplayRecipes();
+						}
 						break;
 
 					case "3":
@@ -85,7 +131,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 
 					default:
 						// If the user entered an invalid choice, display an error message.
-						Console.ForegroundColor = ConsoleColor.Red;
+						Console.ForegroundColor = ErrorColor;
 						Console.WriteLine("\n==============================================================================");
 						Console.WriteLine("Invalid choice. Please enter a valid option.");
 						Console.WriteLine("==============================================================================\n");
@@ -95,6 +141,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 			}
 		}
 
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		//------------------------------------------------------------------------------------------------------------------------//
 		// Menu Option Methods
 		//------------------------------------------------------------------------------------------------------------------------//
@@ -102,8 +149,14 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 		// This method is responsible for creating a new recipe.
 		private Recipe CreateNewRecipe()
 		{
+			Recipe newRecipe = new Recipe();
+			Alerted = false;
+
+			// Subscribe to the OnCaloriesExceeded event of the recipe.
+			newRecipe.OnCaloriesExceeded += NotifyCaloriesExceeded;
+
 			// Display a message indicating the start of the recipe creation process.
-			Console.ForegroundColor = ConsoleColor.Green;
+			Console.ForegroundColor = TitleColor;
 			Console.WriteLine("==============================================================================");
 			Console.WriteLine("Creating a New Recipe");
 			Console.WriteLine("==============================================================================");
@@ -111,40 +164,69 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 
 			// Get the name of the recipe from the user by calling the GetRecipeName method.
 			string recipeName = GetRecipeName();
-			// Create a new Recipe object with the provided name.
-			Recipe newRecipe = new Recipe(recipeName);
+
+			// Set the recipe name in the new recipe object.
+			newRecipe.RecipeName = recipeName;
 
 			// Prompt the user to add ingredients to the recipe.
-			Console.ForegroundColor = ConsoleColor.White;
-			Console.WriteLine($"\nGreat! Now let's add some ingredients to your {newRecipe.RecipeName} recipe.\n");
+			Console.ForegroundColor = DefaultTextColor;
+			Console.WriteLine($"\nGreat! Now let's add some ingredients to your {recipeName} recipe.\n");
 
 			// Get the number of ingredients from the user by calling the GetNumberOfIngredients method.
 			int ingredientCount = GetNumberOfIngredients();
+
+			// Explain what information the user needs to provide for each ingredient.
+			Console.ForegroundColor = SubTitleColor;
+			Console.WriteLine("\n------------------------------------------------------------------------------");
+			Console.WriteLine("Before we start adding ingredients, please note the following:");
+			Console.WriteLine("For each ingredient, you will need to provide the following details:");
+			Console.WriteLine("------------------------------------------------------------------------------");
+			Console.ForegroundColor = DefaultTextColor;
+			Console.WriteLine("1. Name of the ingredient.");
+			Console.WriteLine("2. Unit of Measurement: The unit used to measure the quantity (e.g., cups, tablespoons).");
+			Console.WriteLine("3. Quantity: The amount of the ingredient needed for the recipe.");
+			Console.WriteLine("4. Calories: The number of calories per unit of measurement of the ingredient.");
+			Console.WriteLine("5. Food Group: The category to which the ingredient belongs (e.g., protein, vegetables, grains).");
 
 			// For each ingredient, get the details from the user by calling the GetIngredient method
 			// and add it to the new recipe Ingredients list.
 			for (int i = 0; i < ingredientCount; i++)
 			{
+				if (CanelRecipe)
+				{
+					// Display a failure message and return the newly created recipe.
+					Console.ForegroundColor = ErrorColor;
+					Console.WriteLine("\n==============================================================================");
+					Console.WriteLine("Recipe was not created!");
+					Console.WriteLine("==============================================================================\n");
+					Console.ResetColor();
+					return null;
+				}
+
 				Ingredient ingredient = GetIngredient(i);
-				newRecipe.AddIngredient(ingredient);
+				newRecipe = newRecipe.AddIngredient(ingredient);
 			}
 
 			// Prompt the user to add steps to the recipe.
-			Console.ForegroundColor = ConsoleColor.White;
+			Console.ForegroundColor = DefaultTextColor;
 			Console.WriteLine("\nPerfect! Now let's add the steps to the recipe.\n");
 
 			// Get the number of steps from the user by calling the GetNumberOfSteps method.
 			int stepCount = GetNumberOfSteps();
 
 			// For each step, get the description from the user by calling the GetStep method and add it to the recipe.
+			List<string> steps = new List<string>();
 			for (int i = 0; i < stepCount; i++)
 			{
 				string stepDescription = GetStep(i);
-				newRecipe.AddStep(stepDescription);
+				steps.Add(stepDescription);
 			}
 
+			// Add the steps to the new recipe.
+			newRecipe = newRecipe.AddSteps(steps);
+
 			// Display a success message and return the newly created recipe.
-			Console.ForegroundColor = ConsoleColor.Green;
+			Console.ForegroundColor = SuccessColor;
 			Console.WriteLine("\n==============================================================================");
 			Console.WriteLine("Recipe created successfully!");
 			Console.WriteLine("==============================================================================\n");
@@ -155,27 +237,64 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 
 		//------------------------------------------------------------------------------------------------------------------------//
 
+		private void DisplayRecipes()
+		{
+			Console.ForegroundColor = TitleColor;
+			Console.WriteLine("==============================================================================");
+			Console.WriteLine("List of Recipes");
+			Console.WriteLine("==============================================================================");
+			Console.ResetColor();
+
+			// Sort the recipes list in alphabetical order by recipe name.
+			var sortedRecipes = recipes.OrderBy(r => r.RecipeName).ToList();
+
+			for (int i = 0; i < sortedRecipes.Count; i++)
+			{
+				Console.WriteLine($"{i + 1}. {sortedRecipes[i].RecipeName}");
+			}
+			Console.ForegroundColor = TitleColor;
+			Console.WriteLine("==============================================================================");
+
+			// Use GetNumberFromUser method to get the choice
+			int choice = (int)GetNumberFromUser("\nEnter the number of the recipe you want to view: ", false);
+			if (choice > 0 && choice <= sortedRecipes.Count)
+			{
+				DisplayRecipe(sortedRecipes[choice - 1]);
+			}
+			else
+			{
+				Console.ForegroundColor = ErrorColor;
+				Console.WriteLine("\n==============================================================================");
+				Console.WriteLine("Invalid choice. Returning to the main menu.");
+				Console.WriteLine("==============================================================================");
+				Console.ResetColor();
+			}
+		}
+
+		//------------------------------------------------------------------------------------------------------------------------//
 		// This method is responsible for displaying the scaling options for a recipe.
 		private bool DisplayScalingMenu(Recipe recipe)
 		{
 			// Display the scaling options menu.
-			Console.ForegroundColor = ConsoleColor.Green;
+			Console.ForegroundColor = TitleColor;
 			Console.WriteLine("Recipe Scaling Options");
 			Console.WriteLine("==============================================================================");
-			Console.ForegroundColor = ConsoleColor.White;
+			Console.ForegroundColor = DefaultTextColor;
 			Console.WriteLine("1. Scale recipe by 0.5 (half)");
 			Console.WriteLine("2. Scale recipe by 2 (double)");
 			Console.WriteLine("3. Scale recipe by 3 (triple)");
-			Console.WriteLine("4. Scale recipe by by custom factor");
+			Console.WriteLine("4. Scale recipe by custom factor");
 			Console.WriteLine("5. Reset recipe scaling");
-			Console.WriteLine("6. Clear recipe");
+			Console.WriteLine("6. Remove recipe from list");
 			Console.WriteLine("7. Return to main menu");
-			Console.ForegroundColor = ConsoleColor.Green;
+			Console.ForegroundColor = TitleColor;
 			Console.WriteLine("==============================================================================");
 			Console.ResetColor();
 
 			// Read the user's choice.
+			Console.ForegroundColor = InputLabelColor;
 			Console.WriteLine("Enter your choice: ");
+			Console.ResetColor();
 			Console.Write("/> ");
 			var choice = Console.ReadLine();
 
@@ -185,7 +304,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 				case "1":
 					// If the user chose to halve the recipe, scale the recipe by 0.5.
 					recipe.Scale(0.5);
-					Console.ForegroundColor = ConsoleColor.Green;
+					Console.ForegroundColor = SuccessColor;
 					Console.WriteLine("\n==============================================================================");
 					Console.WriteLine("Great! Your recipe has been halved.");
 					Console.WriteLine("==============================================================================");
@@ -195,7 +314,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 				case "2":
 					// If the user chose to double the recipe, scale the recipe by 2.
 					recipe.Scale(2);
-					Console.ForegroundColor = ConsoleColor.Green;
+					Console.ForegroundColor = SuccessColor;
 					Console.WriteLine("\n==============================================================================");
 					Console.WriteLine("Great! Your recipe has been doubled.");
 					Console.WriteLine("==============================================================================");
@@ -205,7 +324,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 				case "3":
 					// If the user chose to triple the recipe, scale the recipe by 3.
 					recipe.Scale(3);
-					Console.ForegroundColor = ConsoleColor.Green;
+					Console.ForegroundColor = SuccessColor;
 					Console.WriteLine("\n==============================================================================");
 					Console.WriteLine("Great! Your recipe has been tripled.");
 					Console.WriteLine("==============================================================================");
@@ -217,7 +336,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 					// get the factor from the user and scale the recipe.
 					double customScale = GetNumberFromUser("Enter the numeric scale factor:");
 					recipe.Scale(customScale);
-					Console.ForegroundColor = ConsoleColor.Green;
+					Console.ForegroundColor = SuccessColor;
 					Console.WriteLine("\n==============================================================================");
 					Console.WriteLine($"Great! Your recipe has been scaled by a factor of {customScale}.");
 					Console.WriteLine("==============================================================================");
@@ -225,32 +344,46 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 					return false;
 
 				case "5":
-					// If the user chose to reset the recipe scaling, reset the scaling.
-					recipe.ResetScaling();
-					Console.WriteLine("\n==============================================================================");
-					Console.WriteLine("Awesome! Your recipe scaling was reset successfully!");
-					Console.WriteLine("==============================================================================");
-					return false;
+					if (UserConfirmation("Are you sure you want to reset the recipe scaling? (y/n)"))
+					{
+						// If the user chose to reset the recipe scaling, reset the scaling.
+						recipe.ResetScaling();
+						Console.ForegroundColor = SuccessColor;
+						Console.WriteLine("\n==============================================================================");
+						Console.WriteLine("Awesome! Your recipe scaling was reset successfully!");
+						Console.WriteLine("==============================================================================");
+						return false;
+					}
+					else
+					{
+						Console.ForegroundColor = SuccessColor;
+						Console.WriteLine("\n==============================================================================");
+						Console.WriteLine("Recipe scaling was not reset!");
+						Console.WriteLine("==============================================================================");
+						Console.ResetColor();
+						return false;
+					}
 
 				case "6":
 					// If the user chose to clear the recipe,
 					// confirm the action with the user and clear the recipe if confirmed.
-					if (UserConfirmation("Are you sure you want to clear the recipe? (y/n)"))
+					if (UserConfirmation("Are you sure you want to remove the recipe from the list? (y/n)"))
 					{
+						recipes.Remove(recipe);
 						CurrentRecipe = null;
-						Console.ForegroundColor = ConsoleColor.Green;
+						Console.ForegroundColor = SuccessColor;
 						Console.WriteLine("\n==============================================================================");
-						Console.WriteLine("Recipe cleared successfully!");
-						Console.WriteLine("==============================================================================\n");
+						Console.WriteLine("Recipe removed successfully!");
+						Console.WriteLine("==============================================================================");
 						Console.ResetColor();
 						return true;
 					}
 					else
 					{
-						Console.ForegroundColor = ConsoleColor.Green;
+						Console.ForegroundColor = SuccessColor;
 						Console.WriteLine("\n==============================================================================");
-						Console.WriteLine("Recipe was not cleared!");
-						Console.WriteLine("==============================================================================\n");
+						Console.WriteLine("Recipe was not removed!");
+						Console.WriteLine("==============================================================================");
 						Console.ResetColor();
 						return false;
 					}
@@ -261,15 +394,16 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 
 				default:
 					// If the user entered an invalid choice, display an error message.
-					Console.ForegroundColor = ConsoleColor.Red;
+					Console.ForegroundColor = ErrorColor;
 					Console.WriteLine("\n==============================================================================");
 					Console.WriteLine("Invalid choice. Please enter a valid option.");
-					Console.WriteLine("==============================================================================\n");
+					Console.WriteLine("==============================================================================");
 					Console.ResetColor();
 					return false;
 			}
 		}
 
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		//------------------------------------------------------------------------------------------------------------------------//
 		// Helper Methods
 		//------------------------------------------------------------------------------------------------------------------------//
@@ -282,7 +416,6 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
-
 		// This method is responsible for getting the number of ingredients from the user.
 		private int GetNumberOfIngredients()
 		{
@@ -292,7 +425,6 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
-
 		// This method is responsible for getting the details of an ingredient from the user.
 		private Ingredient GetIngredient(int i)
 		{
@@ -305,12 +437,109 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 			// Get the quantity of the ingredient from the user by calling the GetNumberFromUser method.
 			double ingredientQuantity = GetNumberFromUser("\nEnter the quantity of this ingredient:");
 
-			// Create a new Ingredient object with the provided name, quantity, and unit, and return it.
-			return new Ingredient(ingredientName, ingredientQuantity, ingredientUnit);
+			// Get the number of calories for the ingredient per unit of measurement from the user by calling the GetNumberFromUser method.
+			double ingredientCalories = GetNumberFromUser("\nEnter the number of calories per unit of measurement for this ingredient:");
+
+			// Get the food group of the ingredient from the user by calling the GetStringFromUser method.
+			string ingredientFoodGroup = GetFoodGroup();
+
+			// Create a new Ingredient object with the provided name, quantity, unit, calories, and food group, and return it.
+			return new Ingredient(ingredientName, ingredientQuantity, ingredientUnit, ingredientCalories, ingredientFoodGroup);
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
+		// This method is responsible for getting the food group of an ingredient from the user.
+		private string GetFoodGroup()
+		{
+			// Keep prompting the user until a valid food group is selected.
+			while (true)
+			{
+				// Display the food group menu.
+				Console.ForegroundColor = InputLabelColor;
+				Console.WriteLine("\nPlease select the food group that this ingredient belongs to:");
+				Console.ForegroundColor = DefaultTextColor;
+				Console.WriteLine("1. Protein");
+				Console.WriteLine("2. Vegetables");
+				Console.WriteLine("3. Fruits");
+				Console.WriteLine("4. Grains");
+				Console.WriteLine("5. Dairy");
+				Console.WriteLine("6. Fats and Oils");
+				Console.WriteLine("7. Sweets and Snacks");
+				Console.WriteLine("8. Beverages");
+				Console.WriteLine("9. Learn more about each food group");
+				Console.ResetColor();
+				Console.Write("/> ");
 
+				// Read the user's choice.
+				var choice = Console.ReadLine();
+
+				// Return the appropriate food group based on the user's choice.
+				switch (choice)
+				{
+					case "1":
+						return "Protein";
+
+					case "2":
+						return "Vegetables";
+
+					case "3":
+						return "Fruits";
+
+					case "4":
+						return "Grains";
+
+					case "5":
+						return "Dairy";
+
+					case "6":
+						return "Fats and Oils";
+
+					case "7":
+						return "Sweets and Snacks";
+
+					case "8":
+						return "Beverages";
+
+					case "9":
+						// If the user chose to learn more about each food group, display the information and prompt again.
+						DisplayFoodGroupInformation();
+						break;
+
+					default:
+						// If the user entered an invalid choice, display an error message and prompt again.
+						Console.ForegroundColor = ErrorColor;
+						Console.WriteLine("\n==============================================================================");
+						Console.WriteLine("Invalid choice. Please enter a valid option.");
+						Console.WriteLine("==============================================================================");
+						Console.ResetColor();
+						break;
+				}
+			}
+		}
+
+		//------------------------------------------------------------------------------------------------------------------------//
+		// This method is responsible for displaying information about each food group.
+		private void DisplayFoodGroupInformation()
+		{
+			// Information regarding each food group.
+			Console.ForegroundColor = SubTitleColor;
+			Console.WriteLine("\n------------------------------------------------------------------------------");
+			Console.WriteLine("Here is some information about each food group:");
+			Console.WriteLine("------------------------------------------------------------------------------");
+			Console.ForegroundColor = DefaultTextColor;
+			Console.WriteLine("1. Protein: Includes options such as meat, poultry, fish, eggs, tofu, legumes, and nuts.");
+			Console.WriteLine("2. Vegetables: Covers a wide range of vegetables like leafy greens, root vegetables, Cruciferous vegetables, peppers, onions, and tomatoes.");
+			Console.WriteLine("3. Fruits: Encompasses fruits of all kinds, including berries, citrus fruits, apples, bananas, and tropical fruits.");
+			Console.WriteLine("4. Grains: Represents grains and grain products like rice, pasta, bread, oats, quinoa, barley, and couscous.");
+			Console.WriteLine("5. Dairy: Includes dairy products such as milk, cheese, yogurt, and alternatives like plant-based milk (e.g., almond milk, soy milk).");
+			Console.WriteLine("6. Fats and Oils: Covers fats and oils used in cooking and food preparation, such as olive oil, butter, avocado, and coconut oil.");
+			Console.WriteLine("7. Sweets and Snacks: Represents sugary foods, desserts, and snacks, including candies, chocolates, pastries, cookies, and chips.");
+			Console.WriteLine("8. Beverages: Encompasses various beverages like water, tea, coffee, fruit juices, soft drinks, and alcoholic beverages (if applicable).");
+			Console.WriteLine();
+			Console.ResetColor();
+		}
+
+		//------------------------------------------------------------------------------------------------------------------------//
 		// This method is responsible for getting the number of steps from the user.
 		private int GetNumberOfSteps()
 		{
@@ -345,16 +574,48 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 				while (!shouldReturn)
 				{
 					// Display the recipe details heading.
-					Console.ForegroundColor = ConsoleColor.Green;
+					Console.ForegroundColor = TitleColor;
 					Console.WriteLine("\n==============================================================================");
 					Console.WriteLine("Your Recipe Details");
 					Console.WriteLine("==============================================================================");
-					Console.ForegroundColor = ConsoleColor.White;
+					Console.ForegroundColor = DefaultTextColor;
 
 					// Print the recipe by calling the PrintRecipe method of the Recipe class.
-					Console.Write(recipe.PrintRecipe());
+					var (recipeDetails, totalCalories) = recipe.PrintRecipe();
 
-					Console.ForegroundColor = ConsoleColor.Green;
+					// Print the rest of the recipe details.
+					Console.Write(recipeDetails);
+
+					string caloriesMessage;
+					// Change the console color based on the total calories.
+					if (totalCalories > 500)
+					{
+						Console.ForegroundColor = ConsoleColor.Red;
+						caloriesMessage = " (High Calorie Content! Consider reducing portion size or substituting ingredients.)";
+					}
+					else if (totalCalories > 300)
+					{
+						Console.ForegroundColor = ConsoleColor.Yellow;
+						caloriesMessage = " (Moderate Calorie Content. Good for a main meal.)";
+					}
+					else if (totalCalories > 150)
+					{
+						Console.ForegroundColor = ConsoleColor.Green;
+						caloriesMessage = " (Low Calorie Content. Good for a light meal or snack.)";
+					}
+					else
+					{
+						Console.ForegroundColor = ConsoleColor.Blue;
+						caloriesMessage = " (Very Low Calorie Content. Consider adding more nutritious ingredients.)";
+					}
+
+					// Display the total calories of the recipe.
+					Console.WriteLine($"Total Calories: {totalCalories} kcal" + caloriesMessage);
+
+					// Reset the console color.
+					Console.ResetColor();
+
+					Console.ForegroundColor = TitleColor;
 					Console.WriteLine("==============================================================================");
 
 					// Display the scaling menu by calling the DisplayScalingMenu method and
@@ -366,21 +627,20 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 			else
 			{
 				// If the recipe is null, display a message indicating that no recipe has been created yet.
-				Console.ForegroundColor = ConsoleColor.Red;
+				Console.ForegroundColor = ErrorColor;
 				Console.WriteLine("\n==============================================================================");
 				Console.WriteLine("No recipe created yet.");
-				Console.WriteLine("==============================================================================\n");
+				Console.WriteLine("==============================================================================");
 				Console.ResetColor();
 			}
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
-
 		// This method is responsible for getting a yes/no confirmation from the user.
 		private bool UserConfirmation(string message)
 		{
 			// Display the confirmation message.
-			Console.ForegroundColor = ConsoleColor.Green;
+			Console.ForegroundColor = HighlightColor;
 			Console.WriteLine("==============================================================================");
 			Console.WriteLine(message);
 			Console.WriteLine("==============================================================================");
@@ -394,6 +654,47 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 			return response == "y" || response == "yes";
 		}
 
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
+		//------------------------------------------------------------------------------------------------------------------------//
+		// Event Handling Methods
+		//------------------------------------------------------------------------------------------------------------------------//
+		// This method is called when the total calories of the recipe exceed 300.
+		private void NotifyCaloriesExceeded(double totalCalories)
+		{
+			// If the user has already been alerted, don't alert them again.
+			if (Alerted)
+			{
+				return;
+			}
+
+			string caloriesMessage;
+			// Change the console color and message based on the total calories.
+			if (totalCalories > 500)
+			{
+				// If the total calories are more than 500, set the console color to red and suggest reducing portion size or substituting ingredients.
+				Console.ForegroundColor = ConsoleColor.Red;
+				caloriesMessage = " (High Calorie Content! Consider reducing portion size or substituting ingredients.)";
+			}
+			else
+			{
+				// If the total calories are between 300 and 500, set the console color to yellow and suggest that the recipe is good for a main meal.
+				Console.ForegroundColor = ConsoleColor.Yellow;
+				caloriesMessage = " (Moderate Calorie Content. Good for a main meal.)";
+			}
+
+			// Display an alert message with the total calories and the specific message.
+			Console.WriteLine("\n==============================================================================");
+			Console.WriteLine($"Alert: This recipe has now exceeded 300 kcal \nThe current total calories is {totalCalories} kcal" + caloriesMessage);
+			Console.WriteLine("==============================================================================");
+
+			// Reset the console color to the default.
+			Console.ResetColor();
+
+			// Set the Alerted flag to true so the user won't be alerted again for this recipe.
+			Alerted = true;
+		}
+
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		//------------------------------------------------------------------------------------------------------------------------//
 		// Error Handling Methods
 		//------------------------------------------------------------------------------------------------------------------------//
@@ -405,7 +706,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 			while (true)
 			{
 				// Display the prompt.
-				Console.ForegroundColor = ConsoleColor.White;
+				Console.ForegroundColor = InputLabelColor;
 				Console.WriteLine(prompt);
 				Console.ResetColor();
 				Console.Write("/> ");
@@ -416,7 +717,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 				// If the input is blank, display an error message and prompt again.
 				if (string.IsNullOrWhiteSpace(input))
 				{
-					Console.ForegroundColor = ConsoleColor.Red;
+					Console.ForegroundColor = ErrorColor;
 					Console.WriteLine("\n==============================================================================");
 					Console.WriteLine("Invalid input. Please enter a non-blank string.");
 					Console.WriteLine("==============================================================================\n");
@@ -431,7 +732,6 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
-
 		// This method is responsible for getting a valid non-negative number from the user.
 		private double GetNumberFromUser(string prompt, bool allowDecimals = true)
 		{
@@ -441,7 +741,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 				try
 				{
 					// Display the prompt.
-					Console.ForegroundColor = ConsoleColor.White;
+					Console.ForegroundColor = InputLabelColor;
 					Console.WriteLine(prompt);
 					Console.ResetColor();
 					Console.Write("/> ");
@@ -468,7 +768,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 				{
 					// If the user's input could not be converted to a double or is not a whole number when decimals are not allowed,
 					// display an error message and prompt again.
-					Console.ForegroundColor = ConsoleColor.Red;
+					Console.ForegroundColor = ErrorColor;
 					Console.WriteLine("\n==============================================================================");
 					Console.WriteLine("Invalid input. Please enter a valid number.");
 					if (!allowDecimals)
@@ -482,7 +782,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 				{
 					// If the user's input is too large or too small to be a double,
 					// display an error message and prompt again.
-					Console.ForegroundColor = ConsoleColor.Red;
+					Console.ForegroundColor = ErrorColor;
 					Console.WriteLine("\n==============================================================================");
 					Console.WriteLine("Invalid input. Number is too large or too small.");
 					Console.WriteLine("==============================================================================\n");
@@ -492,7 +792,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 				{
 					// If the user's input is zero or negative,
 					// display an error message and prompt again.
-					Console.ForegroundColor = ConsoleColor.Red;
+					Console.ForegroundColor = ErrorColor;
 					Console.WriteLine("\n==============================================================================");
 					Console.WriteLine("Invalid input. Number must be greater than zero.");
 					Console.WriteLine("==============================================================================\n");
@@ -501,6 +801,6 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 			}
 		}
 
-		//------------------------------------------------------------------------------------------------------------------------//
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 	}
 }
