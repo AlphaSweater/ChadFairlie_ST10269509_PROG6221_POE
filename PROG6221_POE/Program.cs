@@ -162,6 +162,9 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 			// Get the name of the recipe from the user by calling the GetRecipeName method.
 			string recipeName = GetRecipeName();
 
+			// Set the recipe name in the new recipe object.
+			newRecipe.RecipeName = recipeName;
+
 			// Prompt the user to add ingredients to the recipe.
 			Console.ForegroundColor = DefaultTextColor;
 			Console.WriteLine($"\nGreat! Now let's add some ingredients to your {recipeName} recipe.\n");
@@ -189,7 +192,8 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 				ingredients.Add(ingredient);
 			}
 
-			// TODO: Work on making early calorie limit check
+			// Add the ingredients to the new recipe.
+			newRecipe.AddIngredients(ingredients);
 
 			// Prompt the user to add steps to the recipe.
 			Console.ForegroundColor = DefaultTextColor;
@@ -205,9 +209,6 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 				string stepDescription = GetStep(i);
 				steps.Add(stepDescription);
 			}
-
-			// Create a new Recipe object with the provided name, ingredients, and steps.
-			newRecipe = newRecipe.CreateRecipe(recipeName, ingredients, steps);
 
 			if (CanelRecipe)
 			{
@@ -247,6 +248,8 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 			{
 				Console.WriteLine($"{i + 1}. {sortedRecipes[i].RecipeName}");
 			}
+			Console.ForegroundColor = TitleColor;
+			Console.WriteLine("==============================================================================");
 
 			Console.ForegroundColor = InputLabelColor;
 			Console.WriteLine("\nEnter the number of the recipe you want to view: ");
@@ -653,7 +656,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE
 		{
 			Console.ForegroundColor = ErrorColor;
 			Console.WriteLine("\n==============================================================================");
-			Console.WriteLine("\nWarning: This recipe exceeds 300 kcal!");
+			Console.WriteLine("Warning: This recipe exceeds 300 kcal!");
 			Console.WriteLine("==============================================================================\n");
 			Console.ResetColor();
 

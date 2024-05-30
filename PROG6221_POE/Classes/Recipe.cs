@@ -49,13 +49,12 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 		}
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
-		public Recipe CreateRecipe(string recipeName, List<Ingredient> ingredients, List<string> steps)
+		// Method to add a list of ingredients to the recipe.
+		public void AddIngredients(List<Ingredient> ingredients)
 		{
-			this.RecipeName = recipeName;
-
 			foreach (var ingredient in ingredients)
 			{
-				this.AddIngredient(ingredient);
+				this.Ingredients.Add(ingredient);
 			}
 
 			double totalCalories = CalculateTotalCalories();
@@ -63,27 +62,16 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 			{
 				OnCaloriesExceeded?.Invoke();
 			}
+		}
 
+		//------------------------------------------------------------------------------------------------------------------------//
+		// Method to add a list of steps to the recipe.
+		public void AddSteps(List<string> steps)
+		{
 			foreach (var step in steps)
 			{
-				this.AddStep(step);
+				this.Steps.Add(step);
 			}
-			return this;
-		}
-
-		//------------------------------------------------------------------------------------------------------------------------//
-		// Method to add an ingredient to the recipe.
-		private void AddIngredient(Ingredient ingredient)
-		{
-			this.Ingredients.Add(ingredient);
-		}
-
-		//------------------------------------------------------------------------------------------------------------------------//
-
-		// Method to add a cooking step to the recipe.
-		private void AddStep(string stepDescription)
-		{
-			this.Steps.Add(stepDescription);
 		}
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
