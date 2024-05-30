@@ -17,8 +17,9 @@ using System.Threading.Tasks;
 namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 {
 	// The UnitConverter class provides functionality for converting between different units of measurement.
-	internal class UnitConverter
+	public class UnitConverter
 	{
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		// UpConversionTable is used to convert from a smaller unit to a larger unit (e.g., from teaspoons to tablespoons).
 		// Each entry in the table is a tuple containing the conversion factor, the name of the larger unit, and the threshold quantity for conversion.
 		private static readonly Dictionary<string, (double, string, double)> UpConversionTable = new Dictionary<string, (double, string, double)>
@@ -45,8 +46,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 			{ ("kilogram"), (1000, "gram", 1) }
 		};
 
-		//------------------------------------------------------------------------------------------------------------------------//
-
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		// Method to check if a unit of measurement is convertible.
 		// It checks if the unit is present in either the UpConversionTable or the DownConversionTable.
 		public static bool IsConvertible(string unitOfMeasurement)
@@ -91,6 +91,6 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 			return (quantity, unitOfMeasurement, newCaloriesPerUnit);
 		}
 
-		//------------------------------------------------------------------------------------------------------------------------//
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 	}
 }

@@ -20,8 +20,9 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 
 	// The Recipe class represents a cooking recipe.
 	// It includes properties for the recipe name, current scale, list of ingredients, and list of cooking steps.
-	internal class Recipe
+	public class Recipe
 	{
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		// Name of the recipe.
 		public string RecipeName { get; set; }
 
@@ -34,7 +35,10 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 		// List of steps to follow to cook the recipe.
 		public List<string> Steps { get; set; }
 
-		//------------------------------------------------------------------------------------------------------------------------//
+		// Delegate event to notify when the calories exceed 300.
+		public event ExceededCaloriesDelegate OnCaloriesExceeded;
+
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 
 		// Constructor for the Recipe class.
 		// It initializes the recipe name and creates new lists for ingredients and steps.
@@ -44,7 +48,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 			this.Steps = new List<string>();
 		}
 
-		//------------------------------------------------------------------------------------------------------------------------//
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		public Recipe CreateRecipe(string recipeName, List<Ingredient> ingredients, List<string> steps)
 		{
 			this.RecipeName = recipeName;
@@ -82,10 +86,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 			this.Steps.Add(stepDescription);
 		}
 
-		//------------------------------------------------------------------------------------------------------------------------//
-		public event ExceededCaloriesDelegate OnCaloriesExceeded;
-
-		//------------------------------------------------------------------------------------------------------------------------//
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		public double CalculateTotalCalories()
 		{
 			double totalCalories = 0;
@@ -98,8 +99,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 			return Math.Round(totalCalories, 2);
 		}
 
-		//------------------------------------------------------------------------------------------------------------------------//
-
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		// Method to scale the quantity of ingredients.
 		public void Scale(double scale)
 		{
@@ -142,8 +142,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 			CurrentScale = 1.0;
 		}
 
-		//------------------------------------------------------------------------------------------------------------------------//
-
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		// Method to print the details of the recipe.
 		// It includes the recipe name, current scale, list of ingredients, and list of steps.
 		public (string, double) PrintRecipe()
@@ -180,6 +179,6 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 			return (recipeDetails.ToString(), totalCalories);
 		}
 
-		//------------------------------------------------------------------------------------------------------------------------//
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 	}
 }

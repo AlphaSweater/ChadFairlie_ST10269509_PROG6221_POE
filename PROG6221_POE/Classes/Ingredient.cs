@@ -14,8 +14,9 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 {
 	// The Ingredient class represents a single ingredient used in a recipe.
 	// It includes properties for the name, quantity, original quantity, and unit of measurement of the ingredient.
-	internal class Ingredient
+	public class Ingredient
 	{
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		// Name of the ingredient.
 		public string Name { get; set; }
 
@@ -40,8 +41,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 		// Food group of the ingredient.
 		public string FoodGroup { get; set; }
 
-		//------------------------------------------------------------------------------------------------------------------------//
-
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		// Constructor for the Ingredient class.
 		// It initializes the name, quantity, and unit of measurement of the ingredient.
 		// If the unit of measurement is convertible (e.g., "cups" to "tablespoons"), it converts the quantity and unit of measurement.
@@ -70,7 +70,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 			OriginalCaloriesPerUnit = CaloriesPerUnit;
 		}
 
-		//------------------------------------------------------------------------------------------------------------------------//
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		public override string ToString()
 		{
 			// Check if the unit of measurement is not empty.
@@ -80,5 +80,7 @@ namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
 			string plural = string.IsNullOrEmpty(UnitOfMeasurement) && Quantity > 1 ? "s" : "";
 			return $"> {Quantity} {unit}{Name}{plural} ({CaloriesPerUnit}kcal calories per {UnitOfMeasurement}, Food Group: {FoodGroup})";
 		}
+
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 	}
 }
