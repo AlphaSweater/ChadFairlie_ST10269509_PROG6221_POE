@@ -10,7 +10,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
+namespace ChadFairlie_PROG6221_POE.Classes
 {
 	// The Ingredient class represents a single ingredient used in a recipe.
 	// It includes properties for the name, quantity, original quantity, and unit of measurement of the ingredient.

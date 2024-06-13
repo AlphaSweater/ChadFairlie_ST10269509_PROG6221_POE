@@ -8,7 +8,7 @@
 //      ChatGPT (Helped with the formatting of the menu headers and display text)
 
 //<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//using ChadFairlie_ST10269509_PROG6221_POE.Classes;
-using ChadFairlie_ST10269509_PROG6221_POE.Classes;
+using ChadFairlie_PROG6221_POE.Classes;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -16,7 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChadFairlie_ST10269509_PROG6221_POE
+namespace ChadFairlie_PROG6221_POE
 {
 	internal class Program
 	{
