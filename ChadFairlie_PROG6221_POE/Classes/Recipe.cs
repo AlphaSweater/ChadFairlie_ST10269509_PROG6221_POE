@@ -14,7 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChadFairlie_ST10269509_PROG6221_POE.Classes
+namespace ChadFairlie_PROG6221_POE.Classes
 {
 	public delegate void ExceededCaloriesDelegate(double totalCalories);
 

@@ -1,9 +1,9 @@
-﻿using ChadFairlie_ST10269509_PROG6221_POE.Classes;
+﻿using ChadFairlie_PROG6221_POE.Classes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 
-namespace PROG6221_POE.Tests
+namespace ChadFairlie_PROG6221_POE.Tests
 {
 	[TestClass]
 	public class RecipeTests
