@@ -9,7 +9,7 @@
 
 <!--<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>-->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 	<Style TargetType="{x:Type TextBox}"
 		   x:Key="ModernTextBox">
 		<Setter Property="Template">
@@ -27,6 +27,7 @@
 									 Background="Transparent"
 									 VerticalContentAlignment="Center"
 									 Padding="5"
+									 FontFamily="/Fonts/#Poppins"
 									 Foreground="#CFCFCF"
 									 x:Name="SearchBox" />
 
@@ -36,6 +37,7 @@
 									   HorizontalAlignment="Left"
 									   Margin="10,0,0,0"
 									   FontSize="11"
+									   FontFamily="/Fonts/#Poppins"
 									   Foreground="DarkGray"
 									   Grid.Column="1">
 
@@ -44,10 +46,12 @@
 										<Style.Triggers>
 											<DataTrigger Binding="{Binding Text, ElementName=SearchBox}"
 														 Value="">
-												<Setter Property="Visibility" Value="Visible" />
+												<Setter Property="Visibility"
+														Value="Visible" />
 											</DataTrigger>
 										</Style.Triggers>
-										<Setter Property="Visibility" Value="Hidden" />
+										<Setter Property="Visibility"
+												Value="Hidden" />
 									</Style>
 								</TextBlock.Style>
 							</TextBlock>

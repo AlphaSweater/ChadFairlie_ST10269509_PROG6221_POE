@@ -24,5 +24,29 @@ namespace ChadFairlie_PROG6221_POE_GUI
 		{
 			InitializeComponent();
 		}
+
+		private void CloseButton_Click(object sender, RoutedEventArgs e)
+		{
+			this.Close();
+		}
+
+		private void MaximizeButton_Click(object sender, RoutedEventArgs e)
+		{
+			this.WindowState = this.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+		}
+
+		private void MinimizeButton_Click(object sender, RoutedEventArgs e)
+		{
+			this.WindowState = WindowState.Minimized;
+		}
+
+		private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		{
+			// Check if the left mouse button is pressed to initiate dragging
+			if (e.LeftButton == MouseButtonState.Pressed)
+			{
+				this.DragMove();
+			}
+		}
 	}
 }
