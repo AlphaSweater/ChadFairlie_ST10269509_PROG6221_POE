@@ -9,6 +9,8 @@
 
 //<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 
+// Ignore Spelling: MVVM PROG
+
 using ChadFairlie_PROG6221_POE_GUI.Core;
 
 namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModel

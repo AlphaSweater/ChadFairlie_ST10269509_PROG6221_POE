@@ -8,6 +8,8 @@
 //      Bro Code: Provided a helpful video tutorial on Lists in C#. (https://youtu.be/vQzREQUhGSA?si=zi-m4qyNKLMErAu9)
 
 //------------------------------------------------------------------------------------------------------------------------//
+// Ignore Spelling: MVVM PROG
+
 using System;
 using System.Collections.Generic;
 using System.Text;

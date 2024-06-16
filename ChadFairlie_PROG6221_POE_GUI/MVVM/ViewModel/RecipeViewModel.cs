@@ -1,4 +1,6 @@
-﻿using ChadFairlie_PROG6221_POE_GUI.MVVM.Model;
+﻿// Ignore Spelling: PROG MVVM
+
+using ChadFairlie_PROG6221_POE_GUI.MVVM.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

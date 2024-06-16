@@ -8,6 +8,8 @@
 //		• https://www.youtube.com/watch?v=PzP8mw7JUzI
 
 //<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
+// Ignore Spelling: MVVM PROG
+
 using ChadFairlie_PROG6221_POE_GUI.MVVM.Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;

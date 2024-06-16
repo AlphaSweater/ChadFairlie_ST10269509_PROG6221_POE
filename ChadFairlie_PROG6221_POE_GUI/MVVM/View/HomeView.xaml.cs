@@ -1,23 +1,19 @@
-﻿using System;
+﻿// Ignore Spelling: PROG MVVM
+
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
 
 namespace ChadFairlie_PROG6221_POE_GUI.MVVM.View
 {
 	public partial class HomeView : UserControl
 	{
 		private Point _clickPosition;
-		private TranslateTransform _translateTransform;
 		private double _initialHorizontalOffset;
 
 		public HomeView()
 		{
 			InitializeComponent();
-			_translateTransform = new TranslateTransform();
-			ContentGrid.RenderTransform = _translateTransform;
 		}
 
 		private void OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -47,8 +43,6 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.View
 			if (sender is ScrollViewer)
 			{
 				Mouse.Capture(null);
-				_translateTransform.X = 0;
-				_initialHorizontalOffset = RecentRecipeScrollViewer.HorizontalOffset;
 			}
 		}
 	}

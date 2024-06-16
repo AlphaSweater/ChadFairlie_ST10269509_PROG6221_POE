@@ -8,6 +8,8 @@
 //      ChatGPT (Helped with the formatting of the menu headers and display text)
 
 //<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
+// Ignore Spelling: PROG
+
 using ChadFairlie_PROG6221_POE.Classes;
 using System;
 using System.Collections.Generic;
@@ -27,7 +29,7 @@ namespace ChadFairlie_PROG6221_POE
 		private Recipe CurrentRecipe = null;
 		private bool Alerted = false;
 
-		private bool CanelRecipe = false;
+		private bool CancelRecipe = false;
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		//------------------------------------------------------------------------------------------------------------------------//
@@ -40,7 +42,6 @@ namespace ChadFairlie_PROG6221_POE
 		private static readonly ConsoleColor InputLabelColor = ConsoleColor.Green;
 		private static readonly ConsoleColor SuccessColor = ConsoleColor.Green;
 		private static readonly ConsoleColor ErrorColor = ConsoleColor.Red;
-		private static readonly ConsoleColor DebugColor = ConsoleColor.DarkGray;
 		private static readonly ConsoleColor HighlightColor = ConsoleColor.Yellow;
 		private static readonly ConsoleColor DefaultTextColor = ConsoleColor.White;
 
@@ -95,7 +96,7 @@ namespace ChadFairlie_PROG6221_POE
 						Console.WriteLine();
 
 						// Reset the flag to cancel the recipe creation.
-						CanelRecipe = false;
+						CancelRecipe = false;
 
 						// Create a new recipe.
 						CurrentRecipe = CreateNewRecipe();
@@ -181,7 +182,7 @@ namespace ChadFairlie_PROG6221_POE
 			Console.WriteLine("Before we start adding ingredients, please note the following:");
 			Console.WriteLine("For each ingredient, you will need to provide the following details:");
 			Console.WriteLine("------------------------------------------------------------------------------");
-			Console.ForegroundColor = DefaultTextColor;
+			Console.ForegroundColor = InstructionColor;
 			Console.WriteLine("1. Name of the ingredient.");
 			Console.WriteLine("2. Unit of Measurement: The unit used to measure the quantity (e.g., cups, tablespoons).");
 			Console.WriteLine("3. Quantity: The amount of the ingredient needed for the recipe.");
@@ -192,7 +193,7 @@ namespace ChadFairlie_PROG6221_POE
 			// and add it to the new recipe Ingredients list.
 			for (int i = 0; i < ingredientCount; i++)
 			{
-				if (CanelRecipe)
+				if (CancelRecipe)
 				{
 					// Display a failure message and return the newly created recipe.
 					Console.ForegroundColor = ErrorColor;
