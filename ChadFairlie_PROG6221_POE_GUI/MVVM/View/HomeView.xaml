@@ -15,9 +15,16 @@
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:local="clr-namespace:ChadFairlie_PROG6221_POE_GUI.MVVM.View"
+			 xmlns:converters="clr-namespace:ChadFairlie_PROG6221_POE_GUI.Converters"
+			 xmlns:behaviors="clr-namespace:ChadFairlie_PROG6221_POE_GUI.Behaviors"
 			 mc:Ignorable="d"
-			 d:DesignHeight="460"
+			 d:DesignHeight="490"
 			 d:DesignWidth="800">
+
+	<UserControl.Resources>
+		<converters:ResourceKeyConverter x:Key="ResourceKeyConverter" />
+	</UserControl.Resources>
+
 	<StackPanel>
 		<TextBlock Text="Discover"
 				   Foreground="White"
@@ -74,41 +81,58 @@
 		</StackPanel>
 
 		<StackPanel>
-
-			<StackPanel.Resources>
-				<Style TargetType="{x:Type Border}">
-					<Setter Property="Margin"
-							Value="15,0,0,0" />
-				</Style>
-			</StackPanel.Resources>
-
-			<TextBlock Text="Most Watched"
+			<TextBlock Text="Recently Viewed"
 					   Foreground="White"
 					   FontSize="20"
 					   FontFamily="/Fonts/#Poppins"
 					   HorizontalAlignment="Left"
 					   Margin="0,0,0,10" />
 
-			<StackPanel Orientation="Horizontal">
-				<!-- Using the color sequence defined in the color scheme -->
-				<Border Width="150"
-						Height="150"
-						Background="{StaticResource TertiaryColorGradient1}"
-						CornerRadius="10"
-						Margin="0" />
-				<Border Width="150"
-						Height="150"
-						Background="{StaticResource TertiaryColorGradient2}"
-						CornerRadius="10" />
-				<Border Width="150"
-						Height="150"
-						Background="{StaticResource TertiaryColorGradient3}"
-						CornerRadius="10" />
-				<Border Width="150"
-						Height="150"
-						Background="{StaticResource TertiaryColorGradient4}"
-						CornerRadius="10" />
-			</StackPanel>
+			<!-- Dynamic Carousel for Recipes -->
+			<Grid Height="170">
+				<ScrollViewer x:Name="RecentRecipeScrollViewer"
+							  HorizontalScrollBarVisibility="Hidden"
+							  VerticalScrollBarVisibility="Disabled"
+							  PanningMode="HorizontalOnly"
+							  MouseDown="OnPreviewMouseDown"
+							  MouseMove="OnPreviewMouseMove"
+							  MouseUp="OnPreviewMouseUp">
+
+					<ItemsControl ItemsSource="{Binding Recipes}">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<Border Style="{StaticResource CarouselItemTheme}">
+									<Border.Background>
+										<Binding Path="BackgroundGradient"
+												 Converter="{StaticResource ResourceKeyConverter}" />
+									</Border.Background>
+									<StackPanel>
+										<TextBlock Text="{Binding RecipeName}"
+												   FontWeight="Bold"
+												   Foreground="White"
+												   Margin="5"
+												   FontSize="16" />
+										<TextBlock Text="{Binding Ingredients.Count, StringFormat='Ingredients: {0}'}"
+												   Foreground="White"
+												   Margin="5" />
+										<TextBlock Text="{Binding Steps.Count, StringFormat='Steps: {0}'}"
+												   Foreground="White"
+												   Margin="5" />
+										<TextBlock Text="{Binding TotalCalories, StringFormat='Total Calories: {0} kcal'}"
+												   Foreground="White"
+												   Margin="5" />
+									</StackPanel>
+								</Border>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+						<ItemsControl.ItemsPanel>
+							<ItemsPanelTemplate>
+								<StackPanel Orientation="Horizontal" />
+							</ItemsPanelTemplate>
+						</ItemsControl.ItemsPanel>
+					</ItemsControl>
+				</ScrollViewer>
+			</Grid>
 		</StackPanel>
 	</StackPanel>
 </UserControl>

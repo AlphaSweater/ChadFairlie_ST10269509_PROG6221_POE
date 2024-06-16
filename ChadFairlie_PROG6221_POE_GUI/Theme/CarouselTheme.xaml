@@ -11,27 +11,48 @@
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<!-- Theme for Carousel Item Templates -->
 	<Style TargetType="Border"
-		   x:Key="BlockTheme">
+		   x:Key="CarouselItemTheme">
+		<Setter Property="Cursor"
+				Value="Hand" />
 		<Setter Property="Background"
 				Value="Transparent" />
 		<Setter Property="CornerRadius"
 				Value="10" />
 		<Setter Property="Margin"
-				Value="5" />
+				Value="0,0,15,0" />
 		<Setter Property="Width"
 				Value="150" />
 		<Setter Property="Height"
 				Value="150" />
-		<Setter Property="BorderBrush"
-				Value="Gray" />
-		<Setter Property="BorderThickness"
-				Value="1" />
+		<Setter Property="Effect">
+			<Setter.Value>
+				<DropShadowEffect ShadowDepth="2"
+								  Color="#80000000"
+								  Opacity="0.5"
+								  BlurRadius="5" />
+			</Setter.Value>
+		</Setter>
 		<Style.Triggers>
 			<Trigger Property="IsMouseOver"
 					 Value="True">
 				<Setter Property="Background"
 						Value="#333333" />
+				<Setter Property="Effect">
+					<Setter.Value>
+						<DropShadowEffect ShadowDepth="5"
+										  Color="#80000000"
+										  Opacity="0.8"
+										  BlurRadius="8" />
+					</Setter.Value>
+				</Setter>
+				<Setter Property="RenderTransform">
+					<Setter.Value>
+						<ScaleTransform ScaleX="1.05"
+										ScaleY="1.05" />
+					</Setter.Value>
+				</Setter>
 			</Trigger>
 		</Style.Triggers>
 	</Style>
