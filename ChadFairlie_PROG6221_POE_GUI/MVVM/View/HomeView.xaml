@@ -94,43 +94,45 @@
 							  HorizontalScrollBarVisibility="Hidden"
 							  VerticalScrollBarVisibility="Disabled"
 							  PanningMode="HorizontalOnly"
-							  MouseDown="OnPreviewMouseDown"
-							  MouseMove="OnPreviewMouseMove"
-							  MouseUp="OnPreviewMouseUp">
+							  PreviewMouseDown="OnPreviewMouseDown"
+							  PreviewMouseMove="OnPreviewMouseMove"
+							  PreviewMouseUp="OnPreviewMouseUp">
 
-					<ItemsControl ItemsSource="{Binding Recipes}">
-						<ItemsControl.ItemTemplate>
-							<DataTemplate>
-								<Border Style="{StaticResource CarouselItemTheme}">
-									<Border.Background>
-										<Binding Path="BackgroundGradient"
-												 Converter="{StaticResource ResourceKeyConverter}" />
-									</Border.Background>
-									<StackPanel>
-										<TextBlock Text="{Binding RecipeName}"
-												   FontWeight="Bold"
-												   Foreground="White"
-												   Margin="5"
-												   FontSize="16" />
-										<TextBlock Text="{Binding Ingredients.Count, StringFormat='Ingredients: {0}'}"
-												   Foreground="White"
-												   Margin="5" />
-										<TextBlock Text="{Binding Steps.Count, StringFormat='Steps: {0}'}"
-												   Foreground="White"
-												   Margin="5" />
-										<TextBlock Text="{Binding TotalCalories, StringFormat='Total Calories: {0} kcal'}"
-												   Foreground="White"
-												   Margin="5" />
-									</StackPanel>
-								</Border>
-							</DataTemplate>
-						</ItemsControl.ItemTemplate>
-						<ItemsControl.ItemsPanel>
-							<ItemsPanelTemplate>
-								<StackPanel Orientation="Horizontal" />
-							</ItemsPanelTemplate>
-						</ItemsControl.ItemsPanel>
-					</ItemsControl>
+					<Grid x:Name="ContentGrid">
+						<ItemsControl ItemsSource="{Binding Recipes}">
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<Border Style="{StaticResource CarouselItemTheme}">
+										<Border.Background>
+											<Binding Path="BackgroundGradient"
+													 Converter="{StaticResource ResourceKeyConverter}" />
+										</Border.Background>
+										<StackPanel>
+											<TextBlock Text="{Binding RecipeName}"
+													   FontWeight="Bold"
+													   Foreground="White"
+													   Margin="5"
+													   FontSize="16" />
+											<TextBlock Text="{Binding Ingredients.Count, StringFormat='Ingredients: {0}'}"
+													   Foreground="White"
+													   Margin="5" />
+											<TextBlock Text="{Binding Steps.Count, StringFormat='Steps: {0}'}"
+													   Foreground="White"
+													   Margin="5" />
+											<TextBlock Text="{Binding TotalCalories, StringFormat='Total Calories: {0} kcal'}"
+													   Foreground="White"
+													   Margin="5" />
+										</StackPanel>
+									</Border>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+							<ItemsControl.ItemsPanel>
+								<ItemsPanelTemplate>
+									<StackPanel Orientation="Horizontal" />
+								</ItemsPanelTemplate>
+							</ItemsControl.ItemsPanel>
+						</ItemsControl>
+					</Grid>
 				</ScrollViewer>
 			</Grid>
 		</StackPanel>
