@@ -13,7 +13,7 @@
 				<!-- Theme Dictionaries -->
 				<ResourceDictionary Source="Theme/MenuButtonTheme.xaml" />
 				<ResourceDictionary Source="Theme/TextBoxTheme.xaml" />
-				<ResourceDictionary Source="Theme/CarouselTheme.xaml" />
+				<ResourceDictionary Source="Theme/BoxItemTheme.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 
 			<!--<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>-->

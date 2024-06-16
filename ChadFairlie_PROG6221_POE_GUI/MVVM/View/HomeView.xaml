@@ -31,11 +31,12 @@
 				   FontSize="28"
 				   FontFamily="/Fonts/#Poppins"
 				   HorizontalAlignment="Left"
-				   Margin="0,0,0,20" />
+				   Margin="10,0,0,20" />
 
 		<StackPanel Orientation="Horizontal"
-					Margin="0,0,0,10">
-			<Border Width="400"
+					Margin="10,0,10,10">
+			<Border Style="{StaticResource BoxItemTheme}"
+					Width="400"
 					Height="200">
 				<Border.Background>
 					<StaticResource ResourceKey="PrimaryGradient" />
@@ -69,7 +70,8 @@
 				</Grid>
 			</Border>
 
-			<Border Width="200"
+			<Border Style="{StaticResource BoxItemTheme}"
+					Width="200"
 					Height="200"
 					CornerRadius="10"
 					Margin="45,0,0,0">
@@ -86,7 +88,7 @@
 					   FontSize="20"
 					   FontFamily="/Fonts/#Poppins"
 					   HorizontalAlignment="Left"
-					   Margin="0,0,0,10" />
+					   Margin="10,0,0,10" />
 
 			<!-- Dynamic Carousel for Recipes -->
 			<Grid Height="170">
@@ -99,11 +101,12 @@
 							  PreviewMouseUp="OnPreviewMouseUp"
 							  PreviewMouseWheel="OnPreviewMouseWheelScroll">
 
-					<Grid x:Name="ContentGrid">
+					<Grid x:Name="ContentGrid"
+						  Margin="10,0,10,0">
 						<ItemsControl ItemsSource="{Binding Recipes}">
 							<ItemsControl.ItemTemplate>
 								<DataTemplate>
-									<Border Style="{StaticResource CarouselItemTheme}">
+									<Border Style="{StaticResource BoxItemTheme}">
 										<Border.Background>
 											<Binding Path="BackgroundGradient"
 													 Converter="{StaticResource ResourceKeyConverter}" />
