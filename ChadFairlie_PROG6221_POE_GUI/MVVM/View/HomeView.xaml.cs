@@ -12,8 +12,9 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.View
 	{
 		private Point _clickPosition;
 		private double _initialHorizontalOffset;
-		private double _velocity;
-		private DateTime _lastMoveTime;
+		private double _accumulatedOffset;
+		private double _lastVelocity;
+		private DateTime _lastMouseDownTime;
 		private bool _isScrolling;
 
 		public HomeView()
@@ -27,10 +28,11 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.View
 			{
 				_clickPosition = e.GetPosition(RecentRecipeScrollViewer);
 				_initialHorizontalOffset = RecentRecipeScrollViewer.HorizontalOffset;
-				Mouse.Capture(RecentRecipeScrollViewer);
-				_velocity = 0;
+				_accumulatedOffset = 0;
+				_lastVelocity = 0;
 				_isScrolling = true;
-				_lastMoveTime = DateTime.Now;
+				_lastMouseDownTime = DateTime.Now;
+				Mouse.Capture(RecentRecipeScrollViewer);
 			}
 		}
 
@@ -43,9 +45,16 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.View
 
 				RecentRecipeScrollViewer.ScrollToHorizontalOffset(_initialHorizontalOffset - delta);
 
-				var currentTime = DateTime.Now;
-				_velocity = delta / (currentTime - _lastMoveTime).TotalSeconds;
-				_lastMoveTime = currentTime;
+				// Only update velocity and accumulated offset if within the same drag session
+				if (_isScrolling)
+				{
+					var currentTime = DateTime.Now;
+					var elapsedMilliseconds = (currentTime - _lastMouseDownTime).TotalMilliseconds;
+
+					// Calculate velocity based on distance moved and time elapsed
+					_lastVelocity = delta / elapsedMilliseconds * 1000; // Convert to pixels per second
+					_accumulatedOffset += delta;
+				}
 			}
 		}
 
@@ -55,15 +64,22 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.View
 			{
 				Mouse.Capture(null);
 				_isScrolling = false;
-				ApplyInertia();
+
+				// Apply inertia only if drag duration was less than 0.3 seconds and there's accumulated offset
+				if (_accumulatedOffset != 0 && (DateTime.Now - _lastMouseDownTime).TotalMilliseconds < 400)
+				{
+					ApplyInertia();
+				}
 			}
 		}
 
 		private void ApplyInertia()
 		{
 			double initialOffset = RecentRecipeScrollViewer.HorizontalOffset;
-			double inertiaEffect = 0.1; // Reduced multiplier for a smoother effect
-			double targetOffset = initialOffset - (_velocity * inertiaEffect);
+			double inertiaMultiplier = 0.05; // Adjust as needed for desired scroll speed
+
+			// Calculate target offset based on accumulated velocity
+			double targetOffset = initialOffset - _accumulatedOffset * inertiaMultiplier;
 
 			// Ensure targetOffset is within valid range
 			targetOffset = Math.Max(0, Math.Min(targetOffset, RecentRecipeScrollViewer.ScrollableWidth));

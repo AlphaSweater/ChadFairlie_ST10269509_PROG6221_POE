@@ -176,7 +176,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Model
 		public static List<Recipe> GetDummyRecipes()
 		{
 			var recipes = new List<Recipe>();
-			for (int i = 1; i <= 7; i++)
+			for (int i = 1; i <= 20; i++)
 			{
 				var recipe = new Recipe
 				{
@@ -196,6 +196,5 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Model
 			}
 			return recipes;
 		}
-
 	}
 }
