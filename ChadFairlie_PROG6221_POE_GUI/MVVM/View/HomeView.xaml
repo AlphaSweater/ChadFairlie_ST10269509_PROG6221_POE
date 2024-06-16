@@ -96,7 +96,8 @@
 							  PanningMode="HorizontalOnly"
 							  PreviewMouseDown="OnPreviewMouseDown"
 							  PreviewMouseMove="OnPreviewMouseMove"
-							  PreviewMouseUp="OnPreviewMouseUp">
+							  PreviewMouseUp="OnPreviewMouseUp"
+							  PreviewMouseWheel="OnPreviewMouseWheelScroll">
 
 					<Grid x:Name="ContentGrid">
 						<ItemsControl ItemsSource="{Binding Recipes}">

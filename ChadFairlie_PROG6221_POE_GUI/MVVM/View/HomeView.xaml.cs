@@ -14,6 +14,22 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.View
 		public HomeView()
 		{
 			InitializeComponent();
+			RecentRecipeScrollViewer.MouseWheel += OnPreviewMouseWheelScroll;
+		}
+
+		private void OnPreviewMouseWheelScroll(object sender, MouseWheelEventArgs e)
+		{
+			if (sender is ScrollViewer)
+			{
+				// Determine the direction and amount to scroll
+				var offsetChange = e.Delta > 0 ? -50 : 50; // Adjust the value to control scroll speed
+
+				// Adjust the horizontal offset based on the mouse wheel movement
+				RecentRecipeScrollViewer.ScrollToHorizontalOffset(RecentRecipeScrollViewer.HorizontalOffset + offsetChange);
+
+				// Prevent the event from bubbling further to avoid double handling
+				e.Handled = true;
+			}
 		}
 
 		private void OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
