@@ -77,7 +77,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 				{
 					_selectedRecipe = value;
 					OnPropertyChanged(nameof(SelectedRecipe)); // Notify UI of property change.
-					// Optionally, trigger navigation to the details view here if the architecture supports it
+															   // Optionally, trigger navigation to the details view here if the architecture supports it
 				}
 			}
 		}

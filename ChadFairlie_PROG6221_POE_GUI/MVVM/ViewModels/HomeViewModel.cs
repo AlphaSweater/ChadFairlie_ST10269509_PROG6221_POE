@@ -11,6 +11,7 @@
 //<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 
 using ChadFairlie_PROG6221_POE_GUI.Core;
+using ChadFairlie_PROG6221_POE_GUI.MVVM.Models;
 using ChadFairlie_PROG6221_POE_GUI.Services;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -36,6 +37,14 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 		{
 			_recipeService = ServiceProviderFactory.GetService<RecipeService>();
 			_recentRecipes = new ObservableCollection<DetailedRecipeViewModel>();
+
+			// Populate the RecipeService with dummy data
+			var dummyRecipes = Recipe.GetDummyRecipes();
+			foreach (var recipe in dummyRecipes)
+			{
+				_recipeService.AddRecipe(recipe);
+			}
+
 			RefreshRecentlyViewedRecipes();
 		}
 

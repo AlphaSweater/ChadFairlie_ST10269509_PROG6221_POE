@@ -37,9 +37,9 @@
 							<TextBlock Text="{Binding RecipeName}"
 									   FontWeight="Bold"
 									   Foreground="White" />
-							<TextBlock Text="{Binding LastAccessed}"
+							<TextBlock Text="{Binding TotalCalories, StringFormat='Total Calories: {0:N0}'}"
 									   Foreground="Gray" />
-							<!-- Add more bindings as needed -->
+							<!-- Additional bindings can be added here as needed, reflecting the updated ViewModel structure -->
 						</StackPanel>
 					</Border>
 				</DataTemplate>

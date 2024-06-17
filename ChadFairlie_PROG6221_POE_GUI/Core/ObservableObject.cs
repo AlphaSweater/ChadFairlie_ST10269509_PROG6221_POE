@@ -9,29 +9,29 @@
 
 //<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ChadFairlie_PROG6221_POE_GUI.Core
 {
 	//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
+	// ObservableObject implements INotifyPropertyChanged to support automatic UI updates.
 	public class ObservableObject : INotifyPropertyChanged
 	{
 		//------------------------------------------------------------------------------------------------------------------------//
+		// Event declared from INotifyPropertyChanged interface.
+		// It's triggered whenever a property value changes.
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		//------------------------------------------------------------------------------------------------------------------------//
+		// Method to call when a property value changes.
+		// It triggers the PropertyChanged event, passing the name of the property that changed.
+		// [CallerMemberName] attribute automatically captures the caller property name if not explicitly provided.
 		protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
 		{
+			// If there are any subscribers to the PropertyChanged event, invoke the event.
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
-
-		//------------------------------------------------------------------------------------------------------------------------//
 	}
 
 	//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//

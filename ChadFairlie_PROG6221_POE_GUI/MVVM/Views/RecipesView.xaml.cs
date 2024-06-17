@@ -25,7 +25,6 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Views
 		public RecipesView()
 		{
 			InitializeComponent();
-			DataContext = new RecipesViewModel();
 		}
 	}
 }

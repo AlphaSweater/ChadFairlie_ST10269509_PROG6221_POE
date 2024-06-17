@@ -86,7 +86,7 @@
 
 					<Grid x:Name="ContentGrid"
 						  Margin="10,0,10,0">
-						<ItemsControl ItemsSource="{Binding Recipes}">
+						<ItemsControl ItemsSource="{Binding RecentRecipes}">
 							<ItemsControl.ItemTemplate>
 								<DataTemplate>
 									<Border Style="{StaticResource BoxItemTheme}">
