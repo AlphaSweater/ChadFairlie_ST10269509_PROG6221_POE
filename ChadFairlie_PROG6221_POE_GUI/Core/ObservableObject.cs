@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 namespace ChadFairlie_PROG6221_POE_GUI.Core
 {
 	//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
-	internal class ObservableObject : INotifyPropertyChanged
+	public class ObservableObject : INotifyPropertyChanged
 	{
 		//------------------------------------------------------------------------------------------------------------------------//
 		public event PropertyChangedEventHandler PropertyChanged;

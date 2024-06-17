@@ -12,20 +12,27 @@ using ChadFairlie_PROG6221_POE_GUI.Core;
 
 namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 {
+	// MainViewModel serves as the central ViewModel managing navigation and state across the application.
 	internal class MainViewModel : ObservableObject
 	{
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
+		// Commands for navigating between views.
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		public RelayCommand HomeViewCommand { get; set; }
+
 		public RelayCommand RecipesViewCommand { get; set; }
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
-		// Here we are creating instances of the ViewModel classes.
+		// ViewModel instances for different parts of the application.
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		public HomeViewModel HomeVM { get; set; }
 
 		//------------------------------------------------------------------------------------------------------------------------//
 		public RecipesViewModel RecipesVM { get; set; }
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
-		// Here we are creating a property to hold the current view.
+		// CurrentView holds the ViewModel of the currently displayed view.
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		private object _currentView;
 
 		//------------------------------------------------------------------------------------------------------------------------//
@@ -36,28 +43,28 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 			set
 			{
 				_currentView = value;
-				OnPropertyChanged();
+				OnPropertyChanged(); // Notify UI of change to update the displayed view.
 			}
 		}
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
-		// Here we are creating a constructor to instantiate the ViewModel classes.
+		// Constructor initializes ViewModel instances and sets up commands for navigation.
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		public MainViewModel()
 		{
 			//------------------------------------------------------------------------------------------------------------------------//
-			// Here we are instantiating the ViewModel classes.
+			// Instantiate ViewModel classes for different views.
 			HomeVM = new HomeViewModel();
 			RecipesVM = new RecipesViewModel();
 
 			//------------------------------------------------------------------------------------------------------------------------//
-			// Here we are setting the current view to the HomeVM.
+			// Set the initial view to HomeVM.
 			CurrentView = HomeVM;
 
 			//------------------------------------------------------------------------------------------------------------------------//
-			// Here we are creating the RelayCommand objects.
+			// Initialize commands for view navigation.
 			HomeViewCommand = new RelayCommand(o => { CurrentView = HomeVM; });
 			RecipesViewCommand = new RelayCommand(o => { CurrentView = RecipesVM; });
-			//------------------------------------------------------------------------------------------------------------------------//
 		}
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//

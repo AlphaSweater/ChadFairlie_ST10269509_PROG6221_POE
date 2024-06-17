@@ -10,76 +10,78 @@
 
 //<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 
+using ChadFairlie_PROG6221_POE_GUI.Core;
 using ChadFairlie_PROG6221_POE_GUI.Services;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 {
-	public class RecipesViewModel : INotifyPropertyChanged
+	public class RecipesViewModel : ObservableObject
 	{
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		// Fields and Services
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
+		// Fields and Services section contains private fields and services used within the ViewModel.
+
 		private readonly RecipeService _recipeService;
 
-		private ObservableCollection<DetailedRecipeViewModel> _recipesViewModels;
-		private DetailedRecipeViewModel _selectedDetailedRecipeViewModel;
+		private ObservableCollection<DetailedRecipeViewModel> _recipes;
+		private DetailedRecipeViewModel _selectedRecipe;
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		// Constructor
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
+		// Constructor initializes the ViewModel, setting up services and loading all recipes.
 		public RecipesViewModel()
 		{
 			_recipeService = ServiceProviderFactory.GetService<RecipeService>();
 			var recipes = _recipeService.GetAllRecipes();
-			RecipesViewModels = new ObservableCollection<DetailedRecipeViewModel>();
+			Recipes = new ObservableCollection<DetailedRecipeViewModel>();
 
+			// Populate the Recipes collection with DetailedRecipeViewModels for each recipe.
 			for (int i = 0; i < recipes.Count; i++)
 			{
-				RecipesViewModels.Add(new DetailedRecipeViewModel(recipes[i], i));
+				Recipes.Add(new DetailedRecipeViewModel(recipes[i], i));
 			}
 		}
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		// Properties
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
-		public ObservableCollection<DetailedRecipeViewModel> RecipesViewModels
+		// Properties section exposes data to be bound in the UI.
+
+		//------------------------------------------------------------------------------------------------------------------------//
+		// Recipes property holds a collection of DetailedRecipeViewModels for the UI to display.
+		public ObservableCollection<DetailedRecipeViewModel> Recipes
 		{
-			get => _recipesViewModels;
+			get => _recipes;
 			set
 			{
-				if (_recipesViewModels != value)
+				if (_recipes != value)
 				{
-					_recipesViewModels = value;
-					OnPropertyChanged(nameof(RecipesViewModels));
+					_recipes = value;
+					OnPropertyChanged(nameof(Recipes)); // Notify UI of property change.
 				}
 			}
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
-		public DetailedRecipeViewModel SelectedDetailedRecipeViewModel
+		// SelectedRecipe property holds the currently selected recipe in the UI.
+		public DetailedRecipeViewModel SelectedRecipe
 		{
-			get => _selectedDetailedRecipeViewModel;
+			get => _selectedRecipe;
 			set
 			{
-				if (_selectedDetailedRecipeViewModel != value)
+				if (_selectedRecipe != value)
 				{
-					_selectedDetailedRecipeViewModel = value;
-					OnPropertyChanged(nameof(SelectedDetailedRecipeViewModel));
+					_selectedRecipe = value;
+					OnPropertyChanged(nameof(SelectedRecipe)); // Notify UI of property change.
 					// Optionally, trigger navigation to the details view here if the architecture supports it
 				}
 			}
 		}
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
-		// INotifyPropertyChanged Implementation
-		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
-		public event PropertyChangedEventHandler PropertyChanged;
-
-		protected virtual void OnPropertyChanged(string propertyName)
-		{
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-		}
 	}
 }
