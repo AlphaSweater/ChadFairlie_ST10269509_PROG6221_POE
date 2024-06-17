@@ -11,7 +11,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Model
+namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 {
 	// The UnitConverter class provides functionality for converting between different units of measurement.
 	public class UnitConverter

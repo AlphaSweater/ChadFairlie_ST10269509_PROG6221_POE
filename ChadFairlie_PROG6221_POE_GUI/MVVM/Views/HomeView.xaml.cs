@@ -1,10 +1,11 @@
 ﻿// Ignore Spelling: PROG MVVM
 
+using ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace ChadFairlie_PROG6221_POE_GUI.MVVM.View
+namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Views
 {
 	public partial class HomeView : UserControl
 	{
@@ -14,6 +15,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.View
 		public HomeView()
 		{
 			InitializeComponent();
+			DataContext = new HomeViewModel();
 			RecentRecipeScrollViewer.MouseWheel += OnPreviewMouseWheelScroll;
 		}
 

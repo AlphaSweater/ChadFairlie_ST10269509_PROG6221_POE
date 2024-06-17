@@ -14,7 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Model
+namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 {
 	public delegate void ExceededCaloriesDelegate(double totalCalories);
 
@@ -34,6 +34,9 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Model
 
 		// List of steps to follow to cook the recipe.
 		public List<string> Steps { get; set; }
+
+		// Date and time when the recipe was last accessed.
+		public DateTime LastAccessed { get; set; }
 
 		// Delegate event to notify when the calories exceed 300.
 		public event ExceededCaloriesDelegate OnCaloriesExceeded;
@@ -183,6 +186,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Model
 				var recipe = new Recipe
 				{
 					RecipeName = $"Recipe {i}",
+					LastAccessed = DateTime.Now.AddDays(i),
 					Ingredients = new List<Ingredient>
 			{
 				new Ingredient($"Ingredient {i}a", 1 * i, "cup", 100 * i, "Vegetable"),

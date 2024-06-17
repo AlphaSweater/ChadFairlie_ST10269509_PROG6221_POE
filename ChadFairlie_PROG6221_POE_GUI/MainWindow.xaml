@@ -15,7 +15,7 @@
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:local="clr-namespace:ChadFairlie_PROG6221_POE_GUI"
-		xmlns:viewModel="clr-namespace:ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModel"
+		xmlns:viewModels="clr-namespace:ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels"
 		mc:Ignorable="d"
 		Title="MainWindow"
 		Height="600"
@@ -27,7 +27,7 @@
 
 	<!-- Setting the DataContext for Binding -->
 	<Window.DataContext>
-		<viewModel:MainViewModel />
+		<viewModels:MainViewModel />
 	</Window.DataContext>
 
 	<!-- Main Border -->
@@ -120,15 +120,21 @@
 							 IsChecked="True"
 							 Command="{Binding HomeViewCommand}" />
 
-				<RadioButton Content="Discovery"
+				<RadioButton Content="View Recipes"
 							 Height="50"
 							 Foreground="White"
 							 FontSize="14"
 							 Style="{StaticResource MenuButtonTheme}"
 							 Cursor="Hand"
-							 Command="{Binding DiscoveryViewCommand}" />
+							 Command="{Binding RecipesViewCommand}" />
 
-				<RadioButton Content="Featured"
+				<RadioButton Content="Settings"
+							 Height="50"
+							 Foreground="White"
+							 FontSize="14"
+							 Style="{StaticResource MenuButtonTheme}"
+							 Cursor="Hand" />
+				<RadioButton Content="Exit"
 							 Height="50"
 							 Foreground="White"
 							 FontSize="14"

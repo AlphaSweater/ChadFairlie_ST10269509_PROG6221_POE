@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels;
+using ChadFairlie_PROG6221_POE_GUI.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,16 +15,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ChadFairlie_PROG6221_POE_GUI.MVVM.View
+namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Views
 {
 	/// <summary>
-	/// Interaction logic for DiscoveryView.xaml
+	/// Interaction logic for RecipesView.xaml
 	/// </summary>
-	public partial class DiscoveryView : UserControl
+	public partial class RecipesView : UserControl
 	{
-		public DiscoveryView()
+		public RecipesView()
 		{
 			InitializeComponent();
+			DataContext = new RecipesViewModel();
 		}
 	}
 }

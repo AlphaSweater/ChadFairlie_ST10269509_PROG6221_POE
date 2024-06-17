@@ -3,7 +3,7 @@
 // Group 2
 
 //------------------------------------------------------------------------------------------------------------------------//
-namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Model
+namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 {
 	// The Ingredient class represents a single ingredient used in a recipe.
 	// It includes properties for the name, quantity, original quantity, and unit of measurement of the ingredient.
