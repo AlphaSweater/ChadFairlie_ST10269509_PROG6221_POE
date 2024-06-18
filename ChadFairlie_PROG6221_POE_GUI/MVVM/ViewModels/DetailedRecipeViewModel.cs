@@ -40,6 +40,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 			_recipe = recipe ?? throw new ArgumentNullException(nameof(recipe), "Recipe cannot be null.");
 			Ingredients = new ObservableCollection<Ingredient>(_recipe.Ingredients);
 			Steps = new ObservableCollection<string>(_recipe.Steps);
+			LastAccessed = recipe.LastAccessed;
 			// Subscribe to the CollectionChanged event of Ingredients
 			Ingredients.CollectionChanged += (s, e) => OnPropertyChanged(nameof(TotalCalories));
 			// Set the background gradient based on the index
@@ -77,6 +78,10 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 		//------------------------------------------------------------------------------------------------------------------------//
 		// TotalCalories property calculates the total calories of the recipe, updates when Ingredients change.
 		public double TotalCalories => _recipe.CalculateTotalCalories();
+
+		//------------------------------------------------------------------------------------------------------------------------//
+		// LastAccessed property allows getting and setting the date and time when the recipe was last accessed.
+		public DateTime LastAccessed { get; set; }
 
 		//------------------------------------------------------------------------------------------------------------------------//
 		// BackgroundGradient property for setting the UI background based on the recipe index.

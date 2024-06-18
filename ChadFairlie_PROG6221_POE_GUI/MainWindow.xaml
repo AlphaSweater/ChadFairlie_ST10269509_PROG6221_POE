@@ -16,6 +16,7 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:local="clr-namespace:ChadFairlie_PROG6221_POE_GUI"
 		xmlns:viewModels="clr-namespace:ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels"
+		xmlns:converters="clr-namespace:ChadFairlie_PROG6221_POE_GUI.Converters"
 		mc:Ignorable="d"
 		Title="MainWindow"
 		Height="600"
@@ -23,12 +24,17 @@
 		WindowStyle="None"
 		ResizeMode="NoResize"
 		Background="Transparent"
-		AllowsTransparency="True">
+		AllowsTransparency="True"
+		WindowStartupLocation="CenterScreen">
 
 	<!-- Setting the DataContext for Binding -->
 	<Window.DataContext>
 		<viewModels:MainViewModel />
 	</Window.DataContext>
+
+	<Window.Resources>
+		<converters:RecipesViewModelToVisibilityConverter x:Key="RecipesViewModelToVisibilityConverter" />
+	</Window.Resources>
 
 	<!-- Main Border -->
 	<!-- This border provides a rounded corner look to the entire window and sets the background color. -->
@@ -44,7 +50,7 @@
 			</Grid.ColumnDefinitions>
 
 			<Grid.RowDefinitions>
-				<RowDefinition Height="75" />
+				<RowDefinition Height="55" />
 				<RowDefinition />
 			</Grid.RowDefinitions>
 
@@ -63,9 +69,9 @@
 
 					<!-- Application Title -->
 					<TextBlock Text="Recipe Manager"
-							   VerticalAlignment="Center"
+							   VerticalAlignment="Bottom"
 							   HorizontalAlignment="Left"
-							   Margin="15,0,0,0"
+							   Margin="15,20,0,10"
 							   Foreground="White"
 							   FontSize="22"
 							   FontFamily="/Fonts/#Poppins" />
@@ -139,16 +145,33 @@
 							 Foreground="White"
 							 FontSize="14"
 							 Style="{StaticResource MenuButtonTheme}"
-							 Cursor="Hand" />
+							 Cursor="Hand"
+							 Click="CloseButton_Click" />
 			</StackPanel>
 
-			<TextBox Width="250"
-					 Height="40"
-					 VerticalContentAlignment="Center"
-					 HorizontalAlignment="Left"
-					 Margin="5"
-					 Grid.Column="1"
-					 Style="{StaticResource ModernTextBox}" />
+			<!-- Search Area -->
+			<StackPanel Grid.Column="1"
+						Orientation="Horizontal"
+						VerticalAlignment="Bottom"
+						Margin="20,0,0,0"
+						Visibility="{Binding CurrentView, Converter={StaticResource RecipesViewModelToVisibilityConverter}}">
+				<TextBox Width="200"
+						 Height="40"
+						 Margin="0,0,20,0"
+						 VerticalContentAlignment="Center"
+						 HorizontalAlignment="Left"
+						 Grid.Column="1"
+						 Style="{StaticResource ModernSearchBox}"
+						 Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}" />
+
+				<Button Content="Search"
+						Width="70"
+						Height="40"
+						Style="{StaticResource CardButton}"
+						Cursor="Hand"
+						HorizontalAlignment="Left"
+						Margin="0,0,0,0" />
+			</StackPanel>
 
 			<!-- Content Area -->
 			<!-- This area displays the content of the selected view. -->

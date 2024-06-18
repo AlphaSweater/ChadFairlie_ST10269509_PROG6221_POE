@@ -1,5 +1,7 @@
 ﻿// Ignore Spelling: PROG
 
+using ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels;
+using ChadFairlie_PROG6221_POE_GUI.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;

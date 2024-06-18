@@ -34,35 +34,42 @@
 
 		<StackPanel Orientation="Horizontal"
 					Margin="10,0,10,10">
-			<Border Style="{StaticResource BoxItemTheme}"
-					Width="400"
-					Height="200">
-				<Border.Background>
-					<StaticResource ResourceKey="PrimaryGradient" />
-				</Border.Background>
+			<Button Command="{Binding NavigateToCreateRecipeCommand}"
+					Style="{StaticResource ButtonBoxItemTheme}">
+				<Button.Template>
+					<ControlTemplate TargetType="Button">
+						<Border Style="{StaticResource BoxItemTheme}"
+								Width="400"
+								Height="200">
+							<Border.Background>
+								<StaticResource ResourceKey="PrimaryGradient" />
+							</Border.Background>
 
-				<Border.Clip>
-					<RectangleGeometry RadiusX="10"
-									   RadiusY="10"
-									   Rect="0,0,400,200" />
-				</Border.Clip>
+							<Border.Clip>
+								<RectangleGeometry RadiusX="10"
+												   RadiusY="10"
+												   Rect="0,0,400,200" />
+							</Border.Clip>
 
-				<Grid>
-					<StackPanel>
-						<TextBlock Text="Create a new&#x0a;Recipe now"
-								   Foreground="White"
-								   FontSize="28"
-								   Margin="20,10,10,0" />
-					</StackPanel>
+							<Grid>
+								<StackPanel>
+									<TextBlock Text="Create a new&#x0a;Recipe now"
+											   Foreground="White"
+											   FontSize="28"
+											   Margin="20,10,10,0" />
+								</StackPanel>
 
-					<Image Width="274"
-						   Height="320"
-						   Source="/Images/recipeBook.png"
-						   HorizontalAlignment="Left"
-						   VerticalAlignment="Top"
-						   Margin="144,-37,0,0" />
-				</Grid>
-			</Border>
+								<Image Width="274"
+									   Height="320"
+									   Source="/Images/recipeBook.png"
+									   HorizontalAlignment="Left"
+									   VerticalAlignment="Top"
+									   Margin="144,-37,0,0" />
+							</Grid>
+						</Border>
+					</ControlTemplate>
+				</Button.Template>
+			</Button>
 		</StackPanel>
 
 		<StackPanel>
@@ -89,28 +96,35 @@
 						<ItemsControl ItemsSource="{Binding RecentRecipes}">
 							<ItemsControl.ItemTemplate>
 								<DataTemplate>
-									<Border Style="{StaticResource BoxItemTheme}">
-										<Border.Background>
-											<Binding Path="BackgroundGradient"
-													 Converter="{StaticResource ResourceKeyConverter}" />
-										</Border.Background>
-										<StackPanel>
-											<TextBlock Text="{Binding RecipeName}"
-													   FontWeight="Bold"
-													   Foreground="White"
-													   Margin="5"
-													   FontSize="16" />
-											<TextBlock Text="{Binding Ingredients.Count, StringFormat='Ingredients: {0}'}"
-													   Foreground="White"
-													   Margin="5" />
-											<TextBlock Text="{Binding Steps.Count, StringFormat='Steps: {0}'}"
-													   Foreground="White"
-													   Margin="5" />
-											<TextBlock Text="{Binding TotalCalories, StringFormat='Total Calories: {0} kcal'}"
-													   Foreground="White"
-													   Margin="5" />
-										</StackPanel>
-									</Border>
+									<Button Command="{Binding NavigateToCreateRecipeCommand}"
+											Style="{StaticResource ButtonBoxItemTheme}">
+										<Button.Template>
+											<ControlTemplate TargetType="Button">
+												<Border Style="{StaticResource BoxItemTheme}">
+													<Border.Background>
+														<Binding Path="BackgroundGradient"
+																 Converter="{StaticResource ResourceKeyConverter}" />
+													</Border.Background>
+													<StackPanel>
+														<TextBlock Text="{Binding RecipeName}"
+																   FontWeight="Bold"
+																   Foreground="White"
+																   Margin="5"
+																   FontSize="16" />
+														<TextBlock Text="{Binding Ingredients.Count, StringFormat='Ingredients: {0}'}"
+																   Foreground="White"
+																   Margin="5" />
+														<TextBlock Text="{Binding Steps.Count, StringFormat='Steps: {0}'}"
+																   Foreground="White"
+																   Margin="5" />
+														<TextBlock Text="{Binding TotalCalories, StringFormat='Total Calories: {0} kcal'}"
+																   Foreground="White"
+																   Margin="5" />
+													</StackPanel>
+												</Border>
+											</ControlTemplate>
+										</Button.Template>
+									</Button>
 								</DataTemplate>
 							</ItemsControl.ItemTemplate>
 							<ItemsControl.ItemsPanel>

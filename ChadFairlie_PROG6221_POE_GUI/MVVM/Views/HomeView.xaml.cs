@@ -15,7 +15,6 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Views
 		public HomeView()
 		{
 			InitializeComponent();
-			//DataContext = new HomeViewModel();
 			RecentRecipeScrollViewer.MouseWheel += OnPreviewMouseWheelScroll;
 		}
 

@@ -189,8 +189,8 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 					LastAccessed = DateTime.Now.AddDays(i),
 					Ingredients = new List<Ingredient>
 			{
-				new Ingredient($"Ingredient {i}a", 1 * i, "cup", 100 * i, "Vegetable"),
-				new Ingredient($"Ingredient {i}b", 2 * i, "tablespoon", 50 * i, "Fruit")
+				new Ingredient($"Ingredient {i}a", 1 * i, "cup", 100 , "Vegetable"),
+				new Ingredient($"Ingredient {i}b", 2 * i, "tablespoon", 50, "Fruit")
 			},
 					Steps = new List<string>
 			{

@@ -70,8 +70,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\RecipesViewModelToVisibilityConverter.cs" />
     <Compile Include="MVVM\ViewModels\DetailedRecipeViewModel.cs" />
     <Compile Include="MVVM\ViewModels\RecipesViewModel.cs" />
+    <Compile Include="MVVM\Views\Testing.xaml.cs">
+      <DependentUpon>Testing.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\RecipeService.cs" />
     <Compile Include="Services\ServiceProviderFactory.cs" />
     <Page Include="MainWindow.xaml">
@@ -96,6 +100,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVVM\Views\Testing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\BoxItemTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -104,7 +112,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\TextBoxTheme.xaml">
+    <Page Include="Themes\RecipeCardTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\SearchBoxTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

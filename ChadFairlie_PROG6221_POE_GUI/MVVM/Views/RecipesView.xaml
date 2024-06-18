@@ -18,32 +18,68 @@
 			 xmlns:converters="clr-namespace:ChadFairlie_PROG6221_POE_GUI.Converters"
 			 mc:Ignorable="d"
 			 d:DesignHeight="490"
-			 d:DesignWidth="800"
-			 Background="#1B1B1B">
+			 d:DesignWidth="800">
 
 	<UserControl.Resources>
 		<converters:ResourceKeyConverter x:Key="ResourceKeyConverter" />
 	</UserControl.Resources>
 
-	<Grid>
-		<ListView ItemsSource="{Binding Recipes}"
-				  SelectedItem="{Binding SelectedRecipe}">
-			<ListView.ItemTemplate>
+	<!-- Recipes List -->
+	<ScrollViewer Grid.Row="1"
+				  VerticalScrollBarVisibility="Auto">
+		<ItemsControl ItemsSource="{Binding Recipes}">
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<WrapPanel />
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+			<ItemsControl.ItemTemplate>
 				<DataTemplate>
-					<Border Style="{StaticResource BoxItemTheme}"
-							Background="{Binding BackgroundGradient, Converter={StaticResource ResourceKeyConverter}}">
-						<StackPanel Orientation="Vertical"
-									Margin="10">
+					<Border Background="{Binding BackgroundGradient, Converter={StaticResource ResourceKeyConverter}}"
+							Style="{StaticResource RecipeCardTheme}">
+						<Grid Margin="10">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="*" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+
 							<TextBlock Text="{Binding RecipeName}"
-									   FontWeight="Bold"
-									   Foreground="White" />
-							<TextBlock Text="{Binding TotalCalories, StringFormat='Total Calories: {0:N0}'}"
-									   Foreground="Gray" />
-							<!-- Additional bindings can be added here as needed, reflecting the updated ViewModel structure -->
-						</StackPanel>
+									   Style="{StaticResource CardTitleText}"
+									   Grid.Row="0"
+									   Margin="0,0,0,5" />
+							<Separator Grid.Row="1"
+									   Margin="0,5"
+									   Background="White" />
+							<TextBlock Text="{Binding Ingredients.Count, StringFormat='Ingredients: {0}'}"
+									   Style="{StaticResource CardContentText}"
+									   Grid.Row="2" />
+							<TextBlock Text="{Binding Steps.Count, StringFormat='Steps: {0}'}"
+									   Style="{StaticResource CardContentText}"
+									   Grid.Row="3" />
+							<TextBlock Text="{Binding TotalCalories, StringFormat='Calories: {0:F0} kcal'}"
+									   Style="{StaticResource CardContentText}"
+									   Grid.Row="4" />
+							<TextBlock Text="{Binding LastAccessed, StringFormat='Last Viewed:&#x0a;{0:dd MMMM, yyyy}'}"
+									   Style="{StaticResource CardContentText}"
+									   Grid.Row="5" />
+							<Separator Grid.Row="6"
+									   Margin="0,5"
+									   Background="White" />
+							<Button Content="View Details"
+									Style="{StaticResource CardButton}"
+									Grid.Row="7"
+									Command="{Binding DataContext.ViewDetailsCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+									CommandParameter="{Binding}" />
+						</Grid>
 					</Border>
 				</DataTemplate>
-			</ListView.ItemTemplate>
-		</ListView>
-	</Grid>
+			</ItemsControl.ItemTemplate>
+		</ItemsControl>
+	</ScrollViewer>
 </UserControl>

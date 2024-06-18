@@ -12,8 +12,9 @@
 			<ResourceDictionary.MergedDictionaries>
 				<!-- Theme Dictionaries -->
 				<ResourceDictionary Source="Themes/MenuButtonTheme.xaml" />
-				<ResourceDictionary Source="Themes/TextBoxTheme.xaml" />
+				<ResourceDictionary Source="Themes/SearchBoxTheme.xaml" />
 				<ResourceDictionary Source="Themes/BoxItemTheme.xaml" />
+				<ResourceDictionary Source="Themes/RecipeCardTheme.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 
 			<!--<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>-->
@@ -98,9 +99,9 @@
 			<LinearGradientBrush x:Key="TertiaryColorGradient2"
 								 StartPoint="0,0"
 								 EndPoint="1,2">
-				<GradientStop Color="#ffbf00"
+				<GradientStop Color="#ff6f61"
 							  Offset="0.0" />
-				<GradientStop Color="#ffaa00"
+				<GradientStop Color="#ff453a"
 							  Offset="1.0" />
 			</LinearGradientBrush>
 
@@ -116,9 +117,9 @@
 			<LinearGradientBrush x:Key="TertiaryColorGradient4"
 								 StartPoint="0,0"
 								 EndPoint="1,2">
-				<GradientStop Color="#4eff91"
+				<GradientStop Color="#3a7a61"
 							  Offset="0.0" />
-				<GradientStop Color="#3cdc7e"
+				<GradientStop Color="#2b5f4f"
 							  Offset="1.0" />
 			</LinearGradientBrush>
 
