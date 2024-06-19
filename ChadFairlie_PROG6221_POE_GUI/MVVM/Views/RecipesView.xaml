@@ -67,9 +67,13 @@
 							<TextBlock Text="{Binding TotalCalories, StringFormat='Calories: {0:F0} kcal'}"
 									   Style="{StaticResource CardContentText}"
 									   Grid.Row="4" />
-							<TextBlock Text="{Binding LastAccessed, StringFormat='Last Viewed:&#x0a;{0:dd MMMM, yyyy}'}"
-									   Style="{StaticResource CardContentText}"
-									   Grid.Row="5" />
+							<StackPanel Grid.Row="5">
+								<TextBlock Text="Last Viewed:"
+										   Style="{StaticResource CardContentText}" />
+								<TextBlock Text="{Binding LastAccessed, StringFormat='   • {0:dd MMMM yyyy}'}"
+										   Style="{StaticResource CardContentText}" />
+							</StackPanel>
+
 							<Separator Grid.Row="6"
 									   Margin="0,5"
 									   Background="White" />
