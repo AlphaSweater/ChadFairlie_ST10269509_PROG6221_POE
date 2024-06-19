@@ -21,8 +21,10 @@
 		Title="MainWindow"
 		Height="800"
 		Width="1150"
+		MinHeight="800"
+		MinWidth="1100"
 		WindowStyle="None"
-		ResizeMode="NoResize"
+		ResizeMode="CanResizeWithGrip"
 		Background="Transparent"
 		AllowsTransparency="True"
 		WindowStartupLocation="CenterScreen">

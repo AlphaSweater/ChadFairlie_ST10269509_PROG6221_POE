@@ -28,6 +28,7 @@
 
 	<Grid>
 		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
 			<RowDefinition Height="Auto" />
@@ -36,7 +37,7 @@
 
 		<StackPanel Orientation="Horizontal"
 					Margin="10,0,10,10"
-					Grid.Row="0">
+					Grid.Row="1">
 			<Button Command="{Binding NavigateToCreateRecipeCommand}"
 					Style="{StaticResource ButtonBoxItemTheme}">
 				<Button.Template>
@@ -75,7 +76,7 @@
 			</Button>
 		</StackPanel>
 
-		<StackPanel Grid.Row="2">
+		<StackPanel Grid.Row="3">
 			<TextBlock Text="Recently Viewed"
 					   Foreground="White"
 					   FontSize="20"
