@@ -64,4 +64,24 @@ namespace ChadFairlie_PROG6221_POE_GUI.DesignData
 			}
 		}
 	}
+
+	//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
+	// DetailedRecipeViewModel Design Time Data
+	//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
+	// This class provides design-time data for the RecipesViewModel.
+	public class DesignTimeDetailedRecipeViewModel
+	{
+		public DetailedRecipeViewModel ViewModel { get; }
+		//------------------------------------------------------------------------------------------------------------------------//
+		// Constructor initializes the ViewModel with dummy data.
+		public DesignTimeDetailedRecipeViewModel()
+		{
+			// Assuming Recipe.GetDummyRecipes() returns a list of dummy recipes for design-time purposes
+			var dummyRecipes = Recipe.GetDummyRecipes();
+			int index = 0; // Use the first recipe as an example
+
+			Recipe recipe = dummyRecipes[index];
+			ViewModel = new DetailedRecipeViewModel(recipe, index);
+		}
+	}
 }

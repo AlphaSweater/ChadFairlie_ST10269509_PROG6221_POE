@@ -26,6 +26,9 @@
 			<DataTemplate DataType="{x:Type viewModels:RecipesViewModel}">
 				<views:RecipesView />
 			</DataTemplate>
+			<DataTemplate DataType="{x:Type viewModels:DetailedRecipeViewModel}">
+				<views:DetailedRecipeView />
+			</DataTemplate>
 
 			<!--<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>-->
 			<!-- Solid Color Definitions -->

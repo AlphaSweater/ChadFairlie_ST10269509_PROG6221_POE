@@ -17,14 +17,14 @@ namespace ChadFairlie_PROG6221_POE_GUI.Core
 	//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 	// RelayCommand is used to handle commands in the MVVM pattern.
 	// It allows for binding UI actions to methods in the ViewModels.
-	internal class RelayCommand : ICommand
+	internal class RelayCommand<T> : ICommand
 	{
 		//------------------------------------------------------------------------------------------------------------------------//
 		// Action to execute when the command is invoked.
-		private readonly Action<object> _execute;
+		private readonly Action<T> _execute;
 
 		// Function that determines whether the command can execute in its current state.
-		private readonly Func<object, bool> _canExecute;
+		private readonly Func<T, bool> _canExecute;
 
 		//------------------------------------------------------------------------------------------------------------------------//
 		// Event that is triggered when changes occur that affect whether the command should execute.
@@ -36,7 +36,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.Core
 
 		//------------------------------------------------------------------------------------------------------------------------//
 		// Constructor initializes the command with the execute action and optionally a canExecute function.
-		public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
+		public RelayCommand(Action<T> execute, Func<T, bool> canExecute = null)
 		{
 			_execute = execute ?? throw new ArgumentNullException(nameof(execute));
 			_canExecute = canExecute;
@@ -44,11 +44,11 @@ namespace ChadFairlie_PROG6221_POE_GUI.Core
 
 		//------------------------------------------------------------------------------------------------------------------------//
 		// Determines whether the command can execute in its current state.
-		public bool CanExecute(object parameter) => _canExecute == null || _canExecute(parameter);
+		public bool CanExecute(object parameter) => _canExecute == null || _canExecute((T)parameter);
 
 		//------------------------------------------------------------------------------------------------------------------------//
 		// Executes the RelayCommand's action.
-		public void Execute(object parameter) => _execute(parameter);
+		public void Execute(object parameter) => _execute((T)parameter);
 	}
 
 	//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//

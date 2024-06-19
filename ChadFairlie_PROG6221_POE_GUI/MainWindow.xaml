@@ -22,7 +22,7 @@
 		Height="800"
 		Width="1150"
 		MinHeight="800"
-		MinWidth="1100"
+		MinWidth="1110"
 		WindowStyle="None"
 		ResizeMode="CanResizeWithGrip"
 		Background="Transparent"

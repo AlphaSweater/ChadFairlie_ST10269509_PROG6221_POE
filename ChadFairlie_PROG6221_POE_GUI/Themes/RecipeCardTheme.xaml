@@ -18,7 +18,7 @@
 		<Setter Property="CornerRadius"
 				Value="15" />
 		<Setter Property="Margin"
-				Value="10" />
+				Value="5,5,10,10" />
 		<Setter Property="BorderBrush"
 				Value="#3B3A5A" />
 		<Setter Property="BorderThickness"

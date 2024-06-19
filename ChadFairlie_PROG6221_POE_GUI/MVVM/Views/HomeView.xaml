@@ -20,7 +20,7 @@
 			 d:DataContext="{d:DesignInstance designData:DesignTimeHomeViewModel, IsDesignTimeCreatable=True}"
 			 mc:Ignorable="d"
 			 d:DesignHeight="725"
-			 d:DesignWidth="900">
+			 d:DesignWidth="930">
 
 	<UserControl.Resources>
 		<converters:ResourceKeyConverter x:Key="ResourceKeyConverter" />
@@ -76,88 +76,72 @@
 			</Button>
 		</StackPanel>
 
-		<StackPanel Grid.Row="3">
+		<StackPanel Grid.Row="3"
+					Margin="10,0">
 			<TextBlock Text="Recently Viewed"
 					   Foreground="White"
 					   FontSize="20"
 					   FontFamily="/Fonts/#Poppins"
 					   HorizontalAlignment="Left"
-					   Margin="10,0,0,10" />
+					   Margin="5,0,0,10" />
+			<ItemsControl ItemsSource="{Binding RecentRecipes}">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<StackPanel Orientation="Horizontal" />
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
 
-			<!-- Dynamic List for Recipes -->
-			<Grid>
-				<ScrollViewer x:Name="RecentRecipeScrollViewer"
-							  HorizontalScrollBarVisibility="Hidden"
-							  VerticalScrollBarVisibility="Disabled"
-							  PanningMode="HorizontalOnly"
-							  PreviewMouseDown="OnPreviewMouseDown"
-							  PreviewMouseMove="OnPreviewMouseMove"
-							  PreviewMouseUp="OnPreviewMouseUp"
-							  PreviewMouseWheel="OnPreviewMouseWheelScroll">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Border Style="{StaticResource RecipeCardTheme}"
+								Background="{Binding BackgroundGradient, Converter={StaticResource ResourceKeyConverter}}">
+							<Grid Margin="10">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="*" />
+									<RowDefinition Height="Auto" />
+								</Grid.RowDefinitions>
 
-					<Grid x:Name="ContentGrid"
-						  Margin="10,0,10,0">
-						<ItemsControl ItemsSource="{Binding RecentRecipes}">
-							<ItemsControl.ItemTemplate>
-								<DataTemplate>
-									<Border Style="{StaticResource RecipeCardTheme}"
-											Background="{Binding BackgroundGradient, Converter={StaticResource ResourceKeyConverter}}"
-											Margin="0,0,15,0">
-										<Grid Margin="10">
-											<Grid.RowDefinitions>
-												<RowDefinition Height="Auto" />
-												<RowDefinition Height="Auto" />
-												<RowDefinition Height="Auto" />
-												<RowDefinition Height="Auto" />
-												<RowDefinition Height="Auto" />
-												<RowDefinition Height="Auto" />
-												<RowDefinition Height="*" />
-												<RowDefinition Height="Auto" />
-											</Grid.RowDefinitions>
-
-											<TextBlock Text="{Binding RecipeName}"
-													   Style="{StaticResource CardTitleText}"
-													   Grid.Row="0"
-													   Margin="0,0,0,5" />
-											<Separator Grid.Row="1"
-													   Margin="0,5"
-													   Background="White" />
-											<TextBlock Text="{Binding Ingredients.Count, StringFormat='Ingredients: {0}'}"
-													   Style="{StaticResource CardContentText}"
-													   Grid.Row="2" />
-											<TextBlock Text="{Binding Steps.Count, StringFormat='Steps: {0}'}"
-													   Style="{StaticResource CardContentText}"
-													   Grid.Row="3" />
-											<TextBlock Text="{Binding TotalCalories, StringFormat='Calories: {0:F0} kcal'}"
-													   Style="{StaticResource CardContentText}"
-													   Grid.Row="4" />
-											<StackPanel Grid.Row="5">
-												<TextBlock Text="Last Viewed:"
-														   Style="{StaticResource CardContentText}" />
-												<TextBlock Text="{Binding LastAccessed, StringFormat='   • {0:dd MMMM yyyy}'}"
-														   Style="{StaticResource CardContentText}" />
-											</StackPanel>
-											<Separator Grid.Row="6"
-													   Margin="0,5"
-													   Background="White" />
-											<Button Content="View Details"
-													Style="{StaticResource CardButton}"
-													Grid.Row="7"
-													Command="{Binding DataContext.ViewDetailsCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-													CommandParameter="{Binding}" />
-										</Grid>
-									</Border>
-								</DataTemplate>
-							</ItemsControl.ItemTemplate>
-							<ItemsControl.ItemsPanel>
-								<ItemsPanelTemplate>
-									<StackPanel Orientation="Horizontal" />
-								</ItemsPanelTemplate>
-							</ItemsControl.ItemsPanel>
-						</ItemsControl>
-					</Grid>
-				</ScrollViewer>
-			</Grid>
+								<TextBlock Text="{Binding RecipeName}"
+										   Style="{StaticResource CardTitleText}"
+										   Grid.Row="0"
+										   Margin="0,0,0,5" />
+								<Separator Grid.Row="1"
+										   Margin="0,5"
+										   Background="White" />
+								<TextBlock Text="{Binding Ingredients.Count, StringFormat='Ingredients: {0}'}"
+										   Style="{StaticResource CardContentText}"
+										   Grid.Row="2" />
+								<TextBlock Text="{Binding Steps.Count, StringFormat='Steps: {0}'}"
+										   Style="{StaticResource CardContentText}"
+										   Grid.Row="3" />
+								<TextBlock Text="{Binding TotalCalories, StringFormat='Calories: {0:F0} kcal'}"
+										   Style="{StaticResource CardContentText}"
+										   Grid.Row="4" />
+								<StackPanel Grid.Row="5">
+									<TextBlock Text="Last Viewed:"
+											   Style="{StaticResource CardContentText}" />
+									<TextBlock Text="{Binding LastAccessed, StringFormat='   • {0:dd MMMM yyyy}'}"
+											   Style="{StaticResource CardContentText}" />
+								</StackPanel>
+								<Separator Grid.Row="6"
+										   Margin="0,5"
+										   Background="White" />
+								<Button Content="View Details"
+										Style="{StaticResource CardButton}"
+										Grid.Row="7"
+										Command="{Binding DataContext.DetailedRecipeViewCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+										CommandParameter="{Binding}" />
+							</Grid>
+						</Border>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
 		</StackPanel>
 	</Grid>
 </UserControl>

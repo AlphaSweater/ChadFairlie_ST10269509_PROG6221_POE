@@ -18,9 +18,11 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		// Commands for navigating between views.
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
-		public RelayCommand HomeViewCommand { get; set; }
+		public RelayCommand<object> HomeViewCommand { get; set; }
 
-		public RelayCommand RecipesViewCommand { get; set; }
+		public RelayCommand<object> RecipesViewCommand { get; set; }
+
+		public RelayCommand<DetailedRecipeViewModel> DetailedRecipeViewCommand { get; private set; }
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		// ViewModel instances for different parts of the application.
@@ -63,8 +65,11 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 
 			//------------------------------------------------------------------------------------------------------------------------//
 			// Initialize commands for view navigation.
-			HomeViewCommand = new RelayCommand(o => { CurrentView = HomeVM; });
-			RecipesViewCommand = new RelayCommand(o => { CurrentView = RecipesVM; });
+			HomeViewCommand = new RelayCommand<object>(o => CurrentView = HomeVM);
+
+			RecipesViewCommand = new RelayCommand<object>(o => CurrentView = RecipesVM);
+
+			DetailedRecipeViewCommand = new RelayCommand<DetailedRecipeViewModel>(detailedRecipeVM => CurrentView = detailedRecipeVM);
 		}
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//

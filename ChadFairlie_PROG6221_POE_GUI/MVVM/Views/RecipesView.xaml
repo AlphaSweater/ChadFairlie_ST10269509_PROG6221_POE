@@ -19,8 +19,8 @@
 			 xmlns:designData="clr-namespace:ChadFairlie_PROG6221_POE_GUI.DesignData"
 			 d:DataContext="{d:DesignInstance designData:DesignTimeRecipesViewModel, IsDesignTimeCreatable=True}"
 			 mc:Ignorable="d"
-			 d:DesignHeight="490"
-			 d:DesignWidth="800">
+			 d:DesignHeight="725"
+			 d:DesignWidth="930">
 
 	<UserControl.Resources>
 		<converters:ResourceKeyConverter x:Key="ResourceKeyConverter" />
@@ -29,12 +29,14 @@
 	<!-- Recipes List -->
 	<ScrollViewer Grid.Row="1"
 				  VerticalScrollBarVisibility="Auto">
-		<ItemsControl ItemsSource="{Binding Recipes}">
+		<ItemsControl ItemsSource="{Binding Recipes}"
+					  Margin="10,0,10,0">
 			<ItemsControl.ItemsPanel>
 				<ItemsPanelTemplate>
 					<WrapPanel />
 				</ItemsPanelTemplate>
 			</ItemsControl.ItemsPanel>
+
 			<ItemsControl.ItemTemplate>
 				<DataTemplate>
 					<Border Background="{Binding BackgroundGradient, Converter={StaticResource ResourceKeyConverter}}"
@@ -80,7 +82,7 @@
 							<Button Content="View Details"
 									Style="{StaticResource CardButton}"
 									Grid.Row="7"
-									Command="{Binding DataContext.ViewDetailsCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+									Command="{Binding DataContext.DetailedRecipeViewCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
 									CommandParameter="{Binding}" />
 						</Grid>
 					</Border>

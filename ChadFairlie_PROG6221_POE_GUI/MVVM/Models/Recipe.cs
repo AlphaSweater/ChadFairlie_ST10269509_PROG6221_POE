@@ -207,7 +207,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 				for (int j = 1; j <= ingredientCount; j++)
 				{
 					string ingredientName = ingredientNames[random.Next(ingredientNames.Length)];
-					double quantity = Math.Round(random.NextDouble() * 10 + 1, 2); // Random quantity between 1 and 10
+					double quantity = random.Next(1, 11); // Random quantity between 1 and 10
 					string unit = units[random.Next(units.Length)];
 					double calories = Math.Round(random.NextDouble() * 50 + 10, 2); // Random calories between 10 and 60
 					string foodGroup = foodGroups[random.Next(foodGroups.Length)];

@@ -74,6 +74,9 @@
     <Compile Include="DesignData\DesignTimeData.cs" />
     <Compile Include="MVVM\ViewModels\DetailedRecipeViewModel.cs" />
     <Compile Include="MVVM\ViewModels\RecipesViewModel.cs" />
+    <Compile Include="MVVM\Views\DetailedRecipeView.xaml.cs">
+      <DependentUpon>DetailedRecipeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\Views\Testing.xaml.cs">
       <DependentUpon>Testing.xaml</DependentUpon>
     </Compile>
@@ -93,6 +96,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MVVM\Views\DetailedRecipeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\Views\RecipesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

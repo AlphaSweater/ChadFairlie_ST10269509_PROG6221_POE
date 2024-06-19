@@ -65,6 +65,7 @@ namespace ChadFairlie_PROG6221_POE
 		// BeginHere method starts the application and displays the main menu.
 		private void BeginHere()
 		{
+			recipes = Recipe.GetDummyRecipes();
 			while (true)
 			{
 				// Display the start menu.
