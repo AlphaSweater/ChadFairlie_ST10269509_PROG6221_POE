@@ -15,6 +15,7 @@
 				<ResourceDictionary Source="Themes/SearchBoxTheme.xaml" />
 				<ResourceDictionary Source="Themes/BoxItemTheme.xaml" />
 				<ResourceDictionary Source="Themes/RecipeCardTheme.xaml" />
+				<ResourceDictionary Source="Themes/ScrollBarTheme.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 
 			<!--<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>-->
