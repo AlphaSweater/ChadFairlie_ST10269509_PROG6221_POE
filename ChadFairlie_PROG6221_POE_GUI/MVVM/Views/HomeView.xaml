@@ -16,24 +16,27 @@
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:local="clr-namespace:ChadFairlie_PROG6221_POE_GUI.MVVM.Views"
 			 xmlns:converters="clr-namespace:ChadFairlie_PROG6221_POE_GUI.Converters"
+			 xmlns:designData="clr-namespace:ChadFairlie_PROG6221_POE_GUI.DesignData"
+			 d:DataContext="{d:DesignInstance designData:DesignTimeHomeViewModel, IsDesignTimeCreatable=True}"
 			 mc:Ignorable="d"
-			 d:DesignHeight="490"
-			 d:DesignWidth="800">
+			 d:DesignHeight="725"
+			 d:DesignWidth="900">
 
 	<UserControl.Resources>
 		<converters:ResourceKeyConverter x:Key="ResourceKeyConverter" />
 	</UserControl.Resources>
 
-	<StackPanel>
-		<TextBlock Text="Welcome"
-				   Foreground="White"
-				   FontSize="28"
-				   FontFamily="/Fonts/#Poppins"
-				   HorizontalAlignment="Left"
-				   Margin="10,0,0,20" />
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
 
 		<StackPanel Orientation="Horizontal"
-					Margin="10,0,10,10">
+					Margin="10,0,10,10"
+					Grid.Row="0">
 			<Button Command="{Binding NavigateToCreateRecipeCommand}"
 					Style="{StaticResource ButtonBoxItemTheme}">
 				<Button.Template>
@@ -72,7 +75,7 @@
 			</Button>
 		</StackPanel>
 
-		<StackPanel>
+		<StackPanel Grid.Row="2">
 			<TextBlock Text="Recently Viewed"
 					   Foreground="White"
 					   FontSize="20"
@@ -80,8 +83,8 @@
 					   HorizontalAlignment="Left"
 					   Margin="10,0,0,10" />
 
-			<!-- Dynamic Carousel for Recipes -->
-			<Grid Height="170">
+			<!-- Dynamic List for Recipes -->
+			<Grid>
 				<ScrollViewer x:Name="RecentRecipeScrollViewer"
 							  HorizontalScrollBarVisibility="Hidden"
 							  VerticalScrollBarVisibility="Disabled"
@@ -96,35 +99,50 @@
 						<ItemsControl ItemsSource="{Binding RecentRecipes}">
 							<ItemsControl.ItemTemplate>
 								<DataTemplate>
-									<Button Command="{Binding NavigateToCreateRecipeCommand}"
-											Style="{StaticResource ButtonBoxItemTheme}">
-										<Button.Template>
-											<ControlTemplate TargetType="Button">
-												<Border Style="{StaticResource BoxItemTheme}">
-													<Border.Background>
-														<Binding Path="BackgroundGradient"
-																 Converter="{StaticResource ResourceKeyConverter}" />
-													</Border.Background>
-													<StackPanel>
-														<TextBlock Text="{Binding RecipeName}"
-																   FontWeight="Bold"
-																   Foreground="White"
-																   Margin="5"
-																   FontSize="16" />
-														<TextBlock Text="{Binding Ingredients.Count, StringFormat='Ingredients: {0}'}"
-																   Foreground="White"
-																   Margin="5" />
-														<TextBlock Text="{Binding Steps.Count, StringFormat='Steps: {0}'}"
-																   Foreground="White"
-																   Margin="5" />
-														<TextBlock Text="{Binding TotalCalories, StringFormat='Total Calories: {0} kcal'}"
-																   Foreground="White"
-																   Margin="5" />
-													</StackPanel>
-												</Border>
-											</ControlTemplate>
-										</Button.Template>
-									</Button>
+									<Border Style="{StaticResource RecipeCardTheme}"
+											Background="{Binding BackgroundGradient, Converter={StaticResource ResourceKeyConverter}}"
+											Margin="0,0,15,0">
+										<Grid Margin="10">
+											<Grid.RowDefinitions>
+												<RowDefinition Height="Auto" />
+												<RowDefinition Height="Auto" />
+												<RowDefinition Height="Auto" />
+												<RowDefinition Height="Auto" />
+												<RowDefinition Height="Auto" />
+												<RowDefinition Height="Auto" />
+												<RowDefinition Height="*" />
+												<RowDefinition Height="Auto" />
+											</Grid.RowDefinitions>
+
+											<TextBlock Text="{Binding RecipeName}"
+													   Style="{StaticResource CardTitleText}"
+													   Grid.Row="0"
+													   Margin="0,0,0,5" />
+											<Separator Grid.Row="1"
+													   Margin="0,5"
+													   Background="White" />
+											<TextBlock Text="{Binding Ingredients.Count, StringFormat='Ingredients: {0}'}"
+													   Style="{StaticResource CardContentText}"
+													   Grid.Row="2" />
+											<TextBlock Text="{Binding Steps.Count, StringFormat='Steps: {0}'}"
+													   Style="{StaticResource CardContentText}"
+													   Grid.Row="3" />
+											<TextBlock Text="{Binding TotalCalories, StringFormat='Calories: {0:F0} kcal'}"
+													   Style="{StaticResource CardContentText}"
+													   Grid.Row="4" />
+											<TextBlock Text="{Binding LastAccessed, StringFormat='Last Viewed: {0:dd/MMMM/yyyy}'}"
+													   Style="{StaticResource CardContentText}"
+													   Grid.Row="5" />
+											<Separator Grid.Row="6"
+													   Margin="0,5"
+													   Background="White" />
+											<Button Content="View Details"
+													Style="{StaticResource CardButton}"
+													Grid.Row="7"
+													Command="{Binding DataContext.ViewDetailsCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+													CommandParameter="{Binding}" />
+										</Grid>
+									</Border>
 								</DataTemplate>
 							</ItemsControl.ItemTemplate>
 							<ItemsControl.ItemsPanel>
@@ -137,5 +155,5 @@
 				</ScrollViewer>
 			</Grid>
 		</StackPanel>
-	</StackPanel>
+	</Grid>
 </UserControl>

@@ -12,7 +12,7 @@
 	<Style x:Key="RecipeCardTheme"
 		   TargetType="Border">
 		<Setter Property="Width"
-				Value="200" />
+				Value="205" />
 		<Setter Property="Height"
 				Value="250" />
 		<Setter Property="CornerRadius"
@@ -23,10 +23,6 @@
 				Value="#3B3A5A" />
 		<Setter Property="BorderThickness"
 				Value="1" />
-		<Setter Property="Cursor"
-				Value="Hand" />
-		<Setter Property="Effect"
-				Value="{StaticResource CardShadow}" />
 	</Style>
 
 	<!-- Define styles for text and buttons to ensure consistency -->
@@ -70,6 +66,8 @@
 				Value="Center" />
 		<Setter Property="Margin"
 				Value="0" />
+		<Setter Property="Cursor"
+				Value="Hand" />
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="Button">

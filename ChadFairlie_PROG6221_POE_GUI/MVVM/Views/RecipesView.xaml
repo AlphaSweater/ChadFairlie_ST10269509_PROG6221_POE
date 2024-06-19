@@ -16,6 +16,8 @@
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:local="clr-namespace:ChadFairlie_PROG6221_POE_GUI.MVVM.Views"
 			 xmlns:converters="clr-namespace:ChadFairlie_PROG6221_POE_GUI.Converters"
+			 xmlns:designData="clr-namespace:ChadFairlie_PROG6221_POE_GUI.DesignData"
+			 d:DataContext="{d:DesignInstance designData:DesignTimeRecipesViewModel, IsDesignTimeCreatable=True}"
 			 mc:Ignorable="d"
 			 d:DesignHeight="490"
 			 d:DesignWidth="800">

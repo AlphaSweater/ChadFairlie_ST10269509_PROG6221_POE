@@ -71,6 +71,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\RecipesViewModelToVisibilityConverter.cs" />
+    <Compile Include="DesignData\DesignTimeData.cs" />
     <Compile Include="MVVM\ViewModels\DetailedRecipeViewModel.cs" />
     <Compile Include="MVVM\ViewModels\RecipesViewModel.cs" />
     <Compile Include="MVVM\Views\Testing.xaml.cs">
