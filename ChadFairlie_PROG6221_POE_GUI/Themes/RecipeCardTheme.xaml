@@ -52,10 +52,6 @@
 
 	<Style x:Key="CardButton"
 		   TargetType="Button">
-		<Setter Property="Width"
-				Value="140" />
-		<Setter Property="Height"
-				Value="40" />
 		<Setter Property="Background"
 				Value="#4C4B6A" />
 		<Setter Property="Foreground"

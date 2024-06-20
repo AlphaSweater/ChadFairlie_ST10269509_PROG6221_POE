@@ -10,6 +10,7 @@
 //------------------------------------------------------------------------------------------------------------------------//
 // Ignore Spelling: MVVM PROG
 
+using ChadFairlie_PROG6221_POE_GUI.Core;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,14 +21,14 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 
 	// The Recipe class represents a cooking recipe.
 	// It includes properties for the recipe name, current scale, list of ingredients, and list of cooking steps.
-	public class Recipe
+	public class Recipe : ObservableObject
 	{
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		// Name of the recipe.
 		public string RecipeName { get; set; }
 
 		// Current scale of the recipe. This is used when scaling the quantity of ingredients.
-		public double CurrentScale { get; private set; } = 1.0;
+		public double CurrentScale { get; set; } = 1.0;
 
 		// List of ingredients required for the recipe.
 		public List<Ingredient> Ingredients { get; set; }

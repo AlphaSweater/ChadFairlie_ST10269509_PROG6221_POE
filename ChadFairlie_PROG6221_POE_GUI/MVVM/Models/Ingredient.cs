@@ -3,11 +3,13 @@
 // Group 2
 
 //------------------------------------------------------------------------------------------------------------------------//
+using ChadFairlie_PROG6221_POE_GUI.Core;
+
 namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 {
 	// The Ingredient class represents a single ingredient used in a recipe.
 	// It includes properties for the name, quantity, original quantity, and unit of measurement of the ingredient.
-	public class Ingredient
+	public class Ingredient : ObservableObject
 	{
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		// Name of the ingredient.

@@ -81,6 +81,8 @@
 									   Background="White" />
 							<Button Content="View Details"
 									Style="{StaticResource CardButton}"
+									Width="140"
+									Height="40"
 									Grid.Row="7"
 									Command="{Binding DataContext.DetailedRecipeViewCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
 									CommandParameter="{Binding}" />

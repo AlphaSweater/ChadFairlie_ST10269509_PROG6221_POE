@@ -71,17 +71,42 @@ namespace ChadFairlie_PROG6221_POE_GUI.DesignData
 	// This class provides design-time data for the RecipesViewModel.
 	public class DesignTimeDetailedRecipeViewModel
 	{
-		public DetailedRecipeViewModel ViewModel { get; }
+		private Recipe Recipe { get; set; }
+
+		//------------------------------------------------------------------------------------------------------------------------//
+		public string RecipeName { get; set; }
+
+		public ObservableCollection<Ingredient> Ingredients { get; private set; }
+		public ObservableCollection<string> Steps { get; private set; }
+		public DateTime LastAccessed { get; set; }
+		public double CurrentScale { get; set; }
+		public double TotalCalories => Recipe.CalculateTotalCalories();
+
+		public string BackgroundGradient { get; set; }
+
 		//------------------------------------------------------------------------------------------------------------------------//
 		// Constructor initializes the ViewModel with dummy data.
 		public DesignTimeDetailedRecipeViewModel()
 		{
-			// Assuming Recipe.GetDummyRecipes() returns a list of dummy recipes for design-time purposes
 			var dummyRecipes = Recipe.GetDummyRecipes();
 			int index = 0; // Use the first recipe as an example
 
-			Recipe recipe = dummyRecipes[index];
-			ViewModel = new DetailedRecipeViewModel(recipe, index);
+			Recipe = dummyRecipes[index];
+
+			RecipeName = Recipe.RecipeName;
+			Ingredients = new ObservableCollection<Ingredient>(Recipe.Ingredients);
+			Steps = new ObservableCollection<string>(Recipe.Steps);
+			LastAccessed = Recipe.LastAccessed;
+			CurrentScale = Recipe.CurrentScale;
+
+			// Set the background gradient based on the index
+			SetBackgroundGradient(index);
+		}
+
+		private void SetBackgroundGradient(int index)
+		{
+			int gradientIndex = (index % 10) + 1; // Cycle through 1 to 10 for gradients.
+			BackgroundGradient = $"TertiaryColorGradient{gradientIndex}";
 		}
 	}
 }
