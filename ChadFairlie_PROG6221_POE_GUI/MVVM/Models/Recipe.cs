@@ -213,7 +213,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 					double calories = Math.Round(random.NextDouble() * 50 + 10, 2); // Random calories between 10 and 60
 					string foodGroup = foodGroups[random.Next(foodGroups.Length)];
 
-					recipe.Ingredients.Add(new Ingredient($"{ingredientName} {j}", quantity, unit, calories, foodGroup));
+					recipe.Ingredients.Add(new Ingredient($"{ingredientName}", quantity, unit, calories, foodGroup));
 				}
 
 				int stepsCount = random.Next(3, 6); // Each recipe will have between 3 and 5 steps
