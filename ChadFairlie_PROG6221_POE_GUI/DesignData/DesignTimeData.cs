@@ -77,7 +77,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.DesignData
 		public string RecipeName { get; set; }
 
 		public ObservableCollection<Ingredient> Ingredients { get; private set; }
-		public ObservableCollection<string> Steps { get; private set; }
+		public ObservableCollection<Step> Steps { get; private set; }
 		public DateTime LastAccessed { get; set; }
 		public double CurrentScale { get; set; }
 		public double TotalCalories => Recipe.CalculateTotalCalories();
@@ -95,7 +95,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.DesignData
 
 			RecipeName = Recipe.RecipeName;
 			Ingredients = new ObservableCollection<Ingredient>(Recipe.Ingredients);
-			Steps = new ObservableCollection<string>(Recipe.Steps);
+			Steps = new ObservableCollection<Step>(Recipe.Steps);
 			LastAccessed = Recipe.LastAccessed;
 			CurrentScale = Recipe.CurrentScale;
 

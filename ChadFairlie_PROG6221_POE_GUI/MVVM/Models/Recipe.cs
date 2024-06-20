@@ -34,7 +34,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 		public List<Ingredient> Ingredients { get; set; }
 
 		// List of steps to follow to cook the recipe.
-		public List<string> Steps { get; set; }
+		public List<Step> Steps { get; set; }
 
 		// Date and time when the recipe was last accessed.
 		public DateTime LastAccessed { get; set; }
@@ -49,7 +49,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 		public Recipe()
 		{
 			this.Ingredients = new List<Ingredient>();
-			this.Steps = new List<string>();
+			this.Steps = new List<Step>();
 		}
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
@@ -73,7 +73,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 		{
 			foreach (var step in steps)
 			{
-				this.Steps.Add(step);
+				this.Steps.Add(new Step(step));
 			}
 
 			return this;
@@ -168,9 +168,9 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 			recipeDetails.AppendLine("Steps:");
 
 			// Add each cooking step to the string.
-			foreach (string step in Steps)
+			foreach (var step in Steps)
 			{
-				recipeDetails.AppendLine($"> {step}");
+				recipeDetails.AppendLine($"> {step.Description}");
 			}
 
 			// Return the recipe details as a string and the total calories.
@@ -199,9 +199,9 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 				var recipe = new Recipe
 				{
 					RecipeName = $"Recipe {i}",
-					LastAccessed = DateTime.Now.AddDays(-i),
+					LastAccessed = DateTime.Now.AddDays(i),
 					Ingredients = new List<Ingredient>(),
-					Steps = new List<string>()
+					Steps = new List<Step>()
 				};
 
 				int ingredientCount = random.Next(3, 7); // Each recipe will have between 3 and 6 ingredients
@@ -219,7 +219,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 				int stepsCount = random.Next(3, 6); // Each recipe will have between 3 and 5 steps
 				for (int k = 1; k <= stepsCount; k++)
 				{
-					recipe.Steps.Add($"Step {k} of Recipe {i}: Perform action {k} on the ingredients.");
+					recipe.Steps.Add(new Step($"Step {k} of Recipe {i}: Perform action {k} on the ingredients."));
 				}
 
 				recipes.Add(recipe);

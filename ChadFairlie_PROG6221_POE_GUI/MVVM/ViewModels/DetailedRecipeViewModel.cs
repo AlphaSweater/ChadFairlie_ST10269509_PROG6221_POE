@@ -39,7 +39,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 		{
 			_recipe = recipe ?? throw new ArgumentNullException(nameof(recipe), "Recipe cannot be null.");
 			Ingredients = new ObservableCollection<Ingredient>(_recipe.Ingredients);
-			Steps = new ObservableCollection<string>(_recipe.Steps);
+			Steps = new ObservableCollection<Step>(_recipe.Steps);
 			LastAccessed = _recipe.LastAccessed;
 			// Subscribe to the CollectionChanged event of Ingredients
 			Ingredients.CollectionChanged += (s, e) => OnPropertyChanged(nameof(TotalCalories));
@@ -73,7 +73,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 
 		//------------------------------------------------------------------------------------------------------------------------//
 		// Steps collection for UI binding, updates automatically due to ObservableCollection.
-		public ObservableCollection<string> Steps { get; private set; }
+		public ObservableCollection<Step> Steps { get; private set; }
 
 		//------------------------------------------------------------------------------------------------------------------------//
 		// TotalCalories property calculates the total calories of the recipe, updates when Ingredients change.

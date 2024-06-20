@@ -21,6 +21,16 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 		// Add a property to store the original unit of measurement
 		public string OriginalUnitOfMeasurement { get; set; }
 
+		// Add a property to store the formatted unit of measurement
+		public string FormattedUnitOfMeasurement
+		{
+			get
+			{
+				string plural = string.IsNullOrEmpty(UnitOfMeasurement) && Quantity > 1 ? "s" : "";
+				return $"{UnitOfMeasurement}{plural}";
+			}
+		}
+
 		// Current quantity of the ingredient.
 		public double Quantity { get; set; }
 
@@ -77,5 +87,12 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 		}
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
+		public string FormattedDisplay
+		{
+			get
+			{
+				return $"{Quantity} {FormattedUnitOfMeasurement} of {Name} ({CaloriesPerUnit} kcal per unit, Food Group: {FoodGroup})";
+			}
+		}
 	}
 }
