@@ -24,5 +24,19 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Views
 		{
 			InitializeComponent();
 		}
+
+		private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		{
+			if (sender is Border border)
+			{
+				var grid = border.Child as Grid;
+				var checkBox = grid.Children.OfType<CheckBox>().FirstOrDefault();
+
+				if (checkBox != null)
+				{
+					checkBox.IsChecked = !checkBox.IsChecked;
+				}
+			}
+		}
 	}
 }
