@@ -45,6 +45,12 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 				_recipeService.AddRecipe(recipe);
 			}
 
+			var dummySpecialRecipes = Recipe.GetSpecialDummyRecipes();
+			foreach (var recipe in dummySpecialRecipes)
+			{
+				_recipeService.AddRecipe(recipe);
+			}
+
 			RefreshRecentlyViewedRecipes();
 		}
 

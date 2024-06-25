@@ -140,43 +140,6 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 			CurrentScale = 1.0;
 		}
 
-		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
-		// Method to print the details of the recipe.
-		// It includes the recipe name, current scale, list of ingredients, and list of steps.
-		public (string, double) PrintRecipe()
-		{
-			// Create a StringBuilder to efficiently concatenate the recipe details into a single string.
-			StringBuilder recipeDetails = new StringBuilder();
-
-			// Add the recipe name and current scale to the string.
-			recipeDetails.AppendLine($"Recipe Name: {RecipeName}");
-			recipeDetails.AppendLine($"Current Scale: {CurrentScale}x");
-
-			// Start the list of ingredients.
-			recipeDetails.AppendLine("Ingredients:");
-
-			// Add each ingredient to the string.
-			foreach (Ingredient ingredient in Ingredients)
-			{
-				recipeDetails.AppendLine(ingredient.ToString());
-			}
-
-			// Calculate the total calories of the recipe.
-			double totalCalories = CalculateTotalCalories();
-
-			// Start the list of cooking steps.
-			recipeDetails.AppendLine("Steps:");
-
-			// Add each cooking step to the string.
-			foreach (var step in Steps)
-			{
-				recipeDetails.AppendLine($"> {step.Description}");
-			}
-
-			// Return the recipe details as a string and the total calories.
-			return (recipeDetails.ToString(), totalCalories);
-		}
-
 		// TODO: Remove this later
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
@@ -225,6 +188,76 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 				recipes.Add(recipe);
 			}
 			return recipes;
+		}
+
+		public static List<Recipe> GetSpecialDummyRecipes()
+		{
+			var specialRecipes = new List<Recipe>
+			{
+				new Recipe
+				{
+					RecipeName = "Special Recipe 1",
+					LastAccessed = DateTime.Now,
+					Ingredients = new List<Ingredient>
+					{
+						new Ingredient("Flour", 16, "tablespoon", 50, "Grains"), // Should convert to cups
+						new Ingredient("Sugar", 48, "teaspoon", 30, "Sweets and Snacks"), // Should convert to cups
+					},
+					Steps = new List<Step>
+					{
+						new Step("Step 1: Mix all ingredients."),
+						new Step("Step 2: Bake at 350 degrees for 30 minutes.")
+					}
+				},
+				new Recipe
+				{
+					RecipeName = "Special Recipe 2",
+					LastAccessed = DateTime.Now.AddDays(1),
+					Ingredients = new List<Ingredient>
+					{
+						new Ingredient("Milk", 0.25, "cup", 100, "Dairy"), // Should convert to tablespoons
+						new Ingredient("Olive Oil", 1.5, "teaspoon", 120, "Fats and Oils"), // Should stay as teaspoons
+					},
+					Steps = new List<Step>
+					{
+						new Step("Step 1: Combine ingredients."),
+						new Step("Step 2: Stir until blended.")
+					}
+				},
+				new Recipe
+				{
+					RecipeName = "Special Recipe 3",
+					LastAccessed = DateTime.Now.AddDays(2),
+					Ingredients = new List<Ingredient>
+					{
+						new Ingredient("Butter", 8, "ounce", 100, "Dairy"), // Should convert to pounds
+						new Ingredient("Honey", 300, "milliliter", 50, "Sweets and Snacks"), // Should convert to liters
+					},
+					Steps = new List<Step>
+					{
+						new Step("Step 1: Melt butter."),
+						new Step("Step 2: Mix in honey."),
+						new Step("Step 3: Cool down before serving.")
+					}
+				},
+				new Recipe
+				{
+					RecipeName = "Special Recipe 4",
+					LastAccessed = DateTime.Now.AddDays(3),
+					Ingredients = new List<Ingredient>
+					{
+						new Ingredient("Salt", 0.02, "cup", 0, "Spices"), // Should convert to teaspoons
+						new Ingredient("Water", 1000, "milliliter", 0, "Beverages"), // Should convert to liters
+					},
+					Steps = new List<Step>
+					{
+						new Step("Step 1: Dissolve salt in water."),
+						new Step("Step 2: Boil for 5 minutes.")
+					}
+				}
+			};
+
+			return specialRecipes;
 		}
 	}
 }

@@ -9,6 +9,7 @@
 
 //<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -31,6 +32,19 @@ namespace ChadFairlie_PROG6221_POE_GUI.Core
 		{
 			// If there are any subscribers to the PropertyChanged event, invoke the event.
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+		}
+
+		// Method to set a property value and trigger the PropertyChanged event if the value changes.
+		protected bool SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+		{
+			if (EqualityComparer<T>.Default.Equals(field, value))
+			{
+				return false;
+			}
+
+			field = value;
+			OnPropertyChanged(propertyName);
+			return true;
 		}
 	}
 

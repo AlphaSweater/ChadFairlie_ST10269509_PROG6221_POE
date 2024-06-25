@@ -38,6 +38,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 		public DetailedRecipeViewModel(Recipe recipe, int index)
 		{
 			_recipe = recipe ?? throw new ArgumentNullException(nameof(recipe), "Recipe cannot be null.");
+
 			Ingredients = new ObservableCollection<Ingredient>(_recipe.Ingredients);
 			Steps = new ObservableCollection<Step>(_recipe.Steps);
 			LastAccessed = _recipe.LastAccessed;

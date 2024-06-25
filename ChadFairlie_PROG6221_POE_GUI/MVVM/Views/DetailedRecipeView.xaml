@@ -53,7 +53,7 @@
 				CornerRadius="15"
 				Margin="0,15,0,0" />
 
-		<!-- Ingredients List with improved layout -->
+		<!-- Ingredients List -->
 		<Border Grid.Row="1"
 				Grid.Column="0"
 				Margin="0,10,0,10"
@@ -64,40 +64,102 @@
 						   FontWeight="Bold"
 						   Foreground="White"
 						   Margin="0,0,0,10" />
-				<ScrollViewer MaxHeight="330"
+				<!-- Column Titles -->
+				<Grid Margin="5,0,25,5">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="auto" />
+					</Grid.ColumnDefinitions>
+
+					<TextBlock Text="Details"
+							   FontSize="14"
+							   FontWeight="Bold"
+							   Foreground="LightGray"
+							   Grid.Column="0"
+							   Margin="8,0,0,0" />
+
+					<TextBlock Text="Quantity"
+							   FontSize="14"
+							   FontWeight="Bold"
+							   Foreground="LightGray"
+							   Grid.Column="1"
+							   Margin="0,0,10,0" />
+				</Grid>
+				<!-- Ingredients List -->
+				<ScrollViewer MaxHeight="365.5"
 							  VerticalScrollBarVisibility="Auto">
 					<ItemsControl ItemsSource="{Binding Ingredients}">
 						<ItemsControl.ItemTemplate>
 							<DataTemplate>
-								<Border Margin="5,5,25,5"
+								<Border Margin="5,0,25,5"
 										Background="#2E2E2E"
-										Padding="8"
+										Padding="8,0"
 										CornerRadius="5">
 									<Grid>
 										<Grid.ColumnDefinitions>
-											<ColumnDefinition Width="Auto" />
+											<ColumnDefinition Width="auto" />
 											<ColumnDefinition Width="*" />
+											<ColumnDefinition Width="auto" />
 										</Grid.ColumnDefinitions>
-										<TextBlock Text="{Binding Quantity}"
-												   FontSize="16"
-												   Foreground="White"
-												   Grid.Column="0"
-												   Margin="0,0,10,0" />
-										<StackPanel Grid.Column="1">
+
+										<StackPanel Grid.Column="0">
+
+											<Separator Background="White"
+													   Margin="0,5,0,0"
+													   VerticalAlignment="Bottom" />
+
+											<!-- Ingredient Name -->
 											<TextBlock Text="{Binding Name}"
-													   FontSize="16"
+													   x:Name="IngredientNameTextBlock"
+													   FontSize="24"
+													   FontWeight="Bold"
+													   Foreground="White"
+													   TextAlignment="Center"
+													   TextWrapping="Wrap"
+													   Width="auto" />
+
+											<Separator Background="White"
+													   Margin="0,3,0,5" />
+
+											<!-- Unit of Measurement -->
+											<TextBlock Text="Unit of Measurement:"
+													   FontSize="14"
+													   Foreground="LightGray" />
+											<TextBlock Text="{Binding FormattedUnitOfMeasurement}"
+													   FontSize="15"
+													   FontWeight="Medium"
 													   Foreground="White"
 													   Margin="0,0,0,5" />
-											<TextBlock Text="{Binding UnitOfMeasurement}"
+
+											<!-- Calories per Unit -->
+											<TextBlock Text="Calories per Unit:"
 													   FontSize="14"
 													   Foreground="LightGray" />
-											<TextBlock Text="{Binding CaloriesPerUnit, StringFormat='Calories per unit: {0:F2} kcal'}"
+											<TextBlock Text="{Binding FormattedCaloriesPerUnit}"
+													   FontSize="15"
+													   FontWeight="Medium"
+													   Foreground="White"
+													   Margin="0,0,0,5" />
+
+											<!-- Food Group -->
+											<TextBlock Text="Food Group:"
 													   FontSize="14"
 													   Foreground="LightGray" />
-											<TextBlock Text="{Binding FoodGroup, StringFormat='Food Group: {0}'}"
-													   FontSize="14"
-													   Foreground="LightGray" />
+											<TextBlock Text="{Binding FoodGroup}"
+													   FontSize="15"
+													   FontWeight="Medium"
+													   Foreground="White"
+													   Margin="0,0,0,4" />
 										</StackPanel>
+
+										<!-- Quantity -->
+										<TextBlock Text="{Binding Quantity}"
+												   FontSize="38"
+												   HorizontalAlignment="Right"
+												   VerticalAlignment="Top"
+												   Foreground="White"
+												   Grid.Column="2"
+												   Margin="0,0,0,0" />
 									</Grid>
 								</Border>
 							</DataTemplate>
