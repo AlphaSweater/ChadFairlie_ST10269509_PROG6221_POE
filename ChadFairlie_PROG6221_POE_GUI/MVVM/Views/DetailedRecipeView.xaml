@@ -8,7 +8,7 @@
 			 xmlns:designData="clr-namespace:ChadFairlie_PROG6221_POE_GUI.DesignData"
 			 d:DataContext="{d:DesignInstance designData:DesignTimeDetailedRecipeViewModel, IsDesignTimeCreatable=True}"
 			 mc:Ignorable="d"
-			 d:DesignHeight="725"
+			 d:DesignHeight="810"
 			 d:DesignWidth="930">
 
 	<UserControl.Resources>
@@ -20,15 +20,12 @@
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
-			<RowDefinition Height="*" />
-			<RowDefinition Height="Auto" />
-			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="*" />
-			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="2*" />
+			<ColumnDefinition Width="3*" />
 		</Grid.ColumnDefinitions>
 
 		<!-- Recipe Title -->
@@ -49,7 +46,7 @@
 
 		<Border Grid.Row="1"
 				Grid.ColumnSpan="2"
-				Background="#1E1E1E"
+				Background="#272537"
 				CornerRadius="15"
 				Margin="0,15,0,0" />
 
@@ -92,7 +89,7 @@
 						<ItemsControl.ItemTemplate>
 							<DataTemplate>
 								<Border Margin="5,0,25,5"
-										Background="#2E2E2E"
+										Background="#393850"
 										Padding="8,0"
 										CornerRadius="5">
 									<Grid>
@@ -186,12 +183,13 @@
 						   Foreground="White"
 						   Margin="0,0,0,10" />
 				<ScrollViewer MaxHeight="330"
+							  Margin="0,23.5,0,0"
 							  VerticalScrollBarVisibility="Auto">
 					<ItemsControl ItemsSource="{Binding Steps}">
 						<ItemsControl.ItemTemplate>
 							<DataTemplate>
-								<Border Margin="5,5,25,5"
-										Background="#2E2E2E"
+								<Border Margin="5,0,25,10"
+										Background="#393850"
 										Padding="8"
 										CornerRadius="5"
 										MouseLeftButtonDown="Border_MouseLeftButtonDown">
@@ -212,7 +210,7 @@
 													<Setter Property="Template">
 														<Setter.Value>
 															<ControlTemplate TargetType="CheckBox">
-																<BulletDecorator Background="#2e2e2e"
+																<BulletDecorator Background="#393850"
 																				 Width="16"
 																				 Height="16"
 																				 Margin="0,0,5,0">
@@ -255,59 +253,134 @@
 			</StackPanel>
 		</Border>
 
-		<!-- Recipe Scaling Options with Buttons -->
-		<StackPanel Grid.Row="2"
-					Grid.ColumnSpan="2"
-					Orientation="Horizontal"
-					HorizontalAlignment="Center"
-					Margin="0,10,0,0">
-			<Button Content="Scale by 0.5"
-					Command="{Binding ScaleCommand}"
-					CommandParameter="0.5"
-					Style="{StaticResource CardButton}"
-					Width="140"
-					Height="40"
-					Margin="5"
-					Cursor="Hand" />
-			<Button Content="Scale by 2"
-					Command="{Binding ScaleCommand}"
-					CommandParameter="2"
-					Style="{StaticResource CardButton}"
-					Width="140"
-					Height="40"
-					Margin="5"
-					Cursor="Hand" />
-			<Button Content="Scale by 3"
-					Command="{Binding ScaleCommand}"
-					CommandParameter="3"
-					Style="{StaticResource CardButton}"
-					Width="140"
-					Height="40"
-					Margin="5"
-					Cursor="Hand" />
-			<Button Content="Custom Scale"
-					Command="{Binding CustomScaleCommand}"
-					Style="{StaticResource CardButton}"
-					Width="140"
-					Height="40"
-					Margin="5"
-					Cursor="Hand" />
-			<Button Content="Reset Scale"
-					Command="{Binding ResetScaleCommand}"
-					Style="{StaticResource CardButton}"
-					Width="140"
-					Height="40"
-					Margin="5"
-					Cursor="Hand" />
-		</StackPanel>
+		<!-- Container for Scaling Options and Current Scale -->
+		<Border Grid.Row="2"
+				Grid.ColumnSpan="2"
+				Background="#272537"
+				CornerRadius="10"
+				Padding="10"
+				Margin="0,10,0,0">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="auto" />
+					<ColumnDefinition Width="3*" />
+					<ColumnDefinition Width="auto" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
 
-		<!-- Current Scale -->
-		<TextBlock Text="{Binding CurrentScale, StringFormat='Current Scale: {0}x'}"
-				   Grid.Row="3"
-				   Grid.ColumnSpan="2"
-				   FontSize="16"
-				   Foreground="White"
-				   Margin="0,10,0,10"
-				   HorizontalAlignment="Center" />
+				<!-- Current Scale with Reset Button -->
+				<StackPanel Grid.Column="2"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Top"
+							Margin="0,0,0,20">
+					<TextBlock Text="{Binding CurrentScale, StringFormat='Current Scale: {0}x'}"
+							   FontSize="18"
+							   FontWeight="Bold"
+							   Foreground="White"
+							   HorizontalAlignment="Center"
+							   VerticalAlignment="Center"
+							   Margin="0,0,0,15" />
+					<Button Content="Reset"
+							Command="{Binding ResetScaleCommand}"
+							Style="{StaticResource CardButton}"
+							Width="80"
+							Height="30"
+							Margin="0,0,0,0"
+							Background="#393850"
+							Foreground="White"
+							FontSize="14"
+							BorderThickness="0"
+							Cursor="Hand" />
+				</StackPanel>
+
+				<!-- Scaling Buttons -->
+
+				<!-- Decrease Scaling Options -->
+				<StackPanel Grid.Column="1"
+							Orientation="Vertical"
+							HorizontalAlignment="Center"
+							Margin="0,0,10,0">
+					<TextBlock Text="Decrease Scale"
+							   FontSize="16"
+							   FontWeight="Bold"
+							   Foreground="White"
+							   HorizontalAlignment="Center"
+							   Margin="0,0,0,10" />
+					<Button Content="Scale by 0.5x"
+							Command="{Binding ScaleCommand}"
+							CommandParameter="0.5"
+							Style="{StaticResource CardButton}"
+							Width="140"
+							Height="40"
+							Margin="5"
+							Background="#393850"
+							Foreground="White"
+							FontSize="16"
+							BorderThickness="0"
+							Cursor="Hand" />
+					<Button Content="Scale by 0.75x"
+							Command="{Binding ScaleCommand}"
+							CommandParameter="0.75"
+							Style="{StaticResource CardButton}"
+							Width="140"
+							Height="40"
+							Margin="5"
+							Background="#393850"
+							Foreground="White"
+							FontSize="16"
+							BorderThickness="0"
+							Cursor="Hand" />
+				</StackPanel>
+
+				<!-- Increase Scaling Options -->
+				<StackPanel Grid.Column="3"
+							Orientation="Vertical"
+							HorizontalAlignment="Center">
+					<TextBlock Text="Increase Scale"
+							   FontSize="16"
+							   FontWeight="Bold"
+							   Foreground="White"
+							   HorizontalAlignment="Center"
+							   Margin="0,0,0,10" />
+					<Button Content="Scale by 1.5x"
+							Command="{Binding ScaleCommand}"
+							CommandParameter="1.5"
+							Style="{StaticResource CardButton}"
+							Width="140"
+							Height="40"
+							Margin="5"
+							Background="#393850"
+							Foreground="White"
+							FontSize="16"
+							BorderThickness="0"
+							Cursor="Hand" />
+					<Button Content="Scale by 2x"
+							Command="{Binding ScaleCommand}"
+							CommandParameter="2"
+							Style="{StaticResource CardButton}"
+							Width="140"
+							Height="40"
+							Margin="5"
+							Background="#393850"
+							Foreground="White"
+							FontSize="16"
+							BorderThickness="0"
+							Cursor="Hand" />
+					<Button Content="Scale by 3x"
+							Command="{Binding ScaleCommand}"
+							CommandParameter="3"
+							Style="{StaticResource CardButton}"
+							Width="140"
+							Height="40"
+							Margin="5"
+							Background="#393850"
+							Foreground="White"
+							FontSize="16"
+							BorderThickness="0"
+							Cursor="Hand" />
+				</StackPanel>
+			</Grid>
+		</Border>
 	</Grid>
 </UserControl>

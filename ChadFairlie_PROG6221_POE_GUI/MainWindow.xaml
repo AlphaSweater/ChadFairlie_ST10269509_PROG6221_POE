@@ -21,7 +21,7 @@
 		Title="MainWindow"
 		Height="800"
 		Width="1150"
-		MinHeight="800"
+		MinHeight="890"
 		MinWidth="1110"
 		WindowStyle="None"
 		ResizeMode="CanResizeWithGrip"
@@ -40,7 +40,7 @@
 
 	<!-- Main Border -->
 	<!-- This border provides a rounded corner look to the entire window and sets the background color. -->
-	<Border Background="#272537"
+	<Border Background="#1E1E1E"
 			CornerRadius="20">
 
 		<!-- Grid Definition -->
