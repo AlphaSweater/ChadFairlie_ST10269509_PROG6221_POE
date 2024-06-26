@@ -1,11 +1,11 @@
 ﻿<UserControl x:Class="ChadFairlie_PROG6221_POE_GUI.MVVM.Views.DetailedRecipeView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:converters="clr-namespace:ChadFairlie_PROG6221_POE_GUI.Converters"
-             xmlns:designData="clr-namespace:ChadFairlie_PROG6221_POE_GUI.DesignData"
-             d:DataContext="{d:DesignInstance designData:DesignTimeDetailedRecipeViewModel, IsDesignTimeCreatable=True}"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:converters="clr-namespace:ChadFairlie_PROG6221_POE_GUI.Converters"
+			 xmlns:designData="clr-namespace:ChadFairlie_PROG6221_POE_GUI.DesignData"
+			 d:DataContext="{d:DesignInstance designData:DesignTimeDetailedRecipeViewModel, IsDesignTimeCreatable=True}"
 			 mc:Ignorable="d"
 			 d:DesignHeight="820"
 			 d:DesignWidth="930"
@@ -56,13 +56,13 @@
 				Grid.RowSpan="2"
 				Grid.ColumnSpan="2"
 				Background="#272537"
-				CornerRadius="15"
+				CornerRadius="25"
 				Margin="0,15,0,0" />
 
 		<!-- Ingredients Section -->
 		<Border Grid.Row="1"
 				Grid.Column="0"
-				Margin="0,10,0,10"
+				Margin="5,15,0,10"
 				Padding="10">
 			<StackPanel>
 				<!-- Ingredients Heading-->
@@ -99,7 +99,7 @@
 					<ItemsControl ItemsSource="{Binding Ingredients}">
 						<ItemsControl.ItemTemplate>
 							<DataTemplate>
-								<Border Margin="5,0,25,5"
+								<Border Margin="5,0,25,10"
 										Background="#393850"
 										Padding="8,0"
 										CornerRadius="5">
@@ -287,33 +287,32 @@
 			<Grid>
 				<Grid.RowDefinitions>
 					<RowDefinition Height="auto" />
-					<RowDefinition Height="auto" />
 				</Grid.RowDefinitions>
 
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="auto" />
 					<ColumnDefinition Width="auto" />
+					<ColumnDefinition Width="auto" />
 				</Grid.ColumnDefinitions>
 
 				<TextBlock Grid.Column="0"
-						   Grid.RowSpan="2"
 						   VerticalAlignment="Center"
 						   Text="Total Calories:"
 						   FontSize="20"
 						   FontWeight="Bold"
 						   Foreground="White"
-						   Margin="0,0,10,0" />
+						   Margin="20,0,10,0" />
 
 				<TextBlock Grid.Column="1"
-						   VerticalAlignment="Center"
+						   VerticalAlignment="Bottom"
+						   Margin="0,0,15,0"
 						   Text="{Binding TotalCalories, StringFormat=' {0:F0} kcal'}"
 						   FontSize="16"
 						   Foreground="{Binding TotalCalories, Converter={StaticResource CaloriesToColorConverter}}" />
 
-				<TextBlock Grid.Row="1"
-						   Grid.Column="1"
+				<TextBlock Grid.Column="2"
 						   HorizontalAlignment="Center"
-						   VerticalAlignment="Center"
+						   VerticalAlignment="Bottom"
 						   TextWrapping="Wrap"
 						   Text="{Binding CaloriesMessage}"
 						   FontSize="16"
@@ -325,9 +324,9 @@
 		<Border Grid.Row="3"
 				Grid.ColumnSpan="2"
 				Background="#272537"
-				CornerRadius="10"
+				CornerRadius="25"
 				Padding="20"
-				Margin="0,10,0,0">
+				Margin="0,20,0,0">
 			<Grid>
 				<Grid.RowDefinitions>
 					<RowDefinition Height="auto" />

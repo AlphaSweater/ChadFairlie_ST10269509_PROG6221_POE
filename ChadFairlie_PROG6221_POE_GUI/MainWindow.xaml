@@ -113,7 +113,7 @@
 					Grid.RowSpan="2"
 					Background="Transparent">
 				<Grid>
-					<Path Fill="#272537"
+					<Path Fill="#6148cb"
 						  HorizontalAlignment="Left"
 						  VerticalAlignment="Center"
 						  Stretch="Fill"
