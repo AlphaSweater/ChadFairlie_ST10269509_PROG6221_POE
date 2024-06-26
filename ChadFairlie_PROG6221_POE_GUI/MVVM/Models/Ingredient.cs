@@ -4,6 +4,7 @@
 
 //------------------------------------------------------------------------------------------------------------------------//
 using ChadFairlie_PROG6221_POE_GUI.Core;
+using System;
 
 namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 {
@@ -12,22 +13,16 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 	public class Ingredient : ObservableObject
 	{
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
-		// private fields for the Ingredient class
-
 		private string _name;
-		private string _unitOfMeasurement;
-		private string _originalUnitOfMeasurement;
-		private double _quantity;
-		private double _originalQuantity;
-		private double _caloriesPerUnit;
-		private double _originalCaloriesPerUnit;
-		private string _foodGroup;
 
 		public string Name
 		{
 			get => _name;
 			set => SetProperty(ref _name, value);
 		}
+
+		//------------------------------------------------------------------------------------------------------------------------//
+		private string _unitOfMeasurement;
 
 		public string UnitOfMeasurement
 		{
@@ -41,23 +36,43 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 			}
 		}
 
+		//------------------------------------------------------------------------------------------------------------------------//
+		private string _originalUnitOfMeasurement;
+
 		public string OriginalUnitOfMeasurement
 		{
 			get => _originalUnitOfMeasurement;
 			private set => SetProperty(ref _originalUnitOfMeasurement, value);
 		}
 
-		public double Quantity
+		//------------------------------------------------------------------------------------------------------------------------//
+		private double _preciseQuantity;
+
+		public double PreciseQuantity
 		{
-			get => _quantity;
+			get => _preciseQuantity;
 			set
 			{
-				if (SetProperty(ref _quantity, value))
+				if (SetProperty(ref _preciseQuantity, value))
 				{
+					// Notify changes for Quantity since it's derived from PreciseQuantity
+					OnPropertyChanged(nameof(Quantity));
+					// If FormattedUnitOfMeasurement depends on Quantity, notify it as well
 					OnPropertyChanged(nameof(FormattedUnitOfMeasurement));
 				}
 			}
 		}
+
+		//------------------------------------------------------------------------------------------------------------------------//
+		private double _quantity;
+
+		public double Quantity
+		{
+			get => Math.Round(PreciseQuantity, 2);
+		}
+
+		//------------------------------------------------------------------------------------------------------------------------//
+		private double _originalQuantity;
 
 		public double OriginalQuantity
 		{
@@ -65,17 +80,34 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 			private set => SetProperty(ref _originalQuantity, value);
 		}
 
-		public double CaloriesPerUnit
+		//------------------------------------------------------------------------------------------------------------------------//
+		private double _preciseCaloriesPerUnit;
+
+		public double PreciseCaloriesPerUnit
 		{
-			get => _caloriesPerUnit;
+			get => _preciseCaloriesPerUnit;
 			set
 			{
-				if (SetProperty(ref _caloriesPerUnit, value))
+				if (SetProperty(ref _preciseCaloriesPerUnit, value))
 				{
+					// Notify changes for CaloriesPerUnit since it's derived from PreciseCaloriesPerUnit
+					OnPropertyChanged(nameof(CaloriesPerUnit));
+					// Notify changes for FormattedCaloriesPerUnit as well
 					OnPropertyChanged(nameof(FormattedCaloriesPerUnit));
 				}
 			}
 		}
+
+		//------------------------------------------------------------------------------------------------------------------------//
+		private double _caloriesPerUnit;
+
+		public double CaloriesPerUnit
+		{
+			get => Math.Round(PreciseCaloriesPerUnit, 2);
+		}
+
+		//------------------------------------------------------------------------------------------------------------------------//
+		private double _originalCaloriesPerUnit;
 
 		public double OriginalCaloriesPerUnit
 		{
@@ -83,12 +115,16 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 			private set => SetProperty(ref _originalCaloriesPerUnit, value);
 		}
 
+		//------------------------------------------------------------------------------------------------------------------------//
+		private string _foodGroup;
+
 		public string FoodGroup
 		{
 			get => _foodGroup;
 			set => SetProperty(ref _foodGroup, value);
 		}
 
+		//------------------------------------------------------------------------------------------------------------------------//
 		public string FormattedUnitOfMeasurement
 		{
 			get
@@ -109,6 +145,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 			}
 		}
 
+		//------------------------------------------------------------------------------------------------------------------------//
 		public string FormattedCaloriesPerUnit => $"{CaloriesPerUnit:F2} kcal";
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
@@ -118,20 +155,20 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 		public Ingredient(string name, double quantity, string unit, double calories, string foodGroup)
 		{
 			Name = name.TrimEnd('s');
-			Quantity = quantity;
+			PreciseQuantity = quantity;
 			UnitOfMeasurement = unit.ToLower().TrimEnd('s');
-			CaloriesPerUnit = calories;
+			PreciseCaloriesPerUnit = calories;
 			FoodGroup = foodGroup;
 
 			if (UnitConverter.IsConvertible(UnitOfMeasurement))
 			{
-				(Quantity, UnitOfMeasurement, CaloriesPerUnit) = UnitConverter.Convert(Quantity, UnitOfMeasurement, CaloriesPerUnit);
+				(PreciseQuantity, UnitOfMeasurement, PreciseCaloriesPerUnit) = UnitConverter.Convert(PreciseQuantity, UnitOfMeasurement, PreciseCaloriesPerUnit);
 			}
 
 			// Store original values
 			OriginalUnitOfMeasurement = UnitOfMeasurement;
-			OriginalQuantity = Quantity;
-			OriginalCaloriesPerUnit = CaloriesPerUnit;
+			OriginalQuantity = PreciseQuantity;
+			OriginalCaloriesPerUnit = PreciseCaloriesPerUnit;
 		}
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//

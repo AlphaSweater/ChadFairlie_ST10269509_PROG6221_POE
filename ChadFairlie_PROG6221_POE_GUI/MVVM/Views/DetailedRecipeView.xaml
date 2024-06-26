@@ -62,7 +62,7 @@
 		<!-- Ingredients Section -->
 		<Border Grid.Row="1"
 				Grid.Column="0"
-				Margin="5,15,0,10"
+				Margin="5,15,0,0"
 				Padding="10">
 			<StackPanel>
 				<!-- Ingredients Heading-->
@@ -94,7 +94,7 @@
 				</Grid>
 
 				<!-- Ingredients List -->
-				<ScrollViewer MaxHeight="357"
+				<ScrollViewer MaxHeight="367"
 							  VerticalScrollBarVisibility="Auto">
 					<ItemsControl ItemsSource="{Binding Ingredients}">
 						<ItemsControl.ItemTemplate>
@@ -193,7 +193,7 @@
 				<!-- Steps List with Checkboxes -->
 				<ScrollViewer x:Name="StepsScrollViewer"
 							  Height="300"
-							  Margin="0,23.5,0,0"
+							  Margin="0,28,0,0"
 							  VerticalScrollBarVisibility="Auto">
 					<ItemsControl ItemsSource="{Binding Steps}">
 						<ItemsControl.ItemTemplate>
@@ -267,7 +267,7 @@
 						Style="{StaticResource CardButton}"
 						Width="110"
 						Height="30"
-						Margin="5,10,0,0"
+						Margin="5,28,0,0"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Center"
 						Background="#393850"

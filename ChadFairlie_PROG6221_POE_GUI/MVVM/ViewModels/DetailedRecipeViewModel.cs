@@ -226,7 +226,8 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 			{
 				_recipe.Scale(scale);
 				OnPropertyChanged(nameof(Ingredients));
-				OnPropertyChanged(nameof(CurrentScale));
+				OnPropertyChanged(nameof(_recipe.CurrentScale));
+				OnPropertyChanged(nameof(TotalCalories));
 			}
 			else
 			{
@@ -243,7 +244,8 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 			{
 				_recipe.Scale(1 / scale);
 				OnPropertyChanged(nameof(Ingredients));
-				OnPropertyChanged(nameof(CurrentScale));
+				OnPropertyChanged(nameof(_recipe.CurrentScale));
+				OnPropertyChanged(nameof(TotalCalories));
 			}
 			else
 			{
@@ -258,7 +260,8 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 		{
 			_recipe.ResetScaling();
 			OnPropertyChanged(nameof(Ingredients));
-			OnPropertyChanged(nameof(CurrentScale));
+			OnPropertyChanged(nameof(_recipe.CurrentScale));
+			OnPropertyChanged(nameof(TotalCalories));
 		}
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//

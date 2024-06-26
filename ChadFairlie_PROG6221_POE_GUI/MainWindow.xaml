@@ -56,57 +56,6 @@
 				<RowDefinition />
 			</Grid.RowDefinitions>
 
-			<!-- Draggable Area -->
-			<!-- The top row of the grid is made draggable to allow moving the window around. -->
-			<!-- It includes the application title and window control buttons. -->
-			<Border Grid.Row="0"
-					Grid.ColumnSpan="2"
-					Background="Transparent"
-					MouseLeftButtonDown="Border_MouseLeftButtonDown">
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*" />
-						<ColumnDefinition Width="Auto" />
-					</Grid.ColumnDefinitions>
-
-					<!-- Window Control Buttons -->
-					<!-- Custom buttons for minimizing, maximizing, and closing the window. -->
-					<StackPanel Grid.Column="1"
-								Orientation="Horizontal"
-								HorizontalAlignment="Right"
-								VerticalAlignment="Top"
-								Margin="0,5,10,0">
-						<Button x:Name="MinimizeButton"
-								Content="—"
-								Width="30"
-								Height="30"
-								Background="Transparent"
-								Foreground="White"
-								BorderBrush="Transparent"
-								Cursor="Hand"
-								Click="MinimizeButton_Click" />
-						<Button x:Name="MaximizeButton"
-								Content="□"
-								Width="30"
-								Height="30"
-								Background="Transparent"
-								Foreground="White"
-								BorderBrush="Transparent"
-								Cursor="Hand"
-								Click="MaximizeButton_Click" />
-						<Button x:Name="CloseButton"
-								Content="X"
-								Width="30"
-								Height="30"
-								Background="Transparent"
-								Foreground="White"
-								BorderBrush="Transparent"
-								Cursor="Hand"
-								Click="CloseButton_Click" />
-					</StackPanel>
-				</Grid>
-			</Border>
-
 			<!-- Navigation Area -->
 			<Border Grid.Row="0"
 					Grid.Column="0"
@@ -164,6 +113,57 @@
 									 Style="{StaticResource MenuButtonTheme}"
 									 Cursor="Hand"
 									 Click="CloseButton_Click" />
+					</StackPanel>
+				</Grid>
+			</Border>
+
+			<!-- Draggable Area -->
+			<!-- The top row of the grid is made draggable to allow moving the window around. -->
+			<!-- It includes the application title and window control buttons. -->
+			<Border Grid.Row="0"
+					Grid.ColumnSpan="2"
+					Background="Transparent"
+					MouseLeftButtonDown="Border_MouseLeftButtonDown">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="Auto" />
+					</Grid.ColumnDefinitions>
+
+					<!-- Window Control Buttons -->
+					<!-- Custom buttons for minimizing, maximizing, and closing the window. -->
+					<StackPanel Grid.Column="1"
+								Orientation="Horizontal"
+								HorizontalAlignment="Right"
+								VerticalAlignment="Top"
+								Margin="0,5,10,0">
+						<Button x:Name="MinimizeButton"
+								Content="—"
+								Width="30"
+								Height="30"
+								Background="Transparent"
+								Foreground="White"
+								BorderBrush="Transparent"
+								Cursor="Hand"
+								Click="MinimizeButton_Click" />
+						<Button x:Name="MaximizeButton"
+								Content="□"
+								Width="30"
+								Height="30"
+								Background="Transparent"
+								Foreground="White"
+								BorderBrush="Transparent"
+								Cursor="Hand"
+								Click="MaximizeButton_Click" />
+						<Button x:Name="CloseButton"
+								Content="X"
+								Width="30"
+								Height="30"
+								Background="Transparent"
+								Foreground="White"
+								BorderBrush="Transparent"
+								Cursor="Hand"
+								Click="CloseButton_Click" />
 					</StackPanel>
 				</Grid>
 			</Border>

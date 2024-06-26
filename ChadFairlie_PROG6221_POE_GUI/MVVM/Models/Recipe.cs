@@ -8,12 +8,10 @@
 //      Bro Code: Provided a helpful video tutorial on Lists in C#. (https://youtu.be/vQzREQUhGSA?si=zi-m4qyNKLMErAu9)
 
 //------------------------------------------------------------------------------------------------------------------------//
-// Ignore Spelling: MVVM PROG
 
 using ChadFairlie_PROG6221_POE_GUI.Core;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 {
@@ -105,11 +103,11 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 
 			foreach (var ingredient in Ingredients)
 			{
-				ingredient.Quantity = Math.Round(ingredient.Quantity * scale, 2);
+				ingredient.PreciseQuantity *= scale;
 
 				if (UnitConverter.IsConvertible(ingredient.UnitOfMeasurement))
 				{
-					(ingredient.Quantity, ingredient.UnitOfMeasurement, ingredient.CaloriesPerUnit) = UnitConverter.Convert(ingredient.Quantity, ingredient.UnitOfMeasurement, ingredient.CaloriesPerUnit);
+					(ingredient.PreciseQuantity, ingredient.UnitOfMeasurement, ingredient.PreciseCaloriesPerUnit) = UnitConverter.Convert(ingredient.PreciseQuantity, ingredient.UnitOfMeasurement, ingredient.PreciseCaloriesPerUnit);
 				}
 
 				if (CurrentScale == 1)
@@ -127,9 +125,9 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 		{
 			foreach (var ingredient in Ingredients)
 			{
-				ingredient.Quantity = ingredient.OriginalQuantity;
+				ingredient.PreciseQuantity = ingredient.OriginalQuantity;
 				ingredient.UnitOfMeasurement = ingredient.OriginalUnitOfMeasurement;
-				ingredient.CaloriesPerUnit = ingredient.OriginalCaloriesPerUnit;
+				ingredient.PreciseCaloriesPerUnit = ingredient.OriginalCaloriesPerUnit;
 			}
 			CurrentScale = 1.0;
 		}

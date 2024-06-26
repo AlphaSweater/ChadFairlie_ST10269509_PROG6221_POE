@@ -26,70 +26,120 @@
 		<converters:ResourceKeyConverter x:Key="ResourceKeyConverter" />
 	</UserControl.Resources>
 
-	<!-- Recipes List -->
-	<ScrollViewer Grid.Row="1"
-				  VerticalScrollBarVisibility="Auto">
-		<ItemsControl ItemsSource="{Binding Recipes}"
-					  Margin="10,0,10,0">
-			<ItemsControl.ItemsPanel>
-				<ItemsPanelTemplate>
-					<WrapPanel />
-				</ItemsPanelTemplate>
-			</ItemsControl.ItemsPanel>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="200" />
+			<!-- Filter Section -->
+			<ColumnDefinition Width="*" />
+			<!-- Recipes List -->
+		</Grid.ColumnDefinitions>
 
-			<ItemsControl.ItemTemplate>
-				<DataTemplate>
-					<Border Background="{Binding BackgroundGradient, Converter={StaticResource ResourceKeyConverter}}"
-							Style="{StaticResource RecipeCardTheme}">
-						<Grid Margin="10">
-							<Grid.RowDefinitions>
-								<RowDefinition Height="Auto" />
-								<RowDefinition Height="Auto" />
-								<RowDefinition Height="Auto" />
-								<RowDefinition Height="Auto" />
-								<RowDefinition Height="Auto" />
-								<RowDefinition Height="Auto" />
-								<RowDefinition Height="*" />
-								<RowDefinition Height="Auto" />
-							</Grid.RowDefinitions>
+		<!-- Filter Section -->
+		<Border Grid.Column="0"
+				Margin="10"
+				Background="White"
+				CornerRadius="10"
+				BorderBrush="LightGray"
+				BorderThickness="1">
+			<StackPanel Margin="10">
+				<TextBlock Text="Filter Recipes"
+						   FontWeight="Bold"
+						   FontSize="16"
+						   Margin="0,0,0,10" />
+				<TextBox Text="Search by name..."
+						 Margin="0,0,0,10" />
+				<TextBlock Text="Food Group"
+						   FontWeight="Bold"
+						   Margin="0,0,0,5" />
+				<ComboBox Margin="0,0,0,10">
+					<ComboBoxItem Content="All" />
+					<ComboBoxItem Content="Vegetables" />
+					<ComboBoxItem Content="Fruits" />
+					<ComboBoxItem Content="Proteins" />
+					<ComboBoxItem Content="Grains" />
+					<!-- Add more food groups as needed -->
+				</ComboBox>
+				<TextBlock Text="Calories"
+						   FontWeight="Bold"
+						   Margin="0,0,0,5" />
+				<Slider Minimum="0"
+						Maximum="1000"
+						TickFrequency="50"
+						IsSnapToTickEnabled="True"
+						Margin="0,0,0,10" />
+				<Button Content="Apply Filters"
+						Width="120"
+						Height="30"
+						Margin="0,20,0,0"
+						HorizontalAlignment="Center" />
+			</StackPanel>
+		</Border>
 
-							<TextBlock Text="{Binding RecipeName}"
-									   Style="{StaticResource CardTitleText}"
-									   Grid.Row="0"
-									   Margin="0,0,0,5" />
-							<Separator Grid.Row="1"
-									   Margin="0,5"
-									   Background="White" />
-							<TextBlock Text="{Binding Ingredients.Count, StringFormat='Ingredients: {0}'}"
-									   Style="{StaticResource CardContentText}"
-									   Grid.Row="2" />
-							<TextBlock Text="{Binding Steps.Count, StringFormat='Steps: {0}'}"
-									   Style="{StaticResource CardContentText}"
-									   Grid.Row="3" />
-							<TextBlock Text="{Binding TotalCalories, StringFormat='Calories: {0:F0} kcal'}"
-									   Style="{StaticResource CardContentText}"
-									   Grid.Row="4" />
-							<StackPanel Grid.Row="5">
-								<TextBlock Text="Last Viewed:"
-										   Style="{StaticResource CardContentText}" />
-								<TextBlock Text="{Binding LastAccessed, StringFormat='   • {0:dd MMMM yyyy}'}"
-										   Style="{StaticResource CardContentText}" />
-							</StackPanel>
+		<!-- Recipes List -->
+		<ScrollViewer Grid.Column="1"
+					  VerticalScrollBarVisibility="Auto">
+			<ItemsControl ItemsSource="{Binding Recipes}"
+						  Margin="10,0,10,0">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<WrapPanel />
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
 
-							<Separator Grid.Row="6"
-									   Margin="0,5"
-									   Background="White" />
-							<Button Content="View Details"
-									Style="{StaticResource CardButton}"
-									Width="140"
-									Height="40"
-									Grid.Row="7"
-									Command="{Binding DataContext.DetailedRecipeViewCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-									CommandParameter="{Binding}" />
-						</Grid>
-					</Border>
-				</DataTemplate>
-			</ItemsControl.ItemTemplate>
-		</ItemsControl>
-	</ScrollViewer>
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Border Background="{Binding BackgroundGradient, Converter={StaticResource ResourceKeyConverter}}"
+								Style="{StaticResource RecipeCardTheme}">
+							<Grid Margin="10">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="*" />
+									<RowDefinition Height="Auto" />
+								</Grid.RowDefinitions>
+
+								<TextBlock Text="{Binding RecipeName}"
+										   Style="{StaticResource CardTitleText}"
+										   Grid.Row="0"
+										   Margin="0,0,0,5" />
+								<Separator Grid.Row="1"
+										   Margin="0,5"
+										   Background="White" />
+								<TextBlock Text="{Binding Ingredients.Count, StringFormat='Ingredients: {0}'}"
+										   Style="{StaticResource CardContentText}"
+										   Grid.Row="2" />
+								<TextBlock Text="{Binding Steps.Count, StringFormat='Steps: {0}'}"
+										   Style="{StaticResource CardContentText}"
+										   Grid.Row="3" />
+								<TextBlock Text="{Binding TotalCalories, StringFormat='Calories: {0:F0} kcal'}"
+										   Style="{StaticResource CardContentText}"
+										   Grid.Row="4" />
+								<StackPanel Grid.Row="5">
+									<TextBlock Text="Last Viewed:"
+											   Style="{StaticResource CardContentText}" />
+									<TextBlock Text="{Binding LastAccessed, StringFormat='   • {0:dd MMMM yyyy}'}"
+											   Style="{StaticResource CardContentText}" />
+								</StackPanel>
+
+								<Separator Grid.Row="6"
+										   Margin="0,5"
+										   Background="White" />
+								<Button Content="View Details"
+										Style="{StaticResource CardButton}"
+										Width="140"
+										Height="40"
+										Grid.Row="7"
+										Command="{Binding DataContext.DetailedRecipeViewCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+										CommandParameter="{Binding}" />
+							</Grid>
+						</Border>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</ScrollViewer>
+	</Grid>
 </UserControl>
