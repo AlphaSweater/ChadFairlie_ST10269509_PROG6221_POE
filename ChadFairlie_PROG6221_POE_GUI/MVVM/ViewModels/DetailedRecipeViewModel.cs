@@ -19,6 +19,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
@@ -60,6 +61,9 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 
 			// Initialize the ResetStepsCommand.
 			ResetStepsCommand = new RelayCommand(ResetSteps);
+			UpScaleCommand = new RelayCommand<object>(UpScale);
+			DownScaleCommand = new RelayCommand<object>(DownScale);
+			ResetScaleCommand = new RelayCommand(ResetScale);
 		}
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
@@ -211,6 +215,50 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 			{
 				step.IsCompleted = false;
 			}
+		}
+
+		//------------------------------------------------------------------------------------------------------------------------//
+		public ICommand UpScaleCommand { get; }
+
+		private void UpScale(object parameter)
+		{
+			if (double.TryParse(parameter?.ToString(), out double scale) && scale != 0)
+			{
+				_recipe.Scale(scale);
+				OnPropertyChanged(nameof(Ingredients));
+				OnPropertyChanged(nameof(CurrentScale));
+			}
+			else
+			{
+				Console.WriteLine("Invalid scale parameter: " + parameter);
+			}
+		}
+
+		//------------------------------------------------------------------------------------------------------------------------//
+		public ICommand DownScaleCommand { get; }
+
+		private void DownScale(object parameter)
+		{
+			if (double.TryParse(parameter?.ToString(), out double scale) && scale != 0)
+			{
+				_recipe.Scale(1 / scale);
+				OnPropertyChanged(nameof(Ingredients));
+				OnPropertyChanged(nameof(CurrentScale));
+			}
+			else
+			{
+				Console.WriteLine("Invalid scale parameter: " + parameter);
+			}
+		}
+
+		//------------------------------------------------------------------------------------------------------------------------//
+		public ICommand ResetScaleCommand { get; }
+
+		private void ResetScale()
+		{
+			_recipe.ResetScaling();
+			OnPropertyChanged(nameof(Ingredients));
+			OnPropertyChanged(nameof(CurrentScale));
 		}
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//

@@ -117,8 +117,6 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 					this.ResetScaling();
 				}
 			}
-
-			OnPropertyChanged(nameof(Ingredients));
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
@@ -134,7 +132,6 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 				ingredient.CaloriesPerUnit = ingredient.OriginalCaloriesPerUnit;
 			}
 			CurrentScale = 1.0;
-			OnPropertyChanged(nameof(Ingredients));
 		}
 
 		// TODO: Remove this later
@@ -198,7 +195,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 					Ingredients = new List<Ingredient>
 					{
 						new Ingredient("Flour", 16, "tablespoon", 50, "Grains"), // Should convert to cups
-						new Ingredient("Sugar", 48, "teaspoon", 30, "Sweets and Snacks"), // Should convert to cups
+						new Ingredient("Sugar", 8, "tablespoon", 30, "Sweets and Snacks"), // Should convert to cups
 					},
 					Steps = new List<Step>
 					{

@@ -50,7 +50,13 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 		public double Quantity
 		{
 			get => _quantity;
-			set => SetProperty(ref _quantity, value);
+			set
+			{
+				if (SetProperty(ref _quantity, value))
+				{
+					OnPropertyChanged(nameof(FormattedUnitOfMeasurement));
+				}
+			}
 		}
 
 		public double OriginalQuantity
@@ -87,9 +93,19 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 		{
 			get
 			{
-				return !string.IsNullOrEmpty(UnitOfMeasurement)
-			? $"{char.ToUpper(UnitOfMeasurement[0]) + UnitOfMeasurement.Substring(1)}{(Quantity > 1 ? "s" : "")}"
-			: UnitOfMeasurement;
+				if (string.IsNullOrEmpty(UnitOfMeasurement))
+				{
+					return UnitOfMeasurement;
+				}
+				else
+				{
+					string formattedUnit = char.ToUpper(UnitOfMeasurement[0]) + UnitOfMeasurement.Substring(1);
+					if (Quantity > 1)
+					{
+						formattedUnit += "s";
+					}
+					return formattedUnit;
+				}
 			}
 		}
 
@@ -107,15 +123,15 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 			CaloriesPerUnit = calories;
 			FoodGroup = foodGroup;
 
-			// Store original values
-			OriginalUnitOfMeasurement = UnitOfMeasurement;
-			OriginalQuantity = Quantity;
-			OriginalCaloriesPerUnit = CaloriesPerUnit;
-
 			if (UnitConverter.IsConvertible(UnitOfMeasurement))
 			{
 				(Quantity, UnitOfMeasurement, CaloriesPerUnit) = UnitConverter.Convert(Quantity, UnitOfMeasurement, CaloriesPerUnit);
 			}
+
+			// Store original values
+			OriginalUnitOfMeasurement = UnitOfMeasurement;
+			OriginalQuantity = Quantity;
+			OriginalCaloriesPerUnit = CaloriesPerUnit;
 		}
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
