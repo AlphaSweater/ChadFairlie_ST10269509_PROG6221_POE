@@ -53,7 +53,7 @@
 	<Style x:Key="CardButton"
 		   TargetType="Button">
 		<Setter Property="Background"
-				Value="#4C4B6A" />
+				Value="#2e2e2e" />
 		<Setter Property="Foreground"
 				Value="White" />
 		<Setter Property="BorderBrush"
@@ -81,7 +81,7 @@
 			<Trigger Property="IsMouseOver"
 					 Value="True">
 				<Setter Property="Background"
-						Value="#5C5B7A" />
+						Value="#444444" />
 				<Setter Property="RenderTransform">
 					<Setter.Value>
 						<ScaleTransform ScaleX="1.05"
@@ -96,7 +96,7 @@
 			<Trigger Property="IsPressed"
 					 Value="True">
 				<Setter Property="Background"
-						Value="#3B3A5A" />
+						Value="#2e2e2e" />
 				<Setter Property="RenderTransform">
 					<Setter.Value>
 						<ScaleTransform ScaleX="1"
