@@ -149,7 +149,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 		{
 			var recipes = new List<Recipe>();
 			var random = new Random();
-			var foodGroups = new[] { "Protein", "Vegetables", "Fruits", "Grains", "Dairy", "Fats and Oils", "Sweets and Snacks", "Beverages" };
+			var foodGroups = new[] { "Protein 🍗", "Vegetables 🥕", "Fruits 🍎", "Grains 🌾", "Dairy 🥛", "Fats and Oils 🥑", "Sweets and Snacks 🍪", "Beverages ☕" };
 			var units = new[] { "cup", "tablespoon", "teaspoon", "gram", "ounce", "piece", "slice" };
 			var ingredientNames = new[]
 			{
