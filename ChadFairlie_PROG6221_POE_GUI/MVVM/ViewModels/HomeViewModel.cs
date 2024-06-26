@@ -74,14 +74,9 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 			}
 		}
 
-		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
-		// Private Methods
-		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
-		// Private Methods section contains helper methods used internally by the ViewModel.
-
 		//------------------------------------------------------------------------------------------------------------------------//
 		// RefreshRecentlyViewedRecipes updates the RecentRecipes collection with the most recently accessed recipes.
-		private void RefreshRecentlyViewedRecipes()
+		public void RefreshRecentlyViewedRecipes()
 		{
 			var allRecipes = _recipeService.GetAllRecipes();
 			var sortedRecipes = allRecipes.OrderByDescending(r => r.LastAccessed).Take(4).ToList();
@@ -92,6 +87,11 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 				RecentRecipes.Add(new DetailedRecipeViewModel(sortedRecipes[i], i));
 			}
 		}
+
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
+		// Private Methods
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
+		// Private Methods section contains helper methods used internally by the ViewModel.
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 	}

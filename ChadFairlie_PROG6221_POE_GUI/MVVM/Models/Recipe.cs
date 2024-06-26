@@ -101,28 +101,24 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 		// Method to scale the quantity of ingredients.
 		public void Scale(double scale)
 		{
-			// Multiply the current scale by the given scale.
 			CurrentScale = Math.Round(CurrentScale * scale, 2);
 
-			// Iterate over each ingredient in the recipe.
 			foreach (var ingredient in Ingredients)
 			{
-				// Scale the quantity of the ingredient.
-				ingredient.Quantity *= scale;
+				ingredient.Quantity = Math.Round(ingredient.Quantity * scale, 2);
 
-				// Check if the unit of measurement of the ingredient is convertible.
 				if (UnitConverter.IsConvertible(ingredient.UnitOfMeasurement))
 				{
-					// If it is, convert the quantity and unit of measurement of the ingredient.
 					(ingredient.Quantity, ingredient.UnitOfMeasurement, ingredient.CaloriesPerUnit) = UnitConverter.Convert(ingredient.Quantity, ingredient.UnitOfMeasurement, ingredient.CaloriesPerUnit);
 				}
 
-				// If the current scale is 1, reset the quantity of the ingredient to its original quantity and measurement.
 				if (CurrentScale == 1)
 				{
 					this.ResetScaling();
 				}
 			}
+
+			OnPropertyChanged(nameof(Ingredients));
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
@@ -134,10 +130,11 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 			foreach (var ingredient in Ingredients)
 			{
 				ingredient.Quantity = ingredient.OriginalQuantity;
-				ingredient.UnitOfMeasurement = ingredient.OriginalUnitOfMeasurement; // Reset the unit of measurement
+				ingredient.UnitOfMeasurement = ingredient.OriginalUnitOfMeasurement;
 				ingredient.CaloriesPerUnit = ingredient.OriginalCaloriesPerUnit;
 			}
 			CurrentScale = 1.0;
+			OnPropertyChanged(nameof(Ingredients));
 		}
 
 		// TODO: Remove this later
@@ -162,7 +159,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 				var recipe = new Recipe
 				{
 					RecipeName = $"Recipe {i}",
-					LastAccessed = DateTime.Now.AddDays(i),
+					LastAccessed = DateTime.Now.AddDays(-1),
 					Ingredients = new List<Ingredient>(),
 					Steps = new List<Step>()
 				};
@@ -179,7 +176,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 					recipe.Ingredients.Add(new Ingredient($"{ingredientName}", quantity, unit, calories, foodGroup));
 				}
 
-				int stepsCount = random.Next(3, 6); // Each recipe will have between 3 and 5 steps
+				int stepsCount = random.Next(6, 16); // Each recipe will have between 3 and 5 steps
 				for (int k = 1; k <= stepsCount; k++)
 				{
 					recipe.Steps.Add(new Step($"Step {k} of Recipe {i}: Perform action {k} on the ingredients."));
@@ -197,7 +194,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 				new Recipe
 				{
 					RecipeName = "Special Recipe 1",
-					LastAccessed = DateTime.Now,
+					LastAccessed = DateTime.Now.AddDays(-1).AddDays(-1),
 					Ingredients = new List<Ingredient>
 					{
 						new Ingredient("Flour", 16, "tablespoon", 50, "Grains"), // Should convert to cups
@@ -212,7 +209,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 				new Recipe
 				{
 					RecipeName = "Special Recipe 2",
-					LastAccessed = DateTime.Now.AddDays(1),
+					LastAccessed = DateTime.Now.AddDays(-1),
 					Ingredients = new List<Ingredient>
 					{
 						new Ingredient("Milk", 0.25, "cup", 100, "Dairy"), // Should convert to tablespoons
@@ -227,7 +224,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 				new Recipe
 				{
 					RecipeName = "Special Recipe 3",
-					LastAccessed = DateTime.Now.AddDays(2),
+					LastAccessed = DateTime.Now.AddDays(-1),
 					Ingredients = new List<Ingredient>
 					{
 						new Ingredient("Butter", 8, "ounce", 100, "Dairy"), // Should convert to pounds
@@ -243,7 +240,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 				new Recipe
 				{
 					RecipeName = "Special Recipe 4",
-					LastAccessed = DateTime.Now.AddDays(3),
+					LastAccessed = DateTime.Now.AddDays(-1),
 					Ingredients = new List<Ingredient>
 					{
 						new Ingredient("Salt", 0.02, "cup", 0, "Spices"), // Should convert to teaspoons

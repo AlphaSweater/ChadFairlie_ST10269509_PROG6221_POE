@@ -1,4 +1,5 @@
-﻿using ChadFairlie_PROG6221_POE_GUI.MVVM.Models;
+﻿using ChadFairlie_PROG6221_POE_GUI.Core;
+using ChadFairlie_PROG6221_POE_GUI.MVVM.Models;
 using ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels;
 using ChadFairlie_PROG6221_POE_GUI.Services;
 using System;
@@ -7,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 // //<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 // Design Time Data
@@ -82,6 +84,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.DesignData
 		public double CurrentScale { get; set; }
 		public double TotalCalories => Recipe.CalculateTotalCalories();
 
+		public string CaloriesMessage { get; set; }
 		public string BackgroundGradient { get; set; }
 
 		//------------------------------------------------------------------------------------------------------------------------//
@@ -98,15 +101,48 @@ namespace ChadFairlie_PROG6221_POE_GUI.DesignData
 			Steps = new ObservableCollection<Step>(Recipe.Steps);
 			LastAccessed = Recipe.LastAccessed;
 			CurrentScale = Recipe.CurrentScale;
+			UpdateCaloriesMessage();
 
 			// Set the background gradient based on the index
 			SetBackgroundGradient(index);
+
+			ResetStepsCommand = new RelayCommand(ResetSteps);
+		}
+
+		private void UpdateCaloriesMessage()
+		{
+			if (TotalCalories > 500)
+			{
+				CaloriesMessage = " (High Calorie Content! Consider reducing portion size or substituting ingredients.)";
+			}
+			else if (TotalCalories > 300)
+			{
+				CaloriesMessage = " (Moderate Calorie Content. Good for a main meal.)";
+			}
+			else if (TotalCalories > 150)
+			{
+				CaloriesMessage = " (Low Calorie Content. Good for a light meal or snack.)";
+			}
+			else
+			{
+				CaloriesMessage = " (Very Low Calorie Content. Consider adding more nutritious ingredients.)";
+			}
 		}
 
 		private void SetBackgroundGradient(int index)
 		{
 			int gradientIndex = (index % 10) + 1; // Cycle through 1 to 10 for gradients.
 			BackgroundGradient = $"TertiaryColorGradient{gradientIndex}";
+		}
+
+		public ICommand ResetStepsCommand { get; }
+
+		private void ResetSteps()
+		{
+			foreach (var step in Steps)
+			{
+				step.IsCompleted = false;
+			}
 		}
 	}
 }

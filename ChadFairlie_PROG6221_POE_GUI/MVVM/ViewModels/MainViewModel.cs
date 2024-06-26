@@ -65,11 +65,21 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 
 			//------------------------------------------------------------------------------------------------------------------------//
 			// Initialize commands for view navigation.
-			HomeViewCommand = new RelayCommand<object>(o => CurrentView = HomeVM);
+			HomeViewCommand = new RelayCommand<object>(o =>
+			{
+				HomeVM.RefreshRecentlyViewedRecipes();
+				CurrentView = HomeVM;
+			});
 
-			RecipesViewCommand = new RelayCommand<object>(o => CurrentView = RecipesVM);
+			RecipesViewCommand = new RelayCommand<object>(o =>
+			{
+				CurrentView = RecipesVM;
+			});
 
-			DetailedRecipeViewCommand = new RelayCommand<DetailedRecipeViewModel>(detailedRecipeVM => CurrentView = detailedRecipeVM);
+			DetailedRecipeViewCommand = new RelayCommand<DetailedRecipeViewModel>(detailedRecipeVM =>
+			{
+				CurrentView = detailedRecipeVM;
+			});
 		}
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//

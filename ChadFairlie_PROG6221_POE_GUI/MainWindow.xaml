@@ -21,7 +21,7 @@
 		Title="MainWindow"
 		Height="800"
 		Width="1150"
-		MinHeight="890"
+		MinHeight="895"
 		MinWidth="1110"
 		WindowStyle="None"
 		ResizeMode="CanResizeWithGrip"
