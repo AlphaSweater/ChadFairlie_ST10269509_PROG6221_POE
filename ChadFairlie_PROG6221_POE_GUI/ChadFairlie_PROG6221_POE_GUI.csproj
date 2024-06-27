@@ -111,9 +111,6 @@
     <Compile Include="MVVM\Views\DetailedRecipeView.xaml.cs">
       <DependentUpon>DetailedRecipeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MVVM\Views\Testing.xaml.cs">
-      <DependentUpon>Testing.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Services\RecipeService.cs" />
     <Compile Include="Services\ServiceProviderFactory.cs" />
     <Page Include="MainWindow.xaml">
@@ -139,10 +136,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\Views\HomeView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MVVM\Views\Testing.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

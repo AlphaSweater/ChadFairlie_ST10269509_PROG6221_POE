@@ -7,8 +7,8 @@
 			 xmlns:designData="clr-namespace:ChadFairlie_PROG6221_POE_GUI.DesignData"
 			 d:DataContext="{d:DesignInstance designData:DesignTimeDetailedRecipeViewModel, IsDesignTimeCreatable=True}"
 			 mc:Ignorable="d"
-			 d:DesignHeight="820"
-			 d:DesignWidth="930"
+			 d:DesignHeight="825"
+			 d:DesignWidth="920"
 			 Loaded="DetailedRecipeView_Loaded">
 
 	<UserControl.Resources>

@@ -20,8 +20,8 @@
 			 xmlns:designData="clr-namespace:ChadFairlie_PROG6221_POE_GUI.DesignData"
 			 d:DataContext="{d:DesignInstance designData:DesignTimeRecipesViewModel, IsDesignTimeCreatable=True}"
 			 mc:Ignorable="d"
-			 d:DesignHeight="725"
-			 d:DesignWidth="930">
+			 d:DesignHeight="825"
+			 d:DesignWidth="920">
 
 	<UserControl.Resources>
 		<converters:ResourceKeyConverter x:Key="ResourceKeyConverter" />
