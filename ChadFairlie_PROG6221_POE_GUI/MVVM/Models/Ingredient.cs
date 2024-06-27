@@ -113,9 +113,9 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
-		private string _foodGroup;
+		private FoodGroup _foodGroup;
 
-		public string FoodGroup
+		public FoodGroup FoodGroup
 		{
 			get => _foodGroup;
 			set => SetProperty(ref _foodGroup, value);
@@ -149,7 +149,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 		// Constructor for the Ingredient class.
 		// It initializes the name, quantity, and unit of measurement of the ingredient.
 		// If the unit of measurement is convertible (e.g., "cups" to "tablespoons"), it converts the quantity and unit of measurement.
-		public Ingredient(string name, double quantity, string unit, double calories, string foodGroup)
+		public Ingredient(string name, double quantity, string unit, double calories, FoodGroup foodGroup)
 		{
 			Name = name.TrimEnd('s');
 			PreciseQuantity = quantity;

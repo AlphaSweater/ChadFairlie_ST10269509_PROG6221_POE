@@ -12,34 +12,39 @@
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 	<!-- Theme for Search Box Templates -->
 	<Style TargetType="{x:Type TextBox}"
-		   x:Key="ModernSearchBox">
+		   x:Key="SearchBoxStyle">
+		<Setter Property="Padding"
+				Value="5" />
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type TextBox}">
 					<Border CornerRadius="10"
-							Background="#4c4b6a"
+							Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="{TemplateBinding BorderThickness}"
 							Width="{TemplateBinding Width}"
 							Height="{TemplateBinding Height}">
 						<Grid>
 							<Rectangle StrokeThickness="1" />
 							<TextBox Margin="1"
-									 Text="{TemplateBinding Text}"
+									 Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}"
 									 BorderThickness="0"
 									 Background="Transparent"
 									 VerticalContentAlignment="Center"
 									 Padding="5"
 									 FontFamily="/Fonts/#Poppins"
-									 Foreground="White"
+									 Foreground="{TemplateBinding Foreground}"
 									 x:Name="SearchBox" />
 
 							<TextBlock IsHitTestVisible="False"
-									   Text="Search recipes..."
+									   Text="Search recipes/ingredients..."
 									   VerticalAlignment="Center"
 									   HorizontalAlignment="Left"
+									   TextAlignment="Left"
 									   Margin="10,0,0,0"
 									   FontSize="11"
 									   FontFamily="/Fonts/#Poppins"
-									   Foreground="DarkGray"
+									   Foreground="Gray"
 									   Grid.Column="1">
 
 								<TextBlock.Style>

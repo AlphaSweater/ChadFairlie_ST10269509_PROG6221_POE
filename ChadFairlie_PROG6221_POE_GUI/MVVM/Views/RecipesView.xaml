@@ -25,18 +25,11 @@
 
 	<UserControl.Resources>
 		<converters:ResourceKeyConverter x:Key="ResourceKeyConverter" />
-
-		<Style TargetType="{x:Type xctk:CheckComboBox}">
-			<Setter Property="Background"
-					Value="White" />
-			<Setter Property="Foreground"
-					Value="Black" />
-		</Style>
 	</UserControl.Resources>
 
 	<Grid>
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="200" />
+			<ColumnDefinition Width="230" />
 			<!-- Filter Section -->
 			<ColumnDefinition Width="*" />
 			<!-- Recipes List -->
@@ -45,47 +38,139 @@
 		<!-- Filter Section -->
 		<Border Grid.Column="0"
 				Margin="10"
-				Background="White"
-				CornerRadius="10"
-				BorderBrush="LightGray"
-				BorderThickness="1">
-			<StackPanel Margin="10">
-				<TextBlock Text="Filter Recipes"
+				Background="#FFD6D6D6"
+				CornerRadius="25">
+			<StackPanel Margin="20,20">
+				<TextBlock Text="Filter and Search"
+						   TextWrapping="Wrap"
+						   TextAlignment="Center"
 						   FontWeight="Bold"
-						   FontSize="16"
-						   Margin="0,0,0,10" />
-				<TextBox ToolTip="Search by name..."
-						 Margin="0,0,0,10" />
-				<TextBlock Text="Food Group"
-						   FontWeight="Bold"
-						   Margin="0,0,0,5" />
-				<xctk:CheckComboBox Margin="0,0,0,10"
-									ItemsSource="{Binding FoodGroups}"
-									DisplayMemberPath="FormattedName"
-									Background="White"
-									Foreground="Black" />
-				<TextBlock Text="Calories"
-						   FontWeight="Bold"
-						   Margin="0,0,0,5" />
-				<xctk:RangeSlider Minimum="0"
-								  Maximum="1000"
-								  LowerValue="100"
-								  HigherValue="500"
-								  IsSnapToTickEnabled="True"
-								  TickFrequency="50"
-								  Margin="0,0,0,10" />
-				<Button Content="Apply Filters"
-						Width="120"
-						Height="30"
-						Margin="0,20,0,0"
-						HorizontalAlignment="Center" />
+						   FontSize="18"
+						   Margin="0,0,0,20" />
+
+				<!-- Search Bar -->
+				<StackPanel Margin="0,0,0,20">
+					<TextBlock Text="Search"
+							   FontWeight="Bold"
+							   Margin="0,0,0,5" />
+					<TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+							 Background="#f0f0f0"
+							 Foreground="Black"
+							 BorderBrush="#FFABADB3"
+							 BorderThickness="1"
+							 Margin="0,0,0,5"
+							 Style="{StaticResource SearchBoxStyle}"
+							 HorizontalAlignment="Stretch"
+							 Width="auto" />
+					<Button Content="Clear"
+							Background="Maroon"
+							Width="40"
+							Height="20"
+							HorizontalAlignment="Right"
+							Style="{StaticResource CardButton}"
+							Command="{Binding ClearSearchFilterCommand }" />
+				</StackPanel>
+
+				<!-- Food Groups Filter -->
+				<StackPanel Margin="0,0,0,20">
+					<TextBlock Text="Food Group"
+							   FontWeight="Bold"
+							   Margin="0,0,0,5" />
+					<xctk:CheckComboBox Margin="0,0,0,5"
+										ItemsSource="{Binding FullFoodGroupsList}"
+										SelectedItemsOverride="{Binding SelectedFoodGroups, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+										DisplayMemberPath="FormattedName"
+										Background="#f0f0f0"
+										Foreground="Black"
+										BorderBrush="#FFABADB3" />
+					<Button Content="Clear"
+							Background="Maroon"
+							Width="40"
+							Height="20"
+							HorizontalAlignment="Right"
+							Style="{StaticResource CardButton}"
+							Command="{Binding ClearFoodGroupsFilterCommand }" />
+				</StackPanel>
+
+				<!-- Calories Filter -->
+				<Grid Margin="0,0,0,20">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="auto" />
+						<RowDefinition Height="auto" />
+						<RowDefinition Height="auto" />
+						<RowDefinition Height="auto" />
+					</Grid.RowDefinitions>
+
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="auto" />
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="auto" />
+					</Grid.ColumnDefinitions>
+
+					<TextBlock Text="Calories"
+							   Grid.Row="0"
+							   Grid.ColumnSpan="3"
+							   FontWeight="Bold"
+							   Margin="0,0,0,5" />
+					<StackPanel Grid.Row="1"
+								Grid.Column="0"
+								Margin="0,0,0,5">
+						<TextBlock Text="Min"
+								   TextAlignment="Center"
+								   FontWeight="Bold"
+								   Margin="0,0,0,0" />
+						<TextBox Width="50"
+								 Text="{Binding LowerValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+								 Background="#f0f0f0"
+								 Foreground="Black"
+								 BorderBrush="#FFABADB3"
+								 VerticalAlignment="Center"
+								 HorizontalAlignment="Left"
+								 InputScope="Number" />
+					</StackPanel>
+					<StackPanel Grid.Row="1"
+								Grid.Column="2">
+						<TextBlock Text="Max"
+								   TextAlignment="Center"
+								   FontWeight="Bold"
+								   Margin="0,0,0,0" />
+						<TextBox Width="50"
+								 Text="{Binding HigherValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+								 Background="#f0f0f0"
+								 Foreground="Black"
+								 BorderBrush="#FFABADB3"
+								 VerticalAlignment="Center"
+								 InputScope="Number" />
+					</StackPanel>
+					<xctk:RangeSlider Grid.Row="2"
+									  Grid.ColumnSpan="3"
+									  Minimum="0"
+									  Maximum="1500"
+									  Width="auto"
+									  LowerValue="{Binding LowerValue, Mode=TwoWay}"
+									  HigherValue="{Binding HigherValue, Mode=TwoWay}"
+									  IsSnapToTickEnabled="True"
+									  TickFrequency="50"
+									  Margin="0,0,0,5"
+									  RangeBackground="#7F00FF6D" />
+
+					<Button Grid.Row="3"
+							Grid.ColumnSpan="3"
+							Content="Clear"
+							Background="Maroon"
+							Width="40"
+							Height="20"
+							HorizontalAlignment="Right"
+							Style="{StaticResource CardButton}"
+							Command="{Binding ClearCaloriesFilterCommand}" />
+				</Grid>
 			</StackPanel>
 		</Border>
 
 		<!-- Recipes List -->
 		<ScrollViewer Grid.Column="1"
 					  VerticalScrollBarVisibility="Auto">
-			<ItemsControl ItemsSource="{Binding Recipes}"
+			<ItemsControl ItemsSource="{Binding FilteredRecipes}"
 						  Margin="10,0,10,0">
 				<ItemsControl.ItemsPanel>
 					<ItemsPanelTemplate>

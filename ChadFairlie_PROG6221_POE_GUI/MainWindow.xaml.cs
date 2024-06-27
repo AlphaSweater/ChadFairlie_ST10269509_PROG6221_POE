@@ -31,7 +31,16 @@ namespace ChadFairlie_PROG6221_POE_GUI
 
 		private void CloseButton_Click(object sender, RoutedEventArgs e)
 		{
-			this.Close();
+			// Display a confirmation dialog box
+			MessageBoxResult result = MessageBox.Show("Are you sure you want to close the Recipe Manager?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+			// Check the user's response
+			if (result == MessageBoxResult.Yes)
+			{
+				// If the user clicked 'Yes', close the application
+				this.Close();
+			}
+			// If the user clicked 'No', do nothing and return to the application
 		}
 
 		private void MaximizeButton_Click(object sender, RoutedEventArgs e)

@@ -13,6 +13,7 @@ using ChadFairlie_PROG6221_POE_GUI.Core;
 using ChadFairlie_PROG6221_POE_GUI.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 {
@@ -169,7 +170,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 					double calories = Math.Round(random.NextDouble() * 50 + 10, 2); // Random calories between 10 and 60
 					FoodGroup foodGroup = foodGroups[random.Next(foodGroups.Length)];
 
-					recipe.Ingredients.Add(new Ingredient($"{ingredientName}", quantity, unit, calories, foodGroup.ToString()));
+					recipe.Ingredients.Add(new Ingredient($"{ingredientName}", quantity, unit, calories, foodGroup));
 				}
 
 				int stepsCount = random.Next(6, 16); // Each recipe will have between 3 and 5 steps
@@ -185,16 +186,20 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 
 		public static List<Recipe> GetSpecialDummyRecipes()
 		{
+			FoodGroup[] foodGroups = RecipeService.FoodGroups;
+
+			var random = new Random();
+
 			var specialRecipes = new List<Recipe>
 			{
 				new Recipe
 				{
 					RecipeName = "Special Recipe 1",
-					LastAccessed = DateTime.Now.AddDays(-1).AddDays(-1),
+					LastAccessed = DateTime.Now.AddDays(-2),
 					Ingredients = new List<Ingredient>
 					{
-						new Ingredient("Flour", 16, "tablespoon", 50, "Grains"), // Should convert to cups
-						new Ingredient("Sugar", 8, "tablespoon", 30, "Sweets and Snacks"), // Should convert to cups
+						new Ingredient("Flour", 16, "tablespoon", 50, foodGroups.First(fg => fg.Name == "Grains")), // Should convert to cups
+						new Ingredient("Sugar", 8, "tablespoon", 30, foodGroups.First(fg => fg.Name == "Sweets and Snacks")), // Should convert to cups
 					},
 					Steps = new List<Step>
 					{
@@ -208,8 +213,8 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 					LastAccessed = DateTime.Now.AddDays(-1),
 					Ingredients = new List<Ingredient>
 					{
-						new Ingredient("Milk", 0.25, "cup", 100, "Dairy"), // Should convert to tablespoons
-						new Ingredient("Olive Oil", 1.5, "teaspoon", 120, "Fats and Oils"), // Should stay as teaspoons
+						new Ingredient("Milk", 0.25, "cup", 100, foodGroups.First(fg => fg.Name == "Dairy")), // Should convert to tablespoons
+						new Ingredient("Olive Oil", 1.5, "teaspoon", 120, foodGroups.First(fg => fg.Name == "Fats and Oils")), // Should stay as teaspoons
 					},
 					Steps = new List<Step>
 					{
@@ -223,8 +228,8 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 					LastAccessed = DateTime.Now.AddDays(-1),
 					Ingredients = new List<Ingredient>
 					{
-						new Ingredient("Butter", 8, "ounce", 100, "Dairy"), // Should convert to pounds
-						new Ingredient("Honey", 300, "milliliter", 50, "Sweets and Snacks"), // Should convert to liters
+						new Ingredient("Butter", 8, "ounce", 100, foodGroups.First(fg => fg.Name == "Dairy")), // Should convert to pounds
+						new Ingredient("Honey", 300, "milliliter", 50, foodGroups.First(fg => fg.Name == "Sweets and Snacks")), // Should convert to liters
 					},
 					Steps = new List<Step>
 					{
@@ -239,8 +244,8 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 					LastAccessed = DateTime.Now.AddDays(-1),
 					Ingredients = new List<Ingredient>
 					{
-						new Ingredient("Salt", 0.02, "cup", 0, "Spices"), // Should convert to teaspoons
-						new Ingredient("Water", 1000, "milliliter", 0, "Beverages"), // Should convert to liters
+						new Ingredient("Salt", 0.02, "cup", 0, foodGroups.First(fg => fg.Name == "Spices")), // Should convert to teaspoons
+						new Ingredient("Water", 1000, "milliliter", 0, foodGroups.First(fg => fg.Name == "Beverages")), // Should convert to liters
 					},
 					Steps = new List<Step>
 					{

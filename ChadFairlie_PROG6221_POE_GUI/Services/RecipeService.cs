@@ -19,7 +19,8 @@ namespace ChadFairlie_PROG6221_POE_GUI.Services
 			new FoodGroup("Dairy", "🥛"),
 			new FoodGroup("Fats and Oils", "🥑"),
 			new FoodGroup("Sweets and Snacks", "🍪"),
-			new FoodGroup("Beverages", "☕")
+			new FoodGroup("Beverages", "☕"),
+			new FoodGroup("Spices", "🌶️"),
 		};
 
 		public RecipeService()
