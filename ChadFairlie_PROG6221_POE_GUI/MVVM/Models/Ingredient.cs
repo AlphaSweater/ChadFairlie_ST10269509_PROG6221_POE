@@ -1,18 +1,10 @@
-﻿// Chad Fairlie
-// ST10269509
-// Group 2
-
-//------------------------------------------------------------------------------------------------------------------------//
-using ChadFairlie_PROG6221_POE_GUI.Core;
+﻿using ChadFairlie_PROG6221_POE_GUI.Core;
 using System;
 
 namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 {
-	// The Ingredient class represents a single ingredient used in a recipe.
-	// It includes properties for the name, quantity, original quantity, and unit of measurement of the ingredient.
 	public class Ingredient : ObservableObject
 	{
-		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		private string _name;
 
 		public string Name
@@ -21,7 +13,6 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 			set => SetProperty(ref _name, value);
 		}
 
-		//------------------------------------------------------------------------------------------------------------------------//
 		private string _unitOfMeasurement;
 
 		public string UnitOfMeasurement
@@ -36,7 +27,6 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 			}
 		}
 
-		//------------------------------------------------------------------------------------------------------------------------//
 		private string _originalUnitOfMeasurement;
 
 		public string OriginalUnitOfMeasurement
@@ -45,7 +35,6 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 			private set => SetProperty(ref _originalUnitOfMeasurement, value);
 		}
 
-		//------------------------------------------------------------------------------------------------------------------------//
 		private double _preciseQuantity;
 
 		public double PreciseQuantity
@@ -55,22 +44,14 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 			{
 				if (SetProperty(ref _preciseQuantity, value))
 				{
-					// Notify changes for Quantity since it's derived from PreciseQuantity
 					OnPropertyChanged(nameof(Quantity));
-					// If FormattedUnitOfMeasurement depends on Quantity, notify it as well
 					OnPropertyChanged(nameof(FormattedUnitOfMeasurement));
 				}
 			}
 		}
 
-		//------------------------------------------------------------------------------------------------------------------------//
+		public double Quantity => Math.Round(PreciseQuantity, 2);
 
-		public double Quantity
-		{
-			get => Math.Round(PreciseQuantity, 2);
-		}
-
-		//------------------------------------------------------------------------------------------------------------------------//
 		private double _originalQuantity;
 
 		public double OriginalQuantity
@@ -79,7 +60,6 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 			private set => SetProperty(ref _originalQuantity, value);
 		}
 
-		//------------------------------------------------------------------------------------------------------------------------//
 		private double _preciseCaloriesPerUnit;
 
 		public double PreciseCaloriesPerUnit
@@ -89,21 +69,14 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 			{
 				if (SetProperty(ref _preciseCaloriesPerUnit, value))
 				{
-					// Notify changes for CaloriesPerUnit since it's derived from PreciseCaloriesPerUnit
 					OnPropertyChanged(nameof(CaloriesPerUnit));
-					// Notify changes for FormattedCaloriesPerUnit as well
 					OnPropertyChanged(nameof(FormattedCaloriesPerUnit));
 				}
 			}
 		}
 
-		//------------------------------------------------------------------------------------------------------------------------//
-		public double CaloriesPerUnit
-		{
-			get => Math.Round(PreciseCaloriesPerUnit, 2);
-		}
+		public double CaloriesPerUnit => Math.Round(PreciseCaloriesPerUnit, 2);
 
-		//------------------------------------------------------------------------------------------------------------------------//
 		private double _originalCaloriesPerUnit;
 
 		public double OriginalCaloriesPerUnit
@@ -112,7 +85,6 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 			private set => SetProperty(ref _originalCaloriesPerUnit, value);
 		}
 
-		//------------------------------------------------------------------------------------------------------------------------//
 		private FoodGroup _foodGroup;
 
 		public FoodGroup FoodGroup
@@ -121,7 +93,6 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 			set => SetProperty(ref _foodGroup, value);
 		}
 
-		//------------------------------------------------------------------------------------------------------------------------//
 		public string FormattedUnitOfMeasurement
 		{
 			get
@@ -142,13 +113,13 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 			}
 		}
 
-		//------------------------------------------------------------------------------------------------------------------------//
 		public string FormattedCaloriesPerUnit => $"{CaloriesPerUnit:F2} kcal";
 
-		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
-		// Constructor for the Ingredient class.
-		// It initializes the name, quantity, and unit of measurement of the ingredient.
-		// If the unit of measurement is convertible (e.g., "cups" to "tablespoons"), it converts the quantity and unit of measurement.
+		// Parameterless constructor for easier binding
+		public Ingredient()
+		{
+		}
+
 		public Ingredient(string name, double quantity, string unit, double calories, FoodGroup foodGroup)
 		{
 			Name = name.TrimEnd('s');
@@ -162,12 +133,9 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 				(PreciseQuantity, UnitOfMeasurement, PreciseCaloriesPerUnit) = UnitConverter.Convert(PreciseQuantity, UnitOfMeasurement, PreciseCaloriesPerUnit);
 			}
 
-			// Store original values
 			OriginalUnitOfMeasurement = UnitOfMeasurement;
 			OriginalQuantity = PreciseQuantity;
 			OriginalCaloriesPerUnit = PreciseCaloriesPerUnit;
 		}
-
-		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 	}
 }
