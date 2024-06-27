@@ -64,7 +64,6 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
-		private double _quantity;
 
 		public double Quantity
 		{
@@ -99,8 +98,6 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
-		private double _caloriesPerUnit;
-
 		public double CaloriesPerUnit
 		{
 			get => Math.Round(PreciseCaloriesPerUnit, 2);

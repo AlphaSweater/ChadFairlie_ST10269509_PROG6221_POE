@@ -1,12 +1,26 @@
-﻿using ChadFairlie_PROG6221_POE_GUI.MVVM.Models;
+﻿using ChadFairlie_PROG6221_POE_GUI.Core;
+using ChadFairlie_PROG6221_POE_GUI.MVVM.Models;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace ChadFairlie_PROG6221_POE_GUI.Services
 {
-	public class RecipeService : INotifyPropertyChanged
+	public class RecipeService : ObservableObject
 	{
 		private ObservableCollection<Recipe> _recipes;
+
+		// Static list of available food groups
+		public static readonly FoodGroup[] FoodGroups = new[]
+		{
+			new FoodGroup("Protein", "🍗"),
+			new FoodGroup("Vegetables", "🥕"),
+			new FoodGroup("Fruits", "🍎"),
+			new FoodGroup("Grains", "🌾"),
+			new FoodGroup("Dairy", "🥛"),
+			new FoodGroup("Fats and Oils", "🥑"),
+			new FoodGroup("Sweets and Snacks", "🍪"),
+			new FoodGroup("Beverages", "☕")
+		};
 
 		public RecipeService()
 		{
@@ -25,13 +39,6 @@ namespace ChadFairlie_PROG6221_POE_GUI.Services
 		{
 			_recipes.Remove(recipe);
 			OnPropertyChanged(nameof(_recipes));
-		}
-
-		public event PropertyChangedEventHandler PropertyChanged;
-
-		protected virtual void OnPropertyChanged(string propertyName)
-		{
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 	}
 }

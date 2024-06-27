@@ -10,6 +10,7 @@
 //------------------------------------------------------------------------------------------------------------------------//
 
 using ChadFairlie_PROG6221_POE_GUI.Core;
+using ChadFairlie_PROG6221_POE_GUI.Services;
 using System;
 using System.Collections.Generic;
 
@@ -141,7 +142,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 		{
 			var recipes = new List<Recipe>();
 			var random = new Random();
-			var foodGroups = new[] { "Protein 🍗", "Vegetables 🥕", "Fruits 🍎", "Grains 🌾", "Dairy 🥛", "Fats and Oils 🥑", "Sweets and Snacks 🍪", "Beverages ☕" };
+			FoodGroup[] foodGroups = RecipeService.FoodGroups;
 			var units = new[] { "cup", "tablespoon", "teaspoon", "gram", "ounce", "piece", "slice" };
 			var ingredientNames = new[]
 			{
@@ -166,9 +167,9 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 					double quantity = random.Next(1, 11); // Random quantity between 1 and 10
 					string unit = units[random.Next(units.Length)];
 					double calories = Math.Round(random.NextDouble() * 50 + 10, 2); // Random calories between 10 and 60
-					string foodGroup = foodGroups[random.Next(foodGroups.Length)];
+					FoodGroup foodGroup = foodGroups[random.Next(foodGroups.Length)];
 
-					recipe.Ingredients.Add(new Ingredient($"{ingredientName}", quantity, unit, calories, foodGroup));
+					recipe.Ingredients.Add(new Ingredient($"{ingredientName}", quantity, unit, calories, foodGroup.ToString()));
 				}
 
 				int stepsCount = random.Next(6, 16); // Each recipe will have between 3 and 5 steps

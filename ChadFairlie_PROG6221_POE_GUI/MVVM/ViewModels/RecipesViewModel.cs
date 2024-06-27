@@ -11,6 +11,7 @@
 //<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 
 using ChadFairlie_PROG6221_POE_GUI.Core;
+using ChadFairlie_PROG6221_POE_GUI.MVVM.Models;
 using ChadFairlie_PROG6221_POE_GUI.Services;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -27,6 +28,8 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 		private readonly RecipeService _recipeService;
 
 		private ObservableCollection<DetailedRecipeViewModel> _recipes;
+		private readonly FoodGroup[] _foodGroups;
+
 		private DetailedRecipeViewModel _selectedRecipe;
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
@@ -36,6 +39,8 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 		public RecipesViewModel()
 		{
 			_recipeService = ServiceProviderFactory.GetService<RecipeService>();
+			_foodGroups = RecipeService.FoodGroups;
+
 			var recipes = _recipeService.GetAllRecipes();
 			Recipes = new ObservableCollection<DetailedRecipeViewModel>();
 
@@ -83,5 +88,10 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 		}
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
+
+		public FoodGroup[] FoodGroups
+		{
+			get => _foodGroups;
+		}
 	}
 }

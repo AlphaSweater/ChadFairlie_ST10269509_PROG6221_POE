@@ -16,6 +16,7 @@
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:local="clr-namespace:ChadFairlie_PROG6221_POE_GUI.MVVM.Views"
 			 xmlns:converters="clr-namespace:ChadFairlie_PROG6221_POE_GUI.Converters"
+			 xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
 			 xmlns:designData="clr-namespace:ChadFairlie_PROG6221_POE_GUI.DesignData"
 			 d:DataContext="{d:DesignInstance designData:DesignTimeRecipesViewModel, IsDesignTimeCreatable=True}"
 			 mc:Ignorable="d"
@@ -24,6 +25,13 @@
 
 	<UserControl.Resources>
 		<converters:ResourceKeyConverter x:Key="ResourceKeyConverter" />
+
+		<Style TargetType="{x:Type xctk:CheckComboBox}">
+			<Setter Property="Background"
+					Value="White" />
+			<Setter Property="Foreground"
+					Value="Black" />
+		</Style>
 	</UserControl.Resources>
 
 	<Grid>
@@ -46,27 +54,26 @@
 						   FontWeight="Bold"
 						   FontSize="16"
 						   Margin="0,0,0,10" />
-				<TextBox Text="Search by name..."
+				<TextBox ToolTip="Search by name..."
 						 Margin="0,0,0,10" />
 				<TextBlock Text="Food Group"
 						   FontWeight="Bold"
 						   Margin="0,0,0,5" />
-				<ComboBox Margin="0,0,0,10">
-					<ComboBoxItem Content="All" />
-					<ComboBoxItem Content="Vegetables" />
-					<ComboBoxItem Content="Fruits" />
-					<ComboBoxItem Content="Proteins" />
-					<ComboBoxItem Content="Grains" />
-					<!-- Add more food groups as needed -->
-				</ComboBox>
+				<xctk:CheckComboBox Margin="0,0,0,10"
+									ItemsSource="{Binding FoodGroups}"
+									DisplayMemberPath="FormattedName"
+									Background="White"
+									Foreground="Black" />
 				<TextBlock Text="Calories"
 						   FontWeight="Bold"
 						   Margin="0,0,0,5" />
-				<Slider Minimum="0"
-						Maximum="1000"
-						TickFrequency="50"
-						IsSnapToTickEnabled="True"
-						Margin="0,0,0,10" />
+				<xctk:RangeSlider Minimum="0"
+								  Maximum="1000"
+								  LowerValue="100"
+								  HigherValue="500"
+								  IsSnapToTickEnabled="True"
+								  TickFrequency="50"
+								  Margin="0,0,0,10" />
 				<Button Content="Apply Filters"
 						Width="120"
 						Height="30"
