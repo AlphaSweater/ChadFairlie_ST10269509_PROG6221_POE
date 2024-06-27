@@ -12,7 +12,7 @@
 			<ResourceDictionary.MergedDictionaries>
 				<!-- Theme Dictionaries -->
 				<ResourceDictionary Source="Themes/MenuButtonTheme.xaml" />
-				<ResourceDictionary Source="Themes/SearchBoxTheme.xaml" />
+				<ResourceDictionary Source="Themes/InputThemes.xaml" />
 				<ResourceDictionary Source="Themes/BoxItemTheme.xaml" />
 				<ResourceDictionary Source="Themes/RecipeCardTheme.xaml" />
 				<ResourceDictionary Source="Themes/ScrollBarTheme.xaml" />
@@ -28,6 +28,9 @@
 			</DataTemplate>
 			<DataTemplate DataType="{x:Type viewModels:DetailedRecipeViewModel}">
 				<views:DetailedRecipeView />
+			</DataTemplate>
+			<DataTemplate DataType="{x:Type viewModels:AddRecipeViewModel}">
+				<views:AddRecipeView />
 			</DataTemplate>
 
 			<!--<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>-->

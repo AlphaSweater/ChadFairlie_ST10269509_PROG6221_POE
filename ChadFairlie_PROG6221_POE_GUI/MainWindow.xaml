@@ -92,6 +92,15 @@
 									 IsChecked="True"
 									 Command="{Binding HomeViewCommand}" />
 
+						<RadioButton Content="Create New Recipe"
+									 Height="50"
+									 Foreground="White"
+									 FontSize="14"
+									 Style="{StaticResource MenuButtonTheme}"
+									 Cursor="Hand"
+									 Command="{Binding AddRecipeViewCommand}"
+									 IsChecked="{Binding CreateViewIsChecked, Mode=TwoWay}" />
+
 						<RadioButton Content="View Recipes"
 									 Height="50"
 									 Foreground="White"
@@ -100,12 +109,6 @@
 									 Cursor="Hand"
 									 Command="{Binding RecipesViewCommand}" />
 
-						<RadioButton Content="Settings"
-									 Height="50"
-									 Foreground="White"
-									 FontSize="14"
-									 Style="{StaticResource MenuButtonTheme}"
-									 Cursor="Hand" />
 						<RadioButton Content="Exit"
 									 Height="50"
 									 Foreground="White"

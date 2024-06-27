@@ -145,4 +145,63 @@ namespace ChadFairlie_PROG6221_POE_GUI.DesignData
 			}
 		}
 	}
+
+	//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
+	// AddRecipeViewModel Design Time Data
+	//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
+	// This class provides design-time data for the AddRecipeViewModel.
+	public class DesignTimeAddRecipeViewModel
+	{
+		public string RecipeName { get; set; }
+		public ObservableCollection<Ingredient> Ingredients { get; set; }
+		public ObservableCollection<Step> Steps { get; set; }
+
+		// Constructor initializes the ViewModel with dummy data.
+		public DesignTimeAddRecipeViewModel()
+		{
+			// Set a dummy recipe name
+			RecipeName = "Design Time Recipe";
+
+			// Directly create FoodGroup instances for design-time data
+			var grainsFoodGroup = new FoodGroup("Grains", "🌾");
+			var sugarsFoodGroup = new FoodGroup("Sugars", "🍬");
+			var dairyFoodGroup = new FoodGroup("Dairy", "🥛");
+
+			// Initialize the Ingredients collection with some dummy ingredients
+			Ingredients = new ObservableCollection<Ingredient>
+			{
+				new Ingredient("Flour", 2, "cups", 100, grainsFoodGroup),
+				new Ingredient("Sugar", 1, "cup", 150, sugarsFoodGroup),
+				new Ingredient("Flour", 2, "cups", 100, grainsFoodGroup),
+				new Ingredient("Sugar", 1, "cup", 150, sugarsFoodGroup),
+				new Ingredient("Flour", 2, "cups", 100, grainsFoodGroup),
+				new Ingredient("Sugar", 1, "cup", 150, sugarsFoodGroup),
+				new Ingredient("Eggs", 2, "units", 70, dairyFoodGroup)
+			};
+
+			// Initialize the Steps collection with some dummy steps
+			Steps = new ObservableCollection<Step>
+		{
+			new Step("Mix all dry ingredients."),
+			new Step("Add eggs and mix well."),
+			new Step("Mix all dry ingredients."),
+			new Step("Add eggs and mix well."),
+			new Step("Mix all dry ingredients."),
+			new Step("Add eggs and mix well."),
+			new Step("Mix all dry ingredients."),
+			new Step("Add eggs and mix well."),
+			new Step("Mix all dry ingredients."),
+			new Step("Add eggs and mix well."),
+			new Step("Mix all dry ingredients."),
+			new Step("Add eggs and mix well."),
+			new Step("Mix all dry ingredients."),
+			new Step("Add eggs and mix well."),
+			new Step("Mix all dry ingredients."),
+			new Step("Add eggs and mix well."),
+			new Step("Mix all dry ingredients."),
+			new Step("Add eggs and mix well."),
+			new Step("Pour into a baking pan and bake.")
+		};
+		}
+	}
 }

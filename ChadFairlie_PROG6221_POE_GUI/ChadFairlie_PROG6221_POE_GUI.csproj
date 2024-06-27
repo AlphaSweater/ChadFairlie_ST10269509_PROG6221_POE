@@ -106,8 +106,12 @@
     <Compile Include="DesignData\DesignTimeData.cs" />
     <Compile Include="MVVM\Models\FoodGroup.cs" />
     <Compile Include="MVVM\Models\Step.cs" />
+    <Compile Include="MVVM\ViewModels\AddRecipeViewModel.cs" />
     <Compile Include="MVVM\ViewModels\DetailedRecipeViewModel.cs" />
     <Compile Include="MVVM\ViewModels\RecipesViewModel.cs" />
+    <Compile Include="MVVM\Views\AddRecipeView.xaml.cs">
+      <DependentUpon>AddRecipeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\Views\DetailedRecipeView.xaml.cs">
       <DependentUpon>DetailedRecipeView.xaml</DependentUpon>
     </Compile>
@@ -127,6 +131,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MVVM\Views\AddRecipeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\Views\DetailedRecipeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -155,7 +163,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Resource>
-    <Page Include="Themes\SearchBoxTheme.xaml">
+    <Page Include="Themes\InputThemes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -22,6 +22,8 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 
 		public RelayCommand<object> RecipesViewCommand { get; set; }
 
+		public RelayCommand<object> AddRecipeViewCommand { get; set; }
+
 		public RelayCommand<DetailedRecipeViewModel> DetailedRecipeViewCommand { get; private set; }
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
@@ -31,6 +33,9 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 
 		//------------------------------------------------------------------------------------------------------------------------//
 		public RecipesViewModel RecipesVM { get; set; }
+
+		//------------------------------------------------------------------------------------------------------------------------//
+		public AddRecipeViewModel AddRecipeVM { get; set; }
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		// CurrentView holds the ViewModel of the currently displayed view.
@@ -58,6 +63,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 			// Instantiate ViewModel classes for different views.
 			HomeVM = new HomeViewModel();
 			RecipesVM = new RecipesViewModel();
+			AddRecipeVM = new AddRecipeViewModel();
 
 			//------------------------------------------------------------------------------------------------------------------------//
 			// Set the initial view to HomeVM.
@@ -67,21 +73,45 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 			// Initialize commands for view navigation.
 			HomeViewCommand = new RelayCommand<object>(o =>
 			{
+				CreateViewIsChecked = false;
 				HomeVM.RefreshRecentlyViewedRecipes();
 				CurrentView = HomeVM;
 			});
 
 			RecipesViewCommand = new RelayCommand<object>(o =>
 			{
+				CreateViewIsChecked = false;
 				CurrentView = RecipesVM;
+			});
+
+			AddRecipeViewCommand = new RelayCommand<object>(o =>
+			{
+				CreateViewIsChecked = true;
+				OnPropertyChanged(nameof(CreateViewIsChecked));
+				CurrentView = AddRecipeVM;
 			});
 
 			DetailedRecipeViewCommand = new RelayCommand<DetailedRecipeViewModel>(detailedRecipeVM =>
 			{
+				CreateViewIsChecked = false;
 				CurrentView = detailedRecipeVM;
 			});
 		}
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
+		private bool _createViewIsChecked;
+
+		public bool CreateViewIsChecked
+		{
+			get => _createViewIsChecked;
+			set
+			{
+				if (_createViewIsChecked != value)
+				{
+					_createViewIsChecked = value;
+					OnPropertyChanged(nameof(CreateViewIsChecked));
+				}
+			}
+		}
 	}
 }

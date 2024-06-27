@@ -33,8 +33,6 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 		private ObservableCollection<DetailedRecipeViewModel> _recipes;
 		private readonly FoodGroup[] _fullFoodGroupsList;
 
-		private DetailedRecipeViewModel _selectedRecipe;
-
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		// Constructor
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
