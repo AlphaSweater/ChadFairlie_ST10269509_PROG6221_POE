@@ -50,19 +50,19 @@ namespace ChadFairlie_PROG6221_POE_GUI.DesignData
 	{
 		//------------------------------------------------------------------------------------------------------------------------//
 		// Recipes property holds a collection of DetailedRecipeViewModels for the UI to display.
-		public ObservableCollection<DetailedRecipeViewModel> Recipes { get; set; }
+		public ObservableCollection<DetailedRecipeViewModel> FilteredRecipes { get; set; }
 
 		//------------------------------------------------------------------------------------------------------------------------//
 		// Constructor initializes the ViewModel with dummy data.
 		public DesignTimeRecipesViewModel()
 		{
 			var dummyRecipes = Recipe.GetDummyRecipes();
-			Recipes = new ObservableCollection<DetailedRecipeViewModel>();
+			FilteredRecipes = new ObservableCollection<DetailedRecipeViewModel>();
 
 			for (int i = 0; i < dummyRecipes.Count; i++)
 			{
 				Recipe recipe = dummyRecipes[i];
-				Recipes.Add(new DetailedRecipeViewModel(recipe, i));
+				FilteredRecipes.Add(new DetailedRecipeViewModel(recipe, i));
 			}
 		}
 	}
