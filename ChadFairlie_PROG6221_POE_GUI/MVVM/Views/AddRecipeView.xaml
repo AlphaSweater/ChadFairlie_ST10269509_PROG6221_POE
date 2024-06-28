@@ -194,29 +194,41 @@
 						   Foreground="White"
 						   Margin="0,0,0,10" />
 
-				<!-- Add Step Button -->
-				<Button Content="Add Step"
-						Command="{Binding AddStepCommand}"
-						Style="{StaticResource CardButton}"
-						Width="150"
-						Height="30"
-						Margin="0,0,0,0"
-						Background="#393850"
-						Foreground="White"
-						FontSize="14"
-						BorderThickness="0"
-						Cursor="Hand" />
+				<TextBlock Text="Enter a Step:"
+						   FontSize="14"
+						   FontWeight="Bold"
+						   Foreground="DarkGray"
+						   Margin="0,0,0,5" />
 
-				<TextBox Background="#393850"
-						 Text="{Binding StepDescription, UpdateSourceTrigger=PropertyChanged}"
-						 TextWrapping="Wrap"
-						 BorderThickness="0"
-						 Margin="10,10,10,20"
-						 Style="{StaticResource InputBoxStyle}"
-						 Height="70"
-						 VerticalAlignment="Top"
-						 VerticalScrollBarVisibility="Auto">
-				</TextBox>
+				<!-- Add Step Section -->
+				<StackPanel Orientation="Horizontal"
+							Margin="0,0,0,10">
+					<TextBox Background="#393850"
+							 Foreground="White"
+							 Text="{Binding StepDescription, UpdateSourceTrigger=PropertyChanged}"
+							 TextAlignment="Left"
+							 TextWrapping="Wrap"
+							 BorderThickness="0"
+							 Margin="0,0,15,0"
+							 Style="{StaticResource InputBoxStyle}"
+							 Height="44"
+							 VerticalAlignment="Top"
+							 VerticalScrollBarVisibility="Auto"
+							 Width="405" />
+
+					<Button Content="Add Step"
+							Command="{Binding AddStepCommand}"
+							Style="{StaticResource CardButton}"
+							Width="80"
+							Height="30"
+							Background="#393850"
+							Foreground="White"
+							FontSize="14"
+							BorderThickness="0"
+							Cursor="Hand"
+							Margin="10,0,0,0"
+							VerticalAlignment="Center" />
+				</StackPanel>
 
 				<!-- Steps List with Checkboxes -->
 				<ScrollViewer MaxHeight="250"

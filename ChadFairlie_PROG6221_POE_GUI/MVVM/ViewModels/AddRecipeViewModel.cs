@@ -115,6 +115,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 			if (ingredientWindow.ShowDialog() == true)
 			{
 				Ingredients.Add(ingredientWindow.Ingredient);
+				OnPropertyChanged(nameof(TotalCalories));
 				UpdateTotalCalories();
 			}
 		}
