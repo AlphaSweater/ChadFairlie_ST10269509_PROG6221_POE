@@ -1,5 +1,6 @@
 ﻿using ChadFairlie_PROG6221_POE_GUI.Core;
 using ChadFairlie_PROG6221_POE_GUI.MVVM.Models;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
@@ -21,6 +22,17 @@ namespace ChadFairlie_PROG6221_POE_GUI.Services
 			new FoodGroup("Sweets and Snacks", "🍪"),
 			new FoodGroup("Beverages", "☕"),
 			new FoodGroup("Spices", "🌶️"),
+		};
+
+		public static List<string> UnitsOfMeasurement { get; } = new List<string>
+		{
+			"cups",
+			"tablespoons",
+			"teaspoons",
+			"grams",
+			"kilograms",
+			"milliliters",
+			"liters"
 		};
 
 		public RecipeService()

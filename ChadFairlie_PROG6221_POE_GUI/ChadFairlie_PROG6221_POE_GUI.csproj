@@ -115,6 +115,9 @@
     <Compile Include="MVVM\Views\DetailedRecipeView.xaml.cs">
       <DependentUpon>DetailedRecipeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\Views\PopUpView\AddIngredientView.xaml.cs">
+      <DependentUpon>AddIngredientView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\RecipeService.cs" />
     <Compile Include="Services\ServiceProviderFactory.cs" />
     <Page Include="MainWindow.xaml">
@@ -136,6 +139,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\Views\DetailedRecipeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\Views\PopUpView\AddIngredientView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -213,6 +220,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\Icons\" />
+    <Folder Include="MVVM\ViewModels\PopUpViewModel\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,5 +1,6 @@
 ﻿using ChadFairlie_PROG6221_POE_GUI.Core;
 using ChadFairlie_PROG6221_POE_GUI.MVVM.Models;
+using ChadFairlie_PROG6221_POE_GUI.MVVM.Views.PopUpView;
 using ChadFairlie_PROG6221_POE_GUI.Services;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -8,174 +9,78 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 {
 	public class AddRecipeViewModel : ObservableObject
 	{
-		private Recipe newRecipe;
-		private readonly FoodGroup[] _fullFoodGroupsList;
+		private string _recipeName;
 
-		public Recipe NewRecipe
-		{
-			get => newRecipe;
-			set
-			{
-				if (newRecipe != value)
-				{
-					newRecipe = value;
-					OnPropertyChanged();
-					UpdateTotalCalories();
-				}
-			}
-		}
+		private ObservableCollection<Ingredient> _ingredients;
+		private ObservableCollection<Step> _steps;
+		private string _stepDescription;
 
-		public FoodGroup[] FullFoodGroupsList => _fullFoodGroupsList;
+		private double _totalCalories;
+		private string _caloriesMessage;
 
-		private double totalCalories;
-
-		public double TotalCalories
-		{
-			get => totalCalories;
-			private set
-			{
-				if (totalCalories != value)
-				{
-					totalCalories = value;
-					OnPropertyChanged();
-					UpdateCaloriesMessage();
-				}
-			}
-		}
-
-		private string caloriesMessage;
-
-		public string CaloriesMessage
-		{
-			get => caloriesMessage;
-			private set
-			{
-				if (caloriesMessage != value)
-				{
-					caloriesMessage = value;
-					OnPropertyChanged();
-				}
-			}
-		}
-
-		private string newIngredientName;
-
-		public string NewIngredientName
-		{
-			get => newIngredientName;
-			set
-			{
-				if (newIngredientName != value)
-				{
-					newIngredientName = value;
-					OnPropertyChanged();
-				}
-			}
-		}
-
-		private string newIngredientQuantity;
-
-		public string NewIngredientQuantity
-		{
-			get => newIngredientQuantity;
-			set
-			{
-				if (newIngredientQuantity != value)
-				{
-					newIngredientQuantity = value;
-					OnPropertyChanged();
-				}
-			}
-		}
-
-		private string selectedMeasurementUnit;
-
-		public string SelectedMeasurementUnit
-		{
-			get => selectedMeasurementUnit;
-			set
-			{
-				if (selectedMeasurementUnit != value)
-				{
-					selectedMeasurementUnit = value;
-					OnPropertyChanged();
-				}
-			}
-		}
-
-		private string newIngredientCaloriesPerUnit;
-
-		public string NewIngredientCaloriesPerUnit
-		{
-			get => newIngredientCaloriesPerUnit;
-			set
-			{
-				if (newIngredientCaloriesPerUnit != value)
-				{
-					newIngredientCaloriesPerUnit = value;
-					OnPropertyChanged();
-				}
-			}
-		}
-
-		private FoodGroup selectedFoodGroup;
-
-		public FoodGroup SelectedFoodGroup
-		{
-			get => selectedFoodGroup;
-			set
-			{
-				if (selectedFoodGroup != value)
-				{
-					selectedFoodGroup = value;
-					OnPropertyChanged();
-				}
-			}
-		}
-
-		public ICommand AddIngredientCommand { get; }
-		public ICommand AddStepCommand { get; }
+		private readonly RecipeService _recipeService;
 
 		public AddRecipeViewModel()
 		{
-			NewRecipe = new Recipe();
-			_fullFoodGroupsList = RecipeService.FoodGroups;
+			_recipeService = ServiceProviderFactory.GetService<RecipeService>();
 
-			AddIngredientCommand = new RelayCommand(AddIngredient);
+			_ingredients = new ObservableCollection<Ingredient>();
+			_steps = new ObservableCollection<Step>();
+
+			AddIngredientCommand = new RelayCommand(OpenAddIngredientWindow);
 			AddStepCommand = new RelayCommand(AddStep);
 		}
 
-		private void AddIngredient()
+		public string RecipeName
 		{
-			if (double.TryParse(NewIngredientQuantity, out double quantity) &&
-				double.TryParse(NewIngredientCaloriesPerUnit, out double caloriesPerUnit))
-			{
-				var ingredient = new Ingredient
-				{
-					Name = NewIngredientName,
-					PreciseQuantity = quantity,
-					UnitOfMeasurement = SelectedMeasurementUnit,
-					PreciseCaloriesPerUnit = caloriesPerUnit,
-					FoodGroup = SelectedFoodGroup
-				};
-
-				NewRecipe.AddIngredient(ingredient);
-				UpdateTotalCalories();
-			}
-			else
-			{
-				// Handle invalid input
-			}
+			get => _recipeName;
+			set => SetProperty(ref _recipeName, value);
 		}
 
-		private void AddStep()
+		public ObservableCollection<Ingredient> Ingredients
 		{
-			// Implementation for adding a step
+			get => _ingredients;
+			set => SetProperty(ref _ingredients, value);
+		}
+
+		public ObservableCollection<Step> Steps
+		{
+			get => _steps;
+			set => SetProperty(ref _steps, value);
+		}
+
+		public string StepDescription
+		{
+			get => _stepDescription;
+			set => SetProperty(ref _stepDescription, value);
+		}
+
+		public double TotalCalories
+		{
+			get => _totalCalories;
+			private set => SetProperty(ref _totalCalories, value);
+		}
+
+		public string CaloriesMessage
+		{
+			get => _caloriesMessage;
+			private set => SetProperty(ref _caloriesMessage, value);
+		}
+
+		private double CalculateTotalCalories()
+		{
+			double total = 0;
+			foreach (var ingredient in Ingredients)
+			{
+				total += ingredient.PreciseCaloriesPerUnit * ingredient.PreciseQuantity;
+			}
+			return total;
 		}
 
 		private void UpdateTotalCalories()
 		{
-			TotalCalories = NewRecipe.CalculateTotalCalories();
+			TotalCalories = CalculateTotalCalories();
+			UpdateCaloriesMessage();
 		}
 
 		private void UpdateCaloriesMessage()
@@ -195,6 +100,29 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 			else
 			{
 				CaloriesMessage = "Very Low Calorie Content. Consider adding more nutritious ingredients.";
+			}
+		}
+
+		public ICommand AddIngredientCommand { get; }
+
+		private void OpenAddIngredientWindow()
+		{
+			var ingredientWindow = new AddIngredientView();
+			if (ingredientWindow.ShowDialog() == true)
+			{
+				Ingredients.Add(ingredientWindow.Ingredient);
+				UpdateTotalCalories();
+			}
+		}
+
+		public ICommand AddStepCommand { get; }
+
+		private void AddStep()
+		{
+			if (!string.IsNullOrEmpty(StepDescription))
+			{
+				Steps.Add(new Step(StepDescription));
+				StepDescription = string.Empty;
 			}
 		}
 	}

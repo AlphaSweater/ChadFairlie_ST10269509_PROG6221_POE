@@ -118,7 +118,6 @@
 							Width="{TemplateBinding Width}"
 							Height="{TemplateBinding Height}">
 						<Grid>
-							<Rectangle StrokeThickness="1" />
 							<TextBox Margin="1"
 									 Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}"
 									 BorderThickness="0"
@@ -128,6 +127,38 @@
 									 FontFamily="/Fonts/#Poppins"
 									 Foreground="{TemplateBinding Foreground}"
 									 x:Name="InputBox" />
+						</Grid>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<!-- Theme for RichTextBox Templates -->
+	<Style TargetType="{x:Type RichTextBox}"
+		   x:Key="RichTextBoxStyle">
+		<Setter Property="Padding"
+				Value="5" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type RichTextBox}">
+					<Border CornerRadius="10"
+							Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="{TemplateBinding BorderThickness}"
+							Width="{TemplateBinding Width}"
+							Height="{TemplateBinding Height}">
+						<Grid>
+							<RichTextBox Margin="1"
+										 BorderThickness="0"
+										 Background="Transparent"
+										 VerticalContentAlignment="Center"
+										 Padding="5"
+										 FontFamily="/Fonts/#Poppins"
+										 Foreground="{TemplateBinding Foreground}"
+										 x:Name="RichTextBoxContent">
+								<FlowDocument />
+							</RichTextBox>
 						</Grid>
 					</Border>
 				</ControlTemplate>
@@ -157,37 +188,6 @@
 									FontFamily="/Fonts/#Poppins"
 									Foreground="{TemplateBinding Foreground}"
 									x:Name="Button" />
-						</Grid>
-					</Border>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
-
-	<!-- Theme for ComboBox Templates -->
-	<Style TargetType="ComboBox"
-		   x:Key="ComboBoxStyle">
-		<Setter Property="Padding"
-				Value="5" />
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="ComboBox">
-					<Border CornerRadius="10"
-							Background="{TemplateBinding Background}"
-							BorderBrush="{TemplateBinding BorderBrush}"
-							Width="{TemplateBinding Width}"
-							Height="{TemplateBinding Height}">
-						<Grid>
-							<ComboBox Margin="1"
-									  ItemsSource="{TemplateBinding ItemsSource}"
-									  SelectedItem="{TemplateBinding SelectedItem}"
-									  DisplayMemberPath="{TemplateBinding DisplayMemberPath}"
-									  Background="Transparent"
-									  VerticalContentAlignment="Center"
-									  Padding="5"
-									  FontFamily="/Fonts/#Poppins"
-									  Foreground="{TemplateBinding Foreground}"
-									  x:Name="ComboBox" />
 						</Grid>
 					</Border>
 				</ControlTemplate>

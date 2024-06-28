@@ -54,7 +54,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		// Method to add a list of ingredients to the recipe.
-		public Recipe AddIngredient(Ingredient ingredient)
+		public void AddIngredient(Ingredient ingredient)
 		{
 			this.Ingredients.Add(ingredient);
 
@@ -63,20 +63,13 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 			{
 				OnCaloriesExceeded?.Invoke(totalCalories);
 			}
-
-			return this;
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
 		// Method to add a list of steps to the recipe.
-		public Recipe AddSteps(List<string> steps)
+		public void AddStep(String step)
 		{
-			foreach (var step in steps)
-			{
-				this.Steps.Add(new Step(step));
-			}
-
-			return this;
+			this.Steps.Add(new Step(step));
 		}
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
