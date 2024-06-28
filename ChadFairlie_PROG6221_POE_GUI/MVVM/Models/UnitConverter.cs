@@ -1,4 +1,15 @@
-﻿using System;
+﻿// Chad Fairlie
+// ST10269509
+// Group 2
+
+//------------------------------------------------------------------------------------------------------------------------//
+
+// References For This Class:
+//      ChatGPT helped make this class.
+
+//------------------------------------------------------------------------------------------------------------------------//
+
+using System;
 using System.Collections.Generic;
 
 namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models

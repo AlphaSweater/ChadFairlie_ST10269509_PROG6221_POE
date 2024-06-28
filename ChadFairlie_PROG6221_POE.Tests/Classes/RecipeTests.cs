@@ -1,4 +1,4 @@
-﻿using ChadFairlie_PROG6221_POE.Classes;
+﻿using ChadFairlie_PROG6221_POE_GUI.MVVM.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -29,11 +29,14 @@ namespace ChadFairlie_PROG6221_POE.Tests
 		[TestMethod]
 		public void CalculateTotalCalories_ShouldReturnCorrectTotal_WhenSingleIngredient()
 		{
+			// Create a FoodGroup instance for the test ingredient
+			var testGroup = new FoodGroup("Test Group", "🍎");
+
 			// Arrange: Create a new recipe with a single ingredient.
 			var recipe = new Recipe();
 			recipe.Ingredients = new List<Ingredient>
 			{
-				new Ingredient("Test Ingredient", 5, "unit", 20, "Test Group")
+				new Ingredient("Test Ingredient", 5, "unit", 20, testGroup)
 			};
 
 			// Act: Calculate the total calories of the recipe.
@@ -48,12 +51,16 @@ namespace ChadFairlie_PROG6221_POE.Tests
 		[TestMethod]
 		public void CalculateTotalCalories_ShouldReturnCorrectTotal_WhenMultipleIngredients()
 		{
+			// Create FoodGroup instances for the test ingredients
+			var testGroup1 = new FoodGroup("Test Group 1", "🍎");
+			var testGroup2 = new FoodGroup("Test Group 2", "🥦");
+
 			// Arrange: Create a new recipe with multiple ingredients.
 			var recipe = new Recipe();
 			recipe.Ingredients = new List<Ingredient>
 			{
-				new Ingredient("Test Ingredient 1", 2, "unit", 100, "Test Group 1"),
-				new Ingredient("Test Ingredient 2", 3, "unit", 200, "Test Group 2")
+				new Ingredient("Test Ingredient 1", 2, "unit", 100, testGroup1),
+				new Ingredient("Test Ingredient 2", 3, "unit", 200, testGroup2)
 			};
 
 			// Act: Calculate the total calories of the recipe.

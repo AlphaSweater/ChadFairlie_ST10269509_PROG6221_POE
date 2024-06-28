@@ -1,4 +1,15 @@
-﻿using ChadFairlie_PROG6221_POE_GUI.Core;
+﻿// Chad Fairlie
+// ST10269509
+// Group 2
+
+//------------------------------------------------------------------------------------------------------------------------//
+
+// References For This Class:
+//      ChatGPT provided some great insight into how best to use this class.
+
+//------------------------------------------------------------------------------------------------------------------------//
+
+using ChadFairlie_PROG6221_POE_GUI.Core;
 using ChadFairlie_PROG6221_POE_GUI.MVVM.Models;
 using ChadFairlie_PROG6221_POE_GUI.MVVM.Views.PopUpView;
 using ChadFairlie_PROG6221_POE_GUI.Services;
@@ -10,6 +21,7 @@ using System.Windows.Input;
 
 namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 {
+	// ViewModel for adding a new recipe through the UI.
 	public class AddRecipeViewModel : ObservableObject
 	{
 		private string _recipeName;
@@ -23,6 +35,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 
 		private readonly RecipeService _recipeService;
 
+		// Constructor initializes the ViewModel, including commands and services.
 		public AddRecipeViewModel()
 		{
 			_recipeService = ServiceProviderFactory.GetService<RecipeService>();
@@ -35,6 +48,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 			SubmitRecipeCommand = new RelayCommand(SubmitRecipe);
 		}
 
+		// Properties for data binding in the UI.
 		public string RecipeName
 		{
 			get => _recipeName;
@@ -71,6 +85,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 			private set => SetProperty(ref _caloriesMessage, value);
 		}
 
+		// Calculates the total calories of the recipe.
 		private double CalculateTotalCalories()
 		{
 			double total = 0;
@@ -81,12 +96,14 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 			return total;
 		}
 
+		// Updates the total calories and the message based on the calorie content.
 		private void UpdateTotalCalories()
 		{
 			TotalCalories = CalculateTotalCalories();
 			UpdateCaloriesMessage();
 		}
 
+		// Updates the message displayed to the user based on the total calorie content.
 		private void UpdateCaloriesMessage()
 		{
 			if (TotalCalories > 500)
@@ -107,8 +124,10 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 			}
 		}
 
+		// Commands for UI actions.
 		public ICommand AddIngredientCommand { get; }
 
+		// Opens the window to add a new ingredient.
 		private void OpenAddIngredientWindow()
 		{
 			var ingredientWindow = new AddIngredientView();
@@ -122,6 +141,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 
 		public ICommand AddStepCommand { get; }
 
+		// Adds a new cooking step to the recipe.
 		private void AddStep()
 		{
 			if (!string.IsNullOrEmpty(StepDescription))
@@ -133,6 +153,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 
 		public ICommand SubmitRecipeCommand { get; }
 
+		// Submits the new recipe, performing validation and using the RecipeService to save it.
 		private void SubmitRecipe()
 		{
 			StringBuilder errorMessage = new StringBuilder();
@@ -162,16 +183,12 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 				return;
 			}
 
-			// Create a new Recipe object
 			var newRecipe = new Recipe(RecipeName, new List<Ingredient>(Ingredients), new List<Step>(Steps));
-
-			// Use the RecipeService to submit the recipe
 			_recipeService.AddRecipe(newRecipe);
 
-			// Show success message
 			MessageBox.Show("Recipe submitted successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
-			// Clear the fields
+			// Clear the form after successful submission.
 			RecipeName = string.Empty;
 			Ingredients.Clear();
 			Steps.Clear();

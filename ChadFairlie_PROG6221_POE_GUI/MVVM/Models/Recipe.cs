@@ -17,35 +17,34 @@ using System.Linq;
 
 namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 {
+	// Delegate for handling events when total calories exceed a certain threshold.
 	public delegate void ExceededCaloriesDelegate(double totalCalories);
 
-	// The Recipe class represents a cooking recipe.
-	// It includes properties for the recipe name, current scale, list of ingredients, and list of cooking steps.
+	// Represents a cooking recipe, including its ingredients and cooking steps.
 	public class Recipe : ObservableObject
 	{
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
-		// Name of the recipe.
+		// The name of the recipe.
 		public string RecipeName { get; set; }
 
-		// Current scale of the recipe. This is used when scaling the quantity of ingredients.
+		// The current scale factor applied to the recipe's ingredients.
 		public double CurrentScale { get; set; } = 1.0;
 
-		// List of ingredients required for the recipe.
+		// A list of ingredients required to make the recipe.
 		public List<Ingredient> Ingredients { get; set; }
 
-		// List of steps to follow to cook the recipe.
+		// A list of steps to follow for cooking the recipe.
 		public List<Step> Steps { get; set; }
 
-		// Date and time when the recipe was last accessed.
+		// The date and time when the recipe was last accessed.
 		public DateTime LastAccessed { get; set; }
 
-		// Delegate event to notify when the calories exceed 300.
+		// Event triggered when the total calories of the recipe exceed a certain limit.
 		public event ExceededCaloriesDelegate OnCaloriesExceeded;
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 
-		// Constructor for the Recipe class.
-		// It initializes the recipe name and creates new lists for ingredients and steps.
+		// Default constructor initializes lists for ingredients and steps.
 		public Recipe()
 		{
 			this.Ingredients = new List<Ingredient>();
@@ -53,8 +52,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
-		// Constructor for the Recipe class.
-		// It initializes the recipe name, ingredients, and steps.
+		// Constructor that initializes the recipe with a name, ingredients, and steps, and sets the last accessed time to now.
 		public Recipe(string recipeName, List<Ingredient> ingredients, List<Step> steps)
 		{
 			this.RecipeName = recipeName;
@@ -64,25 +62,19 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 		}
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
-		// This method calculates the total calories of the recipe.
+		// Calculates the total calories of the recipe by summing up the calories of each ingredient.
 		public double CalculateTotalCalories()
 		{
-			// Initialize a variable to store the total calories.
 			double totalCalories = 0;
-
-			// Iterate over each ingredient in the recipe.
 			foreach (var ingredient in this.Ingredients)
 			{
-				// Add the calories of the ingredient (calories per unit * quantity) to the total calories.
 				totalCalories += (ingredient.CaloriesPerUnit * ingredient.Quantity);
 			}
-
-			// Return the total calories, rounded to 2 decimal places.
 			return Math.Round(totalCalories, 2);
 		}
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
-		// Method to scale the quantity of ingredients.
+		// Scales the quantity of ingredients by a specified factor and adjusts the current scale accordingly.
 		public void Scale(double scale)
 		{
 			CurrentScale = Math.Round(CurrentScale * scale, 2);
@@ -105,8 +97,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 
 		//------------------------------------------------------------------------------------------------------------------------//
 
-		// Method to reset the scaling of the recipe.
-		// It resets the quantity of each ingredient to its original quantity and measurement and sets the current scale to 1.
+		// Resets the scaling of the recipe to its original state, including the quantities and units of ingredients.
 		public void ResetScaling()
 		{
 			foreach (var ingredient in Ingredients)
