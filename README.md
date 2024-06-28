@@ -57,9 +57,22 @@ Based on the feedback received from the lecturer, changes have been made to the 
 
 Additionally, the program previously allowed recipes to be saved with blank names if the user entered a blank string. This has been rectified by adding a validation check to ensure that all entered strings are not blank. These changes enhance the user experience by preventing the creation of incomplete or improperly named recipes.
 
+## Updates In Part 3
+In this part, the application has been updated to include a graphical user interface (GUI) built using Windows Presentation Foundation (WPF). The GUI provides a more user-friendly way to interact with the application, while retaining all the functionalities of the original command-line version. Additionally, the following feature has been added:
+
+- **Recipe Filtering:** Users can now filter the list of recipes by:
+  - Entering the name of an ingredient that must be in the recipe.
+  - Choosing a food group that must be in the recipe.
+  - Selecting a maximum number of calories.
+- **Improved User Validation:** Additional input validation has been added to further ensure that all user inputs are valid, enhancing the overall reliability and user experience of the application.
+
+### Lecturer's Feedback
+No feedback was received for this part because the project received a score of 100.
+
 ## References
 
 This project was made possible with help and resources from:
 
 - **ChatGPT**: Provided assistance in creating the `UnitConverter` class.
 - **Bro Code**: Provided a helpful [video tutorial](https://youtu.be/vQzREQUhGSA?si=zi-m4qyNKLMErAu9) on Lists in C#.
+- **Payload**: Provided a helpful [video tutorial](https://www.youtube.com/watch?v=PzP8mw7JUzI)  on creating a simple WPF application, which served as the base for the GUI.
