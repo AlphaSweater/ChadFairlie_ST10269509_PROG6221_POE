@@ -1,0 +1,190 @@
+﻿<Application x:Class="ChadFairlie_PROG6221_POE_GUI.App"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:local="clr-namespace:ChadFairlie_PROG6221_POE_GUI"
+			 xmlns:viewModels="clr-namespace:ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels"
+			 xmlns:views="clr-namespace:ChadFairlie_PROG6221_POE_GUI.MVVM.Views"
+			 StartupUri="MainWindow.xaml">
+	<Application.Resources>
+		<!-- Resource Dictionary for Colours, Themes and DataTemplates -->
+		<ResourceDictionary>
+			<!--<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>-->
+			<ResourceDictionary.MergedDictionaries>
+				<!-- Theme Dictionaries -->
+				<ResourceDictionary Source="Themes/MenuButtonTheme.xaml" />
+				<ResourceDictionary Source="Themes/InputThemes.xaml" />
+				<ResourceDictionary Source="Themes/BoxItemTheme.xaml" />
+				<ResourceDictionary Source="Themes/RecipeCardTheme.xaml" />
+				<ResourceDictionary Source="Themes/ScrollBarTheme.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+
+			<!--<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>-->
+			<!-- DataTemplates for ViewModel Views -->
+			<DataTemplate DataType="{x:Type viewModels:HomeViewModel}">
+				<views:HomeView />
+			</DataTemplate>
+			<DataTemplate DataType="{x:Type viewModels:RecipesViewModel}">
+				<views:RecipesView />
+			</DataTemplate>
+			<DataTemplate DataType="{x:Type viewModels:DetailedRecipeViewModel}">
+				<views:DetailedRecipeView />
+			</DataTemplate>
+			<DataTemplate DataType="{x:Type viewModels:AddRecipeViewModel}">
+				<views:AddRecipeView />
+			</DataTemplate>
+
+			<!--<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>-->
+			<!-- Solid Color Definitions -->
+			<SolidColorBrush x:Key="TextColor"
+							 Color="#ffffff" />
+			<SolidColorBrush x:Key="BackgroundColor"
+							 Color="#272537" />
+
+			<!-- Gradient Definitions -->
+			<!-- Primary Gradient -->
+			<LinearGradientBrush x:Key="PrimaryGradient"
+								 StartPoint="0,0"
+								 EndPoint="1,2">
+				<GradientStop Color="#5bc3ff"
+							  Offset="0.0" />
+				<GradientStop Color="#3aa0ff"
+							  Offset="1.0" />
+			</LinearGradientBrush>
+
+			<!-- Secondary Gradient -->
+			<LinearGradientBrush x:Key="SecondaryGradient"
+								 StartPoint="0,0"
+								 EndPoint="1,2">
+				<GradientStop Color="#844eff"
+							  Offset="0.0" />
+				<GradientStop Color="#5b2aff"
+							  Offset="1.0" />
+			</LinearGradientBrush>
+
+			<!-- Accent Gradient -->
+			<LinearGradientBrush x:Key="AccentGradient"
+								 StartPoint="0,0"
+								 EndPoint="1,2">
+				<GradientStop Color="#ff7f50"
+							  Offset="0.0" />
+				<GradientStop Color="#ff6347"
+							  Offset="1.0" />
+			</LinearGradientBrush>
+
+			<!-- Color Sequence Definitions -->
+			<SolidColorBrush x:Key="TertiaryColor1"
+							 Color="#844eff" />
+			<SolidColorBrush x:Key="TertiaryColor2"
+							 Color="#ffbf00" />
+			<SolidColorBrush x:Key="TertiaryColor3"
+							 Color="#ff69b4" />
+			<SolidColorBrush x:Key="TertiaryColor4"
+							 Color="#4eff91" />
+			<SolidColorBrush x:Key="TertiaryColor5"
+							 Color="#ff7f50" />
+			<SolidColorBrush x:Key="TertiaryColor6"
+							 Color="#8a2be2" />
+			<SolidColorBrush x:Key="TertiaryColor7"
+							 Color="#5bc3ff" />
+			<SolidColorBrush x:Key="TertiaryColor8"
+							 Color="#ff1493" />
+			<SolidColorBrush x:Key="TertiaryColor9"
+							 Color="#32cd6d" />
+			<SolidColorBrush x:Key="TertiaryColor10"
+							 Color="#e6ac00" />
+
+			<!-- Gradient Color Sequence Definitions -->
+			<LinearGradientBrush x:Key="TertiaryColorGradient1"
+								 StartPoint="0,0"
+								 EndPoint="1,2">
+				<GradientStop Color="#844eff"
+							  Offset="0.0" />
+				<GradientStop Color="#6a5acd"
+							  Offset="1.0" />
+			</LinearGradientBrush>
+
+			<LinearGradientBrush x:Key="TertiaryColorGradient2"
+								 StartPoint="0,0"
+								 EndPoint="1,2">
+				<GradientStop Color="#ff6f61"
+							  Offset="0.0" />
+				<GradientStop Color="#ff453a"
+							  Offset="1.0" />
+			</LinearGradientBrush>
+
+			<LinearGradientBrush x:Key="TertiaryColorGradient3"
+								 StartPoint="0,0"
+								 EndPoint="1,2">
+				<GradientStop Color="#ff69b4"
+							  Offset="0.0" />
+				<GradientStop Color="#ff5c93"
+							  Offset="1.0" />
+			</LinearGradientBrush>
+
+			<LinearGradientBrush x:Key="TertiaryColorGradient4"
+								 StartPoint="0,0"
+								 EndPoint="1,2">
+				<GradientStop Color="#3a7a61"
+							  Offset="0.0" />
+				<GradientStop Color="#2b5f4f"
+							  Offset="1.0" />
+			</LinearGradientBrush>
+
+			<LinearGradientBrush x:Key="TertiaryColorGradient5"
+								 StartPoint="0,0"
+								 EndPoint="1,2">
+				<GradientStop Color="#ff7f50"
+							  Offset="0.0" />
+				<GradientStop Color="#ff6633"
+							  Offset="1.0" />
+			</LinearGradientBrush>
+
+			<LinearGradientBrush x:Key="TertiaryColorGradient6"
+								 StartPoint="0,0"
+								 EndPoint="1,2">
+				<GradientStop Color="#8a2be2"
+							  Offset="0.0" />
+				<GradientStop Color="#7b1fa2"
+							  Offset="1.0" />
+			</LinearGradientBrush>
+
+			<LinearGradientBrush x:Key="TertiaryColorGradient7"
+								 StartPoint="0,0"
+								 EndPoint="1,2">
+				<GradientStop Color="#5bc3ff"
+							  Offset="0.0" />
+				<GradientStop Color="#3aa0ff"
+							  Offset="1.0" />
+			</LinearGradientBrush>
+
+			<LinearGradientBrush x:Key="TertiaryColorGradient8"
+								 StartPoint="0,0"
+								 EndPoint="1,2">
+				<GradientStop Color="#ff1493"
+							  Offset="0.0" />
+				<GradientStop Color="#d61c6c"
+							  Offset="1.0" />
+			</LinearGradientBrush>
+
+			<LinearGradientBrush x:Key="TertiaryColorGradient9"
+								 StartPoint="0,0"
+								 EndPoint="1,2">
+				<GradientStop Color="#32cd6d"
+							  Offset="0.0" />
+				<GradientStop Color="#1aae55"
+							  Offset="1.0" />
+			</LinearGradientBrush>
+
+			<LinearGradientBrush x:Key="TertiaryColorGradient10"
+								 StartPoint="0,0"
+								 EndPoint="1,2">
+				<GradientStop Color="#e6ac00"
+							  Offset="0.0" />
+				<GradientStop Color="#cc9900"
+							  Offset="1.0" />
+			</LinearGradientBrush>
+
+			<!--<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>-->
+		</ResourceDictionary>
+	</Application.Resources>
+</Application>

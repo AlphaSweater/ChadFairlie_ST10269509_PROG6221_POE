@@ -117,9 +117,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ChadFairlie_PROG6221_POE\ChadFairlie_PROG6221_POE.csproj">
-      <Project>{0c529904-3db1-407e-97c5-c9399238b76d}</Project>
-      <Name>ChadFairlie_PROG6221_POE</Name>
+    <ProjectReference Include="..\ChadFairlie_PROG6221_POE_GUI\ChadFairlie_PROG6221_POE_GUI.csproj">
+      <Project>{5c4da266-8485-4c5e-9fa5-add2dcada0e4}</Project>
+      <Name>ChadFairlie_PROG6221_POE_GUI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

@@ -35,6 +35,9 @@ namespace ChadFairlie_PROG6221_POE.Classes
 		// List of steps to follow to cook the recipe.
 		public List<string> Steps { get; set; }
 
+		// Date and time when the recipe was last accessed.
+		public DateTime LastAccessed { get; set; }
+
 		// Delegate event to notify when the calories exceed 300.
 		public event ExceededCaloriesDelegate OnCaloriesExceeded;
 
@@ -173,6 +176,54 @@ namespace ChadFairlie_PROG6221_POE.Classes
 			return (recipeDetails.ToString(), totalCalories);
 		}
 
+		// TODO: Remove this later
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
+		// Method to get a list of dummy recipes for testing purposes.
+		public static List<Recipe> GetDummyRecipes()
+		{
+			var recipes = new List<Recipe>();
+			var random = new Random();
+			var foodGroups = new[] { "Protein", "Vegetables", "Fruits", "Grains", "Dairy", "Fats and Oils", "Sweets and Snacks", "Beverages" };
+			var units = new[] { "cup", "tablespoon", "teaspoon", "gram", "ounce", "piece", "slice" };
+			var ingredientNames = new[]
+			{
+			"Tomato", "Banana", "Chicken", "Rice", "Milk", "Sugar", "Olive Oil", "Egg", "Flour", "Butter",
+			"Garlic", "Onion", "Apple", "Beef", "Pasta", "Cheese", "Carrot", "Pepper", "Salt", "Honey"
+		};
+
+			for (int i = 1; i <= 20; i++)
+			{
+				var recipe = new Recipe
+				{
+					RecipeName = $"Recipe {i}",
+					LastAccessed = DateTime.Now.AddDays(-i),
+					Ingredients = new List<Ingredient>(),
+					Steps = new List<string>()
+				};
+
+				int ingredientCount = random.Next(3, 7); // Each recipe will have between 3 and 6 ingredients
+				for (int j = 1; j <= ingredientCount; j++)
+				{
+					string ingredientName = ingredientNames[random.Next(ingredientNames.Length)];
+					double quantity = random.Next(1, 11); // Random quantity between 1 and 10 // Random quantity between 1 and 10
+					string unit = units[random.Next(units.Length)];
+					double calories = Math.Round(random.NextDouble() * 50 + 10, 2); // Random calories between 10 and 60
+					string foodGroup = foodGroups[random.Next(foodGroups.Length)];
+
+					recipe.Ingredients.Add(new Ingredient($"{ingredientName} {j}", quantity, unit, calories, foodGroup));
+				}
+
+				int stepsCount = random.Next(3, 6); // Each recipe will have between 3 and 5 steps
+				for (int k = 1; k <= stepsCount; k++)
+				{
+					recipe.Steps.Add($"Step {k} of Recipe {i}: Perform action {k} on the ingredients.");
+				}
+
+				recipes.Add(recipe);
+			}
+			return recipes;
+		}
 	}
 }

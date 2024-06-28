@@ -1,0 +1,71 @@
+﻿<!-- Chad Fairlie-->
+<!-- ST10269509-->
+<!-- Group 2-->
+
+<!--<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>-->
+
+<!-- References For This Class:
+		• CoPilot  helped me-->
+
+<!--<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>-->
+
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<!-- Theme for Box Item Templates -->
+	<Style TargetType="Border"
+		   x:Key="BoxItemTheme">
+		<Setter Property="Cursor"
+				Value="Hand" />
+		<Setter Property="Background"
+				Value="Transparent" />
+		<Setter Property="CornerRadius"
+				Value="10" />
+		<Setter Property="Margin"
+				Value="0,0,15,0" />
+		<Setter Property="Width"
+				Value="150" />
+		<Setter Property="Height"
+				Value="150" />
+		<Style.Triggers>
+			<Trigger Property="IsMouseOver"
+					 Value="True">
+				<Setter Property="Background"
+						Value="#333333" />
+				<Setter Property="RenderTransform">
+					<Setter.Value>
+						<ScaleTransform ScaleX="1.05"
+										ScaleY="1.05"
+										CenterX="0.5"
+										CenterY="0.5" />
+					</Setter.Value>
+				</Setter>
+				<Setter Property="RenderTransformOrigin"
+						Value="0.5,0.5" />
+			</Trigger>
+		</Style.Triggers>
+	</Style>
+
+	<!-- Theme for Button Box Item Templates -->
+	<Style TargetType="Button"
+		   x:Key="ButtonBoxItemTheme">
+		<Setter Property="Background"
+				Value="Transparent" />
+		<Setter Property="BorderBrush"
+				Value="Transparent" />
+		<Setter Property="BorderThickness"
+				Value="0" />
+		<Style.Triggers>
+			<Trigger Property="IsPressed"
+					 Value="True">
+				<Setter Property="RenderTransform">
+					<Setter.Value>
+						<ScaleTransform ScaleX="1"
+										ScaleY="1" />
+					</Setter.Value>
+				</Setter>
+				<Setter Property="RenderTransformOrigin"
+						Value="0.5,0.5" />
+			</Trigger>
+		</Style.Triggers>
+	</Style>
+</ResourceDictionary>

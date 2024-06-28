@@ -1,0 +1,346 @@
+﻿<UserControl x:Class="ChadFairlie_PROG6221_POE_GUI.MVVM.Views.AddRecipeView"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:converters="clr-namespace:ChadFairlie_PROG6221_POE_GUI.Converters"
+			 xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+			 mc:Ignorable="d"
+			 d:DesignHeight="825"
+			 d:DesignWidth="920">
+
+	<UserControl.Resources>
+		<converters:ResourceKeyConverter x:Key="ResourceKeyConverter" />
+		<converters:BooleanToTextDecorationConverter x:Key="BooleanToTextDecorationConverter" />
+		<converters:CaloriesToColorConverter x:Key="CaloriesToColorConverter" />
+	</UserControl.Resources>
+
+	<Grid Margin="10">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="2*" />
+			<ColumnDefinition Width="3*" />
+		</Grid.ColumnDefinitions>
+
+		<!-- Recipe Title -->
+		<Border Grid.Row="0"
+				Grid.RowSpan="2"
+				Grid.ColumnSpan="2"
+				Background="#272537"
+				CornerRadius="25"
+				Margin="0,15,0,0" />
+
+		<!-- Recipe Name Input -->
+		<StackPanel Grid.Row="0"
+					Grid.Column="0"
+					Margin="10,20,0,0">
+			<TextBlock Text="Recipe Name:"
+					   FontSize="20"
+					   FontWeight="Bold"
+					   Foreground="White"
+					   Margin="0,0,0,10" />
+			<TextBox Text="{Binding RecipeName}"
+					 FontSize="20"
+					 Foreground="White"
+					 Background="#393850"
+					 BorderThickness="0"
+					 Padding="5"
+					 Style="{StaticResource InputBoxStyle}" />
+		</StackPanel>
+
+		<!-- Finish Recipe Button -->
+		<Button Content="Finish Recipe"
+				Grid.Row="0"
+				Grid.Column="1"
+				HorizontalAlignment="Right"
+				VerticalAlignment="Center"
+				Margin="0,45,45,0"
+				Command="{Binding SubmitRecipeCommand}"
+				Style="{StaticResource CardButton}"
+				Width="200"
+				Height="50"
+				Background="#3CB371"
+				Foreground="White"
+				FontSize="18"
+				FontWeight="Bold"
+				BorderThickness="0"
+				Cursor="Hand" />
+
+		<!-- Ingredients Section -->
+		<Border Grid.Row="1"
+				Grid.Column="0"
+				Margin="5,10,0,0"
+				Padding="10">
+			<StackPanel>
+				<!-- Ingredients Heading-->
+				<TextBlock Text="Ingredients:"
+						   FontSize="20"
+						   FontWeight="Bold"
+						   Foreground="White"
+						   Margin="0,0,0,10" />
+
+				<!-- Add Ingredient Button -->
+				<Button Content="Add Ingredient"
+						Command="{Binding AddIngredientCommand}"
+						Style="{StaticResource CardButton}"
+						Width="150"
+						Height="30"
+						Margin="0,0,0,20"
+						Background="#393850"
+						Foreground="White"
+						FontSize="14"
+						BorderThickness="0"
+						Cursor="Hand" />
+
+				<!-- Ingredients List -->
+				<ScrollViewer MaxHeight="340"
+							  VerticalScrollBarVisibility="Auto">
+					<ItemsControl ItemsSource="{Binding Ingredients}">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<Border Margin="5,0,25,10"
+										Background="#393850"
+										Padding="10,4"
+										CornerRadius="5">
+									<Grid>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="auto" />
+											<ColumnDefinition Width="*" />
+											<ColumnDefinition Width="auto" />
+										</Grid.ColumnDefinitions>
+
+										<StackPanel Grid.Column="0">
+
+											<Separator Background="White"
+													   Margin="0,5,0,0"
+													   VerticalAlignment="Bottom" />
+
+											<!-- Ingredient Name -->
+											<TextBlock Text="{Binding Name}"
+													   x:Name="IngredientNameTextBlock"
+													   FontSize="21"
+													   FontWeight="Bold"
+													   Foreground="White"
+													   TextAlignment="Left"
+													   TextWrapping="Wrap"
+													   Width="auto" />
+
+											<Separator Background="White"
+													   Margin="0,3,0,5" />
+
+											<!-- Unit of Measurement -->
+											<TextBlock Text="Unit of Measurement:"
+													   FontSize="14"
+													   Foreground="LightGray" />
+											<TextBlock Text="{Binding FormattedUnitOfMeasurement}"
+													   FontSize="15"
+													   FontWeight="Medium"
+													   Foreground="White"
+													   Margin="0,0,0,5" />
+
+											<!-- Calories per Unit -->
+											<TextBlock Text="Calories per Unit:"
+													   FontSize="14"
+													   Foreground="LightGray" />
+											<TextBlock Text="{Binding FormattedCaloriesPerUnit}"
+													   FontSize="15"
+													   FontWeight="Medium"
+													   Foreground="White"
+													   Margin="0,0,0,5" />
+
+											<!-- Food Group -->
+											<TextBlock Text="Food Group:"
+													   FontSize="14"
+													   Foreground="LightGray" />
+											<TextBlock Text="{Binding FoodGroup}"
+													   FontSize="15"
+													   FontWeight="Medium"
+													   Foreground="White"
+													   Margin="0,0,0,4" />
+										</StackPanel>
+
+										<!-- Quantity -->
+										<TextBlock Text="{Binding Quantity}"
+												   FontSize="38"
+												   HorizontalAlignment="Right"
+												   VerticalAlignment="Top"
+												   Foreground="White"
+												   Grid.Column="2"
+												   Margin="0,0,0,0" />
+									</Grid>
+								</Border>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</ScrollViewer>
+			</StackPanel>
+		</Border>
+
+		<!-- Steps Section -->
+		<Border Grid.Row="1"
+				Grid.Column="1"
+				Margin="0,10,0,10"
+				Padding="10">
+			<StackPanel>
+				<!-- Steps Heading-->
+				<TextBlock Text="Steps:"
+						   FontSize="20"
+						   FontWeight="Bold"
+						   Foreground="White"
+						   Margin="0,0,0,10" />
+
+				<TextBlock Text="Enter a Step:"
+						   FontSize="14"
+						   FontWeight="Bold"
+						   Foreground="DarkGray"
+						   Margin="0,0,0,5" />
+
+				<!-- Add Step Section -->
+				<StackPanel Orientation="Horizontal"
+							Margin="0,0,0,10">
+					<TextBox Background="#393850"
+							 Foreground="White"
+							 Text="{Binding StepDescription, UpdateSourceTrigger=PropertyChanged}"
+							 TextAlignment="Left"
+							 TextWrapping="Wrap"
+							 BorderThickness="0"
+							 Margin="0,0,15,0"
+							 Style="{StaticResource InputBoxStyle}"
+							 Height="44"
+							 VerticalAlignment="Top"
+							 VerticalScrollBarVisibility="Auto"
+							 Width="405" />
+
+					<Button Content="Add Step"
+							Command="{Binding AddStepCommand}"
+							Style="{StaticResource CardButton}"
+							Width="80"
+							Height="30"
+							Background="#393850"
+							Foreground="White"
+							FontSize="14"
+							BorderThickness="0"
+							Cursor="Hand"
+							Margin="10,0,0,0"
+							VerticalAlignment="Center" />
+				</StackPanel>
+
+				<!-- Steps List with Checkboxes -->
+				<ScrollViewer MaxHeight="250"
+							  VerticalScrollBarVisibility="Auto">
+					<ItemsControl ItemsSource="{Binding Steps}">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<Border Margin="5,0,25,10"
+										Background="#393850"
+										Padding="8"
+										CornerRadius="5">
+									<Grid Margin="5">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="Auto" />
+											<ColumnDefinition Width="*" />
+										</Grid.ColumnDefinitions>
+
+										<CheckBox IsChecked="{Binding IsCompleted}"
+												  FontSize="16"
+												  Foreground="White"
+												  VerticalAlignment="Center"
+												  IsEnabled="False">
+											<CheckBox.Style>
+												<Style TargetType="CheckBox">
+													<Setter Property="Template">
+														<Setter.Value>
+															<ControlTemplate TargetType="CheckBox">
+																<BulletDecorator Background="#393850"
+																				 Width="16"
+																				 Height="16"
+																				 Margin="0,0,5,0">
+																	<BulletDecorator.Bullet>
+																		<Ellipse Stroke="White"
+																				 StrokeThickness="2"
+																				 Fill="Transparent"
+																				 Width="16"
+																				 Height="16" />
+																	</BulletDecorator.Bullet>
+																</BulletDecorator>
+															</ControlTemplate>
+														</Setter.Value>
+													</Setter>
+												</Style>
+											</CheckBox.Style>
+										</CheckBox>
+
+										<TextBlock Grid.Column="1"
+												   Text="{Binding Description}"
+												   Foreground="White"
+												   VerticalAlignment="Center"
+												   TextWrapping="Wrap"
+												   Margin="5,0,0,0" />
+									</Grid>
+								</Border>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</ScrollViewer>
+			</StackPanel>
+		</Border>
+
+		<!-- Calorie Information Section -->
+		<Border Grid.Row="3"
+				Grid.ColumnSpan="2"
+				Margin="0,20,0,0"
+				Background="#272537"
+				CornerRadius="25">
+			<StackPanel Margin="10,20,10,20">
+				<!-- Total Calories -->
+				<StackPanel Orientation="Horizontal"
+							HorizontalAlignment="Center">
+					<TextBlock Text="Total Calories:"
+							   FontSize="20"
+							   FontWeight="Bold"
+							   Foreground="White"
+							   Margin="0,0,10,0" />
+					<TextBlock Text="{Binding TotalCalories}"
+							   FontSize="20"
+							   FontWeight="Bold"
+							   Foreground="{Binding TotalCalories, Converter={StaticResource CaloriesToColorConverter}}"
+							   Margin="0,0,0,0" />
+				</StackPanel>
+
+				<!-- Calorie Message -->
+				<TextBlock Text="{Binding CaloriesMessage}"
+						   FontSize="15"
+						   Foreground="{Binding TotalCalories, Converter={StaticResource CaloriesToColorConverter}}"
+						   Margin="0,10,0,0"
+						   TextAlignment="Center" />
+
+				<!-- Detailed Breakdown -->
+				<StackPanel Margin="10,20,10,0">
+					<!-- Tips Section -->
+					<TextBlock Text="Health Tips:"
+							   FontSize="18"
+							   FontWeight="Bold"
+							   Foreground="White"
+							   Margin="0,10,0,5" />
+					<TextBlock Text="• Aim to balance your meal with proteins, carbohydrates, and healthy fats."
+							   FontSize="14"
+							   Foreground="White"
+							   Margin="0,5,0,0" />
+					<TextBlock Text="• Consider adding more vegetables for a nutritious boost."
+							   FontSize="14"
+							   Foreground="White"
+							   Margin="0,5,0,0" />
+					<TextBlock Text="• Monitor portion sizes to manage calorie intake effectively."
+							   FontSize="14"
+							   Foreground="White"
+							   Margin="0,5,0,0" />
+				</StackPanel>
+			</StackPanel>
+		</Border>
+	</Grid>
+</UserControl>
