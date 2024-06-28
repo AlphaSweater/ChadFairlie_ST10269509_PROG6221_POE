@@ -81,6 +81,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 			RecipesViewCommand = new RelayCommand<object>(o =>
 			{
 				CreateViewIsChecked = false;
+				RecipesVM.UpdateRecipes();
 				CurrentView = RecipesVM;
 			});
 

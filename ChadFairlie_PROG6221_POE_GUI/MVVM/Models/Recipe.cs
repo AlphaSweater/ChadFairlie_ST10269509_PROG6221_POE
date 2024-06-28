@@ -52,24 +52,15 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 			this.Steps = new List<Step>();
 		}
 
-		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
-		// Method to add a list of ingredients to the recipe.
-		public void AddIngredient(Ingredient ingredient)
-		{
-			this.Ingredients.Add(ingredient);
-
-			double totalCalories = this.CalculateTotalCalories();
-			if (totalCalories > 300)
-			{
-				OnCaloriesExceeded?.Invoke(totalCalories);
-			}
-		}
-
 		//------------------------------------------------------------------------------------------------------------------------//
-		// Method to add a list of steps to the recipe.
-		public void AddStep(String step)
+		// Constructor for the Recipe class.
+		// It initializes the recipe name, ingredients, and steps.
+		public Recipe(string recipeName, List<Ingredient> ingredients, List<Step> steps)
 		{
-			this.Steps.Add(new Step(step));
+			this.RecipeName = recipeName;
+			this.Ingredients = ingredients;
+			this.Steps = steps;
+			LastAccessed = DateTime.Now;
 		}
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
@@ -125,130 +116,6 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 				ingredient.PreciseCaloriesPerUnit = ingredient.OriginalCaloriesPerUnit;
 			}
 			CurrentScale = 1.0;
-		}
-
-		// TODO: Remove this later
-		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
-		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
-		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
-		// Method to get a list of dummy recipes for testing purposes.
-		public static List<Recipe> GetDummyRecipes()
-		{
-			var recipes = new List<Recipe>();
-			var random = new Random();
-			FoodGroup[] foodGroups = RecipeService.FoodGroups;
-			var units = new[] { "cup", "tablespoon", "teaspoon", "gram", "ounce", "piece", "slice" };
-			var ingredientNames = new[]
-			{
-				"Tomato", "Banana", "Chicken", "Rice", "Milk", "Sugar", "Olive Oil", "Egg", "Flour", "Butter",
-				"Garlic", "Onion", "Apple", "Beef", "Pasta", "Cheese", "Carrot", "Pepper", "Salt", "Honey"
-			};
-
-			for (int i = 1; i <= 20; i++)
-			{
-				var recipe = new Recipe
-				{
-					RecipeName = $"Recipe {i}",
-					LastAccessed = DateTime.Now.AddDays(-1),
-					Ingredients = new List<Ingredient>(),
-					Steps = new List<Step>()
-				};
-
-				int ingredientCount = random.Next(3, 7); // Each recipe will have between 3 and 6 ingredients
-				for (int j = 1; j <= ingredientCount; j++)
-				{
-					string ingredientName = ingredientNames[random.Next(ingredientNames.Length)];
-					double quantity = random.Next(1, 11); // Random quantity between 1 and 10
-					string unit = units[random.Next(units.Length)];
-					double calories = Math.Round(random.NextDouble() * 50 + 10, 2); // Random calories between 10 and 60
-					FoodGroup foodGroup = foodGroups[random.Next(foodGroups.Length)];
-
-					recipe.Ingredients.Add(new Ingredient($"{ingredientName}", quantity, unit, calories, foodGroup));
-				}
-
-				int stepsCount = random.Next(6, 16); // Each recipe will have between 3 and 5 steps
-				for (int k = 1; k <= stepsCount; k++)
-				{
-					recipe.Steps.Add(new Step($"Step {k} of Recipe {i}: Perform action {k} on the ingredients."));
-				}
-
-				recipes.Add(recipe);
-			}
-			return recipes;
-		}
-
-		public static List<Recipe> GetSpecialDummyRecipes()
-		{
-			FoodGroup[] foodGroups = RecipeService.FoodGroups;
-
-			var random = new Random();
-
-			var specialRecipes = new List<Recipe>
-			{
-				new Recipe
-				{
-					RecipeName = "Special Recipe 1",
-					LastAccessed = DateTime.Now.AddDays(-2),
-					Ingredients = new List<Ingredient>
-					{
-						new Ingredient("Flour", 16, "tablespoon", 50, foodGroups.First(fg => fg.Name == "Grains")), // Should convert to cups
-						new Ingredient("Sugar", 8, "tablespoon", 30, foodGroups.First(fg => fg.Name == "Sweets and Snacks")), // Should convert to cups
-					},
-					Steps = new List<Step>
-					{
-						new Step("Step 1: Mix all ingredients."),
-						new Step("Step 2: Bake at 350 degrees for 30 minutes.")
-					}
-				},
-				new Recipe
-				{
-					RecipeName = "Special Recipe 2",
-					LastAccessed = DateTime.Now.AddDays(-1),
-					Ingredients = new List<Ingredient>
-					{
-						new Ingredient("Milk", 0.25, "cup", 100, foodGroups.First(fg => fg.Name == "Dairy")), // Should convert to tablespoons
-						new Ingredient("Olive Oil", 1.5, "teaspoon", 120, foodGroups.First(fg => fg.Name == "Fats and Oils")), // Should stay as teaspoons
-					},
-					Steps = new List<Step>
-					{
-						new Step("Step 1: Combine ingredients."),
-						new Step("Step 2: Stir until blended.")
-					}
-				},
-				new Recipe
-				{
-					RecipeName = "Special Recipe 3",
-					LastAccessed = DateTime.Now.AddDays(-1),
-					Ingredients = new List<Ingredient>
-					{
-						new Ingredient("Butter", 8, "ounce", 100, foodGroups.First(fg => fg.Name == "Dairy")), // Should convert to pounds
-						new Ingredient("Honey", 300, "milliliter", 50, foodGroups.First(fg => fg.Name == "Sweets and Snacks")), // Should convert to liters
-					},
-					Steps = new List<Step>
-					{
-						new Step("Step 1: Melt butter."),
-						new Step("Step 2: Mix in honey."),
-						new Step("Step 3: Cool down before serving.")
-					}
-				},
-				new Recipe
-				{
-					RecipeName = "Special Recipe 4",
-					LastAccessed = DateTime.Now.AddDays(-1),
-					Ingredients = new List<Ingredient>
-					{
-						new Ingredient("Salt", 0.02, "cup", 0, foodGroups.First(fg => fg.Name == "Spices")), // Should convert to teaspoons
-						new Ingredient("Water", 1000, "milliliter", 0, foodGroups.First(fg => fg.Name == "Beverages")), // Should convert to liters
-					},
-					Steps = new List<Step>
-					{
-						new Step("Step 1: Dissolve salt in water."),
-						new Step("Step 2: Boil for 5 minutes.")
-					}
-				}
-			};
-
-			return specialRecipes;
 		}
 	}
 }

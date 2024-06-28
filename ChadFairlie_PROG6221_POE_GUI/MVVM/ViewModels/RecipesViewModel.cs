@@ -42,14 +42,10 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 			_recipeService = ServiceProviderFactory.GetService<RecipeService>();
 			_fullFoodGroupsList = RecipeService.FoodGroups;
 
-			var recipes = _recipeService.GetAllRecipes();
 			_recipes = new ObservableCollection<DetailedRecipeViewModel>();
+			UpdateRecipes();
 
 			// Populate the _recipes collection with DetailedRecipeViewModels for each recipe.
-			for (int i = 0; i < recipes.Count; i++)
-			{
-				_recipes.Add(new DetailedRecipeViewModel(recipes[i], i));
-			}
 
 			// Set up commands
 			ClearSearchFilterCommand = new RelayCommand(ClearSearch);
@@ -62,6 +58,20 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 
 			// Call FilterRecipes to get the initial list of recipes
 			FilterRecipes();
+		}
+
+		public void UpdateRecipes()
+		{
+			_recipes.Clear();
+			var recipes = _recipeService.GetAllRecipes();
+
+			// Populate the _recipes collection with DetailedRecipeViewModels for each recipe.
+			for (int i = 0; i < recipes.Count; i++)
+			{
+				_recipes.Add(new DetailedRecipeViewModel(recipes[i], i));
+			}
+
+			FilteredRecipes = _recipes;
 		}
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//

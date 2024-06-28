@@ -71,19 +71,20 @@
 				  ToolTip="Select the desired unit of measurement of the ingredient.">
 		</ComboBox>
 
-		<TextBlock Text="Calories:"
+		<TextBlock Text="Calories Per Unit:"
 				   Grid.Row="3"
 				   VerticalAlignment="Center"
 				   FontSize="14"
-				   Margin="10"
-				   ToolTip="Enter the calorie count for the ingredient." />
+				   Margin="10,0,251,0"
+				   TextWrapping="Wrap"
+				   ToolTip="Enter the calorie count per unit for the ingredient." />
 		<TextBox x:Name="CaloriesTextBox"
 				 Grid.Row="3"
 				 Margin="100,5,10,5"
 				 InputScope="Number"
 				 BorderThickness="0"
 				 Padding="5"
-				 ToolTip="Enter the calorie count for the ingredient." />
+				 ToolTip="Enter the calorie count per unit for the ingredient." />
 
 		<TextBlock Text="Food Group:"
 				   Grid.Row="4"

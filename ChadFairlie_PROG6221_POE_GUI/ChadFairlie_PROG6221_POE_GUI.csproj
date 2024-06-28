@@ -103,7 +103,6 @@
     <Compile Include="Converters\BooleanToTextDecorationConverter.cs" />
     <Compile Include="Converters\CaloriesToColorConverter.cs" />
     <Compile Include="Converters\RecipesViewModelToVisibilityConverter.cs" />
-    <Compile Include="DesignData\DesignTimeData.cs" />
     <Compile Include="MVVM\Models\FoodGroup.cs" />
     <Compile Include="MVVM\Models\Step.cs" />
     <Compile Include="MVVM\ViewModels\AddRecipeViewModel.cs" />
@@ -220,7 +219,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\Icons\" />
-    <Folder Include="MVVM\ViewModels\PopUpViewModel\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

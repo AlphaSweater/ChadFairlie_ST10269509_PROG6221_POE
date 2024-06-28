@@ -2,7 +2,10 @@
 using ChadFairlie_PROG6221_POE_GUI.MVVM.Models;
 using ChadFairlie_PROG6221_POE_GUI.MVVM.Views.PopUpView;
 using ChadFairlie_PROG6221_POE_GUI.Services;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Text;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
@@ -29,6 +32,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 
 			AddIngredientCommand = new RelayCommand(OpenAddIngredientWindow);
 			AddStepCommand = new RelayCommand(AddStep);
+			SubmitRecipeCommand = new RelayCommand(SubmitRecipe);
 		}
 
 		public string RecipeName
@@ -124,6 +128,54 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 				Steps.Add(new Step(StepDescription));
 				StepDescription = string.Empty;
 			}
+		}
+
+		public ICommand SubmitRecipeCommand { get; }
+
+		private void SubmitRecipe()
+		{
+			StringBuilder errorMessage = new StringBuilder();
+			bool hasError = false;
+
+			if (string.IsNullOrEmpty(RecipeName))
+			{
+				errorMessage.AppendLine("Recipe Name is required.");
+				hasError = true;
+			}
+
+			if (Ingredients.Count == 0)
+			{
+				errorMessage.AppendLine("At least one ingredient is required.");
+				hasError = true;
+			}
+
+			if (Steps.Count == 0)
+			{
+				errorMessage.AppendLine("At least one step is required.");
+				hasError = true;
+			}
+
+			if (hasError)
+			{
+				MessageBox.Show(errorMessage.ToString(), "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+				return;
+			}
+
+			// Create a new Recipe object
+			var newRecipe = new Recipe(RecipeName, new List<Ingredient>(Ingredients), new List<Step>(Steps));
+
+			// Use the RecipeService to submit the recipe
+			_recipeService.AddRecipe(newRecipe);
+
+			// Show success message
+			MessageBox.Show("Recipe submitted successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+			// Clear the fields
+			RecipeName = string.Empty;
+			Ingredients.Clear();
+			Steps.Clear();
+			TotalCalories = 0;
+			CaloriesMessage = string.Empty;
 		}
 	}
 }

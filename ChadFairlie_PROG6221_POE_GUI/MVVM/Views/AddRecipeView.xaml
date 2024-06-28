@@ -5,8 +5,6 @@
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:converters="clr-namespace:ChadFairlie_PROG6221_POE_GUI.Converters"
 			 xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-			 xmlns:designData="clr-namespace:ChadFairlie_PROG6221_POE_GUI.DesignData"
-			 d:DataContext="{d:DesignInstance designData:DesignTimeAddRecipeViewModel, IsDesignTimeCreatable=True}"
 			 mc:Ignorable="d"
 			 d:DesignHeight="825"
 			 d:DesignWidth="920">
@@ -20,7 +18,6 @@
 	<Grid Margin="10">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
-			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
@@ -30,30 +27,8 @@
 			<ColumnDefinition Width="3*" />
 		</Grid.ColumnDefinitions>
 
-		<!-- Separator -->
-		<Rectangle Grid.Row="0"
-				   Grid.ColumnSpan="2"
-				   Height="4"
-				   Fill="#6148cb"
-				   Margin="0,-68,0,0" />
-
 		<!-- Recipe Title -->
-		<TextBlock Text="New Recipe"
-				   Grid.Row="0"
-				   Grid.ColumnSpan="2"
-				   FontSize="46"
-				   FontWeight="Bold"
-				   Foreground="White"
-				   Margin="0,0,0,0" />
-
-		<!-- Separator -->
-		<Rectangle Grid.Row="0"
-				   Grid.ColumnSpan="2"
-				   Height="4"
-				   Fill="#6148cb"
-				   Margin="0,65,0,0" />
-
-		<Border Grid.Row="1"
+		<Border Grid.Row="0"
 				Grid.RowSpan="2"
 				Grid.ColumnSpan="2"
 				Background="#272537"
@@ -61,7 +36,7 @@
 				Margin="0,15,0,0" />
 
 		<!-- Recipe Name Input -->
-		<StackPanel Grid.Row="1"
+		<StackPanel Grid.Row="0"
 					Grid.Column="0"
 					Margin="10,20,0,0">
 			<TextBlock Text="Recipe Name:"
@@ -80,12 +55,12 @@
 
 		<!-- Finish Recipe Button -->
 		<Button Content="Finish Recipe"
-				Grid.Row="1"
+				Grid.Row="0"
 				Grid.Column="1"
 				HorizontalAlignment="Right"
 				VerticalAlignment="Center"
 				Margin="0,45,45,0"
-				Command="{Binding FinishRecipeCommand}"
+				Command="{Binding SubmitRecipeCommand}"
 				Style="{StaticResource CardButton}"
 				Width="200"
 				Height="50"
@@ -97,7 +72,7 @@
 				Cursor="Hand" />
 
 		<!-- Ingredients Section -->
-		<Border Grid.Row="2"
+		<Border Grid.Row="1"
 				Grid.Column="0"
 				Margin="5,10,0,0"
 				Padding="10">
@@ -130,33 +105,63 @@
 							<DataTemplate>
 								<Border Margin="5,0,25,10"
 										Background="#393850"
-										Padding="8"
+										Padding="10,4"
 										CornerRadius="5">
 									<Grid>
 										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="auto" />
 											<ColumnDefinition Width="*" />
 											<ColumnDefinition Width="auto" />
 										</Grid.ColumnDefinitions>
 
-										<!-- Ingredient Details -->
 										<StackPanel Grid.Column="0">
+
+											<Separator Background="White"
+													   Margin="0,5,0,0"
+													   VerticalAlignment="Bottom" />
+
+											<!-- Ingredient Name -->
 											<TextBlock Text="{Binding Name}"
+													   x:Name="IngredientNameTextBlock"
 													   FontSize="21"
 													   FontWeight="Bold"
 													   Foreground="White"
-													   TextWrapping="Wrap" />
+													   TextAlignment="Left"
+													   TextWrapping="Wrap"
+													   Width="auto" />
+
+											<Separator Background="White"
+													   Margin="0,3,0,5" />
+
+											<!-- Unit of Measurement -->
+											<TextBlock Text="Unit of Measurement:"
+													   FontSize="14"
+													   Foreground="LightGray" />
 											<TextBlock Text="{Binding FormattedUnitOfMeasurement}"
 													   FontSize="15"
 													   FontWeight="Medium"
-													   Foreground="White" />
+													   Foreground="White"
+													   Margin="0,0,0,5" />
+
+											<!-- Calories per Unit -->
+											<TextBlock Text="Calories per Unit:"
+													   FontSize="14"
+													   Foreground="LightGray" />
 											<TextBlock Text="{Binding FormattedCaloriesPerUnit}"
 													   FontSize="15"
 													   FontWeight="Medium"
-													   Foreground="White" />
+													   Foreground="White"
+													   Margin="0,0,0,5" />
+
+											<!-- Food Group -->
+											<TextBlock Text="Food Group:"
+													   FontSize="14"
+													   Foreground="LightGray" />
 											<TextBlock Text="{Binding FoodGroup}"
 													   FontSize="15"
 													   FontWeight="Medium"
-													   Foreground="White" />
+													   Foreground="White"
+													   Margin="0,0,0,4" />
 										</StackPanel>
 
 										<!-- Quantity -->
@@ -165,7 +170,8 @@
 												   HorizontalAlignment="Right"
 												   VerticalAlignment="Top"
 												   Foreground="White"
-												   Grid.Column="1" />
+												   Grid.Column="2"
+												   Margin="0,0,0,0" />
 									</Grid>
 								</Border>
 							</DataTemplate>
@@ -176,7 +182,7 @@
 		</Border>
 
 		<!-- Steps Section -->
-		<Border Grid.Row="2"
+		<Border Grid.Row="1"
 				Grid.Column="1"
 				Margin="0,10,0,10"
 				Padding="10">
@@ -278,23 +284,50 @@
 				Margin="0,20,0,0"
 				Background="#272537"
 				CornerRadius="25">
-			<StackPanel Margin="10,20,0,0">
-				<StackPanel Orientation="Horizontal">
+			<StackPanel Margin="10,20,10,20">
+				<!-- Total Calories -->
+				<StackPanel Orientation="Horizontal"
+							HorizontalAlignment="Center">
 					<TextBlock Text="Total Calories:"
 							   FontSize="20"
 							   FontWeight="Bold"
 							   Foreground="White"
-							   Margin="0,0,20,10" />
+							   Margin="0,0,10,0" />
 					<TextBlock Text="{Binding TotalCalories}"
 							   FontSize="20"
+							   FontWeight="Bold"
 							   Foreground="{Binding TotalCalories, Converter={StaticResource CaloriesToColorConverter}}"
-							   Margin="0,0,0,10" />
+							   Margin="0,0,0,0" />
 				</StackPanel>
 
+				<!-- Calorie Message -->
 				<TextBlock Text="{Binding CaloriesMessage}"
 						   FontSize="15"
 						   Foreground="{Binding TotalCalories, Converter={StaticResource CaloriesToColorConverter}}"
-						   Margin="0,0,0,10" />
+						   Margin="0,10,0,0"
+						   TextAlignment="Center" />
+
+				<!-- Detailed Breakdown -->
+				<StackPanel Margin="10,20,10,0">
+					<!-- Tips Section -->
+					<TextBlock Text="Health Tips:"
+							   FontSize="18"
+							   FontWeight="Bold"
+							   Foreground="White"
+							   Margin="0,10,0,5" />
+					<TextBlock Text="• Aim to balance your meal with proteins, carbohydrates, and healthy fats."
+							   FontSize="14"
+							   Foreground="White"
+							   Margin="0,5,0,0" />
+					<TextBlock Text="• Consider adding more vegetables for a nutritious boost."
+							   FontSize="14"
+							   Foreground="White"
+							   Margin="0,5,0,0" />
+					<TextBlock Text="• Monitor portion sizes to manage calorie intake effectively."
+							   FontSize="14"
+							   Foreground="White"
+							   Margin="0,5,0,0" />
+				</StackPanel>
 			</StackPanel>
 		</Border>
 	</Grid>

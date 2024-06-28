@@ -1,18 +1,8 @@
 ﻿using ChadFairlie_PROG6221_POE_GUI.MVVM.Models;
 using ChadFairlie_PROG6221_POE_GUI.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Views.PopUpView
 {
@@ -33,43 +23,66 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Views.PopUpView
 
 		private void SubmitButton_Click(object sender, RoutedEventArgs e)
 		{
-			string name = NameTextBox.Text.Trim();
-			if (string.IsNullOrEmpty(name))
+			string errorMessage = ValidateInputs();
+
+			if (!string.IsNullOrEmpty(errorMessage))
 			{
-				MessageBox.Show("Name is required.");
+				MessageBox.Show(errorMessage, "Input Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
 				return;
 			}
 
-			if (!double.TryParse(QuantityTextBox.Text, out double quantity) || quantity <= 0)
+			Ingredient = new Ingredient(
+				NameTextBox.Text.Trim(),
+				double.Parse(QuantityTextBox.Text),
+				UnitComboBox.Text.Trim(),
+				double.Parse(CaloriesTextBox.Text),
+				(FoodGroup)FoodGroupComboBox.SelectedItem
+			);
+
+			DialogResult = true;
+			Close();
+		}
+
+		private string ValidateInputs()
+		{
+			StringBuilder errorMessages = new StringBuilder();
+
+			string name = NameTextBox.Text.Trim();
+			if (string.IsNullOrEmpty(name))
 			{
-				MessageBox.Show("Quantity must be a positive number.");
-				return;
+				errorMessages.AppendLine("Name is required.");
+			}
+
+			if (!double.TryParse(QuantityTextBox.Text, out double quantity))
+			{
+				errorMessages.AppendLine("Quantity must be a number.");
+			}
+			else if (quantity <= 0)
+			{
+				errorMessages.AppendLine("Quantity must be a positive number.");
 			}
 
 			string unit = UnitComboBox.Text.Trim();
 			if (string.IsNullOrEmpty(unit))
 			{
-				MessageBox.Show("Unit of Measurement is required.");
-				return;
+				errorMessages.AppendLine("Unit of Measurement is required.");
 			}
 
-			if (!double.TryParse(CaloriesTextBox.Text, out double calories) || calories <= 0)
+			if (!double.TryParse(CaloriesTextBox.Text, out double calories))
 			{
-				MessageBox.Show("Calories must be a positive number.");
-				return;
+				errorMessages.AppendLine("Calories must be a number.");
 			}
-
-			if (!(FoodGroupComboBox.SelectedItem is FoodGroup selectedFoodGroup))
+			else if (calories <= 0)
 			{
-				MessageBox.Show("Food Group is required.");
-				return;
+				errorMessages.AppendLine("Calories must be a positive number.");
 			}
 
-			var foodGroup = selectedFoodGroup;
+			if (!(FoodGroupComboBox.SelectedItem is FoodGroup))
+			{
+				errorMessages.AppendLine("Food Group is required.");
+			}
 
-			Ingredient = new Ingredient(name, quantity, unit, calories, foodGroup);
-			DialogResult = true;
-			Close();
+			return errorMessages.ToString();
 		}
 	}
 }
