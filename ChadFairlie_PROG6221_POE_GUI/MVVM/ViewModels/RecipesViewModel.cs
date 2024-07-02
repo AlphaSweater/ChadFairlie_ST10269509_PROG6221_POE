@@ -66,12 +66,13 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 			var recipes = _recipeService.GetAllRecipes();
 
 			// Populate the _recipes collection with DetailedRecipeViewModels for each recipe.
-			for (int i = 0; i < recipes.Count; i++)
+			foreach (var recipe in recipes)
 			{
-				_recipes.Add(new DetailedRecipeViewModel(recipes[i], i));
+				_recipes.Add(new DetailedRecipeViewModel(recipe, _recipes.Count));
 			}
 
-			FilteredRecipes = _recipes;
+			// Sort the _recipes collection in alphabetical order by the recipe name and assign it to FilteredRecipes
+			FilteredRecipes = new ObservableCollection<DetailedRecipeViewModel>(_recipes.OrderBy(recipe => recipe.RecipeName));
 		}
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//

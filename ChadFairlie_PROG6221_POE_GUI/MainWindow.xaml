@@ -107,7 +107,7 @@
 									 FontSize="14"
 									 Style="{StaticResource MenuButtonTheme}"
 									 Cursor="Hand"
-									 Command="{Binding RecipesViewCommand}" />
+									 Command="{Binding RecipesViewCommand}"/>
 
 						<RadioButton Content="Exit"
 									 Height="50"
