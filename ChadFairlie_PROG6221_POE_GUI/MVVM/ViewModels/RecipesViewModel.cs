@@ -226,6 +226,9 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 					MinCalories <= recipe.TotalCalories && recipe.TotalCalories <= MaxCalories);
 			}
 
+			// Sort the filtered list in alphabetical order by the recipe name
+			filtered = filtered.OrderBy(recipe => recipe.RecipeName);
+
 			// Convert the filtered enumerable back to an ObservableCollection
 			FilteredRecipes = new ObservableCollection<DetailedRecipeViewModel>(filtered.ToList());
 		}
