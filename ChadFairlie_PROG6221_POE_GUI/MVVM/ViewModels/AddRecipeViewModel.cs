@@ -141,13 +141,17 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 
 		public ICommand AddStepCommand { get; }
 
-		// Adds a new cooking step to the recipe.
+		// Adds a new cooking step to the recipe, including the step number in the description.
 		private void AddStep()
 		{
 			if (!string.IsNullOrEmpty(StepDescription))
 			{
-				Steps.Add(new Step(StepDescription));
-				StepDescription = string.Empty;
+				// Calculate the step number based on the current number of steps
+				int stepNumber = Steps.Count + 1;
+				string formattedStepDescription = $"Step {stepNumber} -> {StepDescription}";
+
+				Steps.Add(new Step(formattedStepDescription));
+				StepDescription = string.Empty; // Clear the input field after adding the step
 			}
 		}
 
