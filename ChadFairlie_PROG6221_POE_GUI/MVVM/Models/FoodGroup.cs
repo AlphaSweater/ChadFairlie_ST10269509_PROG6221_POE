@@ -16,7 +16,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 		public string Icon { get; set; }
 
 		// Combines Name and Icon for display purposes.
-		public string FormattedName => $"{Name} {Icon}";
+		public string FormattedName => $"{Icon}|{Name}";
 
 		// Constructor to set the food group's name and icon.
 		public FoodGroup(string name, string icon)
@@ -28,7 +28,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 		// Returns the food group's name and icon as a string.
 		public override string ToString()
 		{
-			return $"{Name} {Icon}";
+			return $"{Icon} | {Name}";
 		}
 	}
 }

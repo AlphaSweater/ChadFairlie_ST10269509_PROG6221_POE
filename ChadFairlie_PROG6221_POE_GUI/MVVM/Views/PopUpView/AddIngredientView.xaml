@@ -6,7 +6,7 @@
 		mc:Ignorable="d"
 		Title="Add An Ingredient"
 		Height="400"
-		Width="350"
+		Width="650"
 		WindowStartupLocation="CenterScreen"
 		ResizeMode="NoResize"
 		WindowStyle="ToolWindow"
@@ -28,28 +28,38 @@
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition Width="Auto" />
+		</Grid.ColumnDefinitions>
+
 		<TextBlock Text="Name:"
-				   Grid.Row="0"
+				   Grid.Column="0"
 				   VerticalAlignment="Center"
 				   FontSize="14"
 				   Margin="10"
 				   ToolTip="Enter the name of the ingredient." />
 		<TextBox x:Name="NameTextBox"
 				 Grid.Row="0"
-				 Margin="100,5,10,5"
+				 Grid.Column="1"
+				 Margin="10"
 				 BorderThickness="0"
 				 Padding="5"
 				 ToolTip="Enter the name of the ingredient." />
 
 		<TextBlock Text="Quantity:"
 				   Grid.Row="1"
+				   Grid.Column="0"
 				   VerticalAlignment="Center"
 				   FontSize="14"
 				   Margin="10"
 				   ToolTip="Enter the quantity of the ingredient." />
 		<TextBox x:Name="QuantityTextBox"
 				 Grid.Row="1"
-				 Margin="100,5,10,5"
+				 Grid.Column="1"
+				 Margin="10"
 				 InputScope="Number"
 				 BorderThickness="0"
 				 Padding="5"
@@ -57,13 +67,15 @@
 
 		<TextBlock Text="Unit:"
 				   Grid.Row="2"
+				   Grid.Column="0"
 				   VerticalAlignment="Center"
 				   FontSize="14"
 				   Margin="10"
 				   ToolTip="Select the desired unit of measurement of the ingredient." />
 		<ComboBox x:Name="UnitComboBox"
 				  Grid.Row="2"
-				  Margin="100,5,10,5"
+				  Grid.Column="1"
+				  Margin="10"
 				  IsEditable="True"
 				  ItemsSource="{Binding UnitsOfMeasurement}"
 				  BorderThickness="0"
@@ -73,14 +85,16 @@
 
 		<TextBlock Text="Calories Per Unit:"
 				   Grid.Row="3"
+				   Grid.Column="0"
 				   VerticalAlignment="Center"
 				   FontSize="14"
-				   Margin="10,0,251,0"
+				   Margin="10"
 				   TextWrapping="Wrap"
 				   ToolTip="Enter the calorie count per unit for the ingredient." />
 		<TextBox x:Name="CaloriesTextBox"
 				 Grid.Row="3"
-				 Margin="100,5,10,5"
+				 Grid.Column="1"
+				 Margin="10"
 				 InputScope="Number"
 				 BorderThickness="0"
 				 Padding="5"
@@ -88,21 +102,33 @@
 
 		<TextBlock Text="Food Group:"
 				   Grid.Row="4"
+				   Grid.Column="0"
 				   VerticalAlignment="Center"
 				   FontSize="14"
 				   Margin="10"
 				   ToolTip="Select the food group this ingredient belongs to." />
 		<ComboBox x:Name="FoodGroupComboBox"
+				  Width="160"
 				  Grid.Row="4"
-				  Margin="100,5,10,5"
+				  Grid.Column="1"
+				  Margin="10"
 				  ItemsSource="{Binding FoodGroups}"
 				  BorderThickness="0"
 				  Padding="5"
-				  ToolTip="Select the food group this ingredient belongs to.">
-		</ComboBox>
+				  ToolTip="Select the food group this ingredient belongs to." />
+
+		<Button Content="?"
+				Grid.Row="4"
+				Grid.Column="2"
+				Width="20"
+				Height="20"
+				Margin="0,0,10,0"
+				Click="HelpFoodGroupsButton_Click"
+				ToolTip="Click to learn more about each food group." />
 
 		<Button Content="Submit"
 				Grid.Row="5"
+				Grid.ColumnSpan="3"
 				Width="100"
 				Height="30"
 				Margin="0,20,0,0"

@@ -21,9 +21,9 @@ namespace ChadFairlie_PROG6221_POE_GUI.Services
 				new FoodGroup("Grains", "🌾"),
 				new FoodGroup("Dairy", "🥛"),
 				new FoodGroup("Fats and Oils", "🥑"),
+				new FoodGroup("Spices", "🌶️"),
 				new FoodGroup("Sweets and Snacks", "🍪"),
 				new FoodGroup("Beverages", "☕"),
-				new FoodGroup("Spices", "🌶️"),
 			};
 
 		// List of standard units of measurement used in recipes.

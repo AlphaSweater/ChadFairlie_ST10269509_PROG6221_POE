@@ -145,7 +145,6 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 				if (_caloriesMessage != value)
 				{
 					_caloriesMessage = value;
-					OnPropertyChanged(nameof(CaloriesMessage));
 				}
 			}
 		}
@@ -190,6 +189,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 			{
 				CaloriesMessage = " (Very Low Calorie Content. Consider adding more nutritious ingredients.)";
 			}
+			OnPropertyChanged(nameof(CaloriesMessage));
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
@@ -228,6 +228,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 				OnPropertyChanged(nameof(Ingredients));
 				OnPropertyChanged(nameof(_recipe.CurrentScale));
 				OnPropertyChanged(nameof(TotalCalories));
+				UpdateCaloriesMessage();
 			}
 			else
 			{
@@ -246,6 +247,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 				OnPropertyChanged(nameof(Ingredients));
 				OnPropertyChanged(nameof(_recipe.CurrentScale));
 				OnPropertyChanged(nameof(TotalCalories));
+				UpdateCaloriesMessage();
 			}
 			else
 			{
@@ -262,6 +264,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 			OnPropertyChanged(nameof(Ingredients));
 			OnPropertyChanged(nameof(_recipe.CurrentScale));
 			OnPropertyChanged(nameof(TotalCalories));
+			UpdateCaloriesMessage();
 		}
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//

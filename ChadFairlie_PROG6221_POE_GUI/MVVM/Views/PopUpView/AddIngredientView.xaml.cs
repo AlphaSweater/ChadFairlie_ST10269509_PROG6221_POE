@@ -84,5 +84,21 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Views.PopUpView
 
 			return errorMessages.ToString();
 		}
+
+		private void HelpFoodGroupsButton_Click(object sender, RoutedEventArgs e)
+		{
+			string foodGroupInfo = "Here is some information about each food group:\n\n" +
+						   "Protein 🍗 : Includes options such as meat, poultry, fish, eggs, tofu, legumes, and nuts.\n" +
+						   "Vegetables 🥕 : Covers a wide range of vegetables like leafy greens, root vegetables, Cruciferous vegetables, peppers, onions, and tomatoes.\n" +
+						   "Fruits 🍎 : Encompasses fruits of all kinds, including berries, citrus fruits, apples, bananas, and tropical fruits.\n" +
+						   "Grains 🌾 : Represents grains and grain products like rice, pasta, bread, oats, quinoa, barley, and couscous.\n" +
+						   "Dairy 🥛 : Includes dairy products such as milk, cheese, yogurt, and alternatives like plant-based milk (e.g., almond milk, soy milk).\n" +
+						   "Fats and Oils 🥑 : Covers fats and oils used in cooking and food preparation, such as olive oil, butter, avocado, and coconut oil.\n" +
+						   "Spices 🌶️ : Represents various spices and herbs used to add flavor to dishes, including salt, pepper, garlic, cinnamon, cumin, and paprika.\n" +
+						   "Sweets and Snacks 🍪 : Represents sugary foods, desserts, and snacks, including candies, chocolates, pastries, cookies, and chips.\n" +
+						   "Beverages ☕ : Encompasses various beverages like water, tea, coffee, fruit juices, soft drinks, and alcoholic beverages (if applicable).";
+
+			MessageBox.Show(foodGroupInfo, "Food Group Information", MessageBoxButton.OK, MessageBoxImage.Information);
+		}
 	}
 }
