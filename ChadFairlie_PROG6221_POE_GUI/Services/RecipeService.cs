@@ -2,7 +2,6 @@
 using ChadFairlie_PROG6221_POE_GUI.MVVM.Models;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 
 namespace ChadFairlie_PROG6221_POE_GUI.Services
 {
