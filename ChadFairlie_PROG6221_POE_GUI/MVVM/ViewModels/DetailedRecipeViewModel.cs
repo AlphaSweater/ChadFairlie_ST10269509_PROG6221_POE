@@ -13,13 +13,7 @@
 using ChadFairlie_PROG6221_POE_GUI.Core;
 using ChadFairlie_PROG6221_POE_GUI.MVVM.Models;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 
 namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
@@ -121,19 +115,8 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
-		// CurrentScale property allows getting and setting the current scale of the recipe.
-		public double CurrentScale
-		{
-			get => _recipe.CurrentScale;
-			set
-			{
-				if (_recipe.CurrentScale != value)
-				{
-					_recipe.CurrentScale = value;
-					OnPropertyChanged(nameof(CurrentScale));
-				}
-			}
-		}
+		// CurrentScale property allows getting and setting the current scale of the recipe without rounding the precision value.
+		public double CurrentScale => Math.Round(_recipe.PreciseCurrentScale, 8);
 
 		//------------------------------------------------------------------------------------------------------------------------//
 		// CaloriesMessage property for displaying a message based on the total calories of the recipe.
@@ -226,7 +209,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 			{
 				_recipe.Scale(scale);
 				OnPropertyChanged(nameof(Ingredients));
-				OnPropertyChanged(nameof(_recipe.CurrentScale));
+				OnPropertyChanged(nameof(CurrentScale));
 				OnPropertyChanged(nameof(TotalCalories));
 				UpdateCaloriesMessage();
 			}
@@ -245,7 +228,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 			{
 				_recipe.Scale(1 / scale);
 				OnPropertyChanged(nameof(Ingredients));
-				OnPropertyChanged(nameof(_recipe.CurrentScale));
+				OnPropertyChanged(nameof(CurrentScale));
 				OnPropertyChanged(nameof(TotalCalories));
 				UpdateCaloriesMessage();
 			}
@@ -262,7 +245,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 		{
 			_recipe.ResetScaling();
 			OnPropertyChanged(nameof(Ingredients));
-			OnPropertyChanged(nameof(_recipe.CurrentScale));
+			OnPropertyChanged(nameof(CurrentScale));
 			OnPropertyChanged(nameof(TotalCalories));
 			UpdateCaloriesMessage();
 		}

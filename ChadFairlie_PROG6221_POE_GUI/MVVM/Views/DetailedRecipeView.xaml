@@ -353,7 +353,7 @@
 						   VerticalAlignment="Center"
 						   Margin="0,0,0,0" />
 
-				<Button Content="Reset"
+				<Button Content="Reset Scale"
 						Command="{Binding ResetScaleCommand}"
 						Style="{StaticResource CardButton}"
 						Grid.Row="0"

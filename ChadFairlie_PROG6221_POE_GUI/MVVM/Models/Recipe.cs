@@ -10,10 +10,8 @@
 //------------------------------------------------------------------------------------------------------------------------//
 
 using ChadFairlie_PROG6221_POE_GUI.Core;
-using ChadFairlie_PROG6221_POE_GUI.Services;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 {
@@ -28,7 +26,17 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 		public string RecipeName { get; set; }
 
 		// The current scale factor applied to the recipe's ingredients.
-		public double CurrentScale { get; set; } = 1.0;
+		private double _preciseCurrentScale;
+
+		public double PreciseCurrentScale
+		{
+			get => _preciseCurrentScale;
+			set
+			{
+				SetProperty(ref _preciseCurrentScale, value);
+				OnPropertyChanged(nameof(PreciseCurrentScale));
+			}
+		}
 
 		// A list of ingredients required to make the recipe.
 		public List<Ingredient> Ingredients { get; set; }
@@ -49,6 +57,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 		{
 			this.Ingredients = new List<Ingredient>();
 			this.Steps = new List<Step>();
+			this.PreciseCurrentScale = 1.0;
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
@@ -58,6 +67,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 			this.RecipeName = recipeName;
 			this.Ingredients = ingredients;
 			this.Steps = steps;
+			this.PreciseCurrentScale = 1.0;
 			LastAccessed = DateTime.Now;
 		}
 
@@ -77,7 +87,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 		// Scales the quantity of ingredients by a specified factor and adjusts the current scale accordingly.
 		public void Scale(double scale)
 		{
-			CurrentScale = Math.Round(CurrentScale * scale, 2);
+			PreciseCurrentScale *= scale;
 
 			foreach (var ingredient in Ingredients)
 			{
@@ -88,7 +98,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 					(ingredient.PreciseQuantity, ingredient.UnitOfMeasurement, ingredient.PreciseCaloriesPerUnit) = UnitConverter.Convert(ingredient.PreciseQuantity, ingredient.UnitOfMeasurement, ingredient.PreciseCaloriesPerUnit);
 				}
 
-				if (CurrentScale == 1)
+				if (PreciseCurrentScale == 1)
 				{
 					this.ResetScaling();
 				}
@@ -106,7 +116,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 				ingredient.UnitOfMeasurement = ingredient.OriginalUnitOfMeasurement;
 				ingredient.PreciseCaloriesPerUnit = ingredient.OriginalCaloriesPerUnit;
 			}
-			CurrentScale = 1.0;
+			PreciseCurrentScale = 1.0;
 		}
 	}
 }
