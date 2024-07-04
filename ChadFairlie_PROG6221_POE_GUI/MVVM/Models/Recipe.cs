@@ -15,9 +15,6 @@ using System.Collections.Generic;
 
 namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 {
-	// Delegate for handling events when total calories exceed a certain threshold.
-	public delegate void ExceededCaloriesDelegate(double totalCalories);
-
 	// Represents a cooking recipe, including its ingredients and cooking steps.
 	public class Recipe : ObservableObject
 	{
@@ -46,9 +43,6 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 
 		// The date and time when the recipe was last accessed.
 		public DateTime LastAccessed { get; set; }
-
-		// Event triggered when the total calories of the recipe exceed a certain limit.
-		public event ExceededCaloriesDelegate OnCaloriesExceeded;
 
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 
@@ -80,6 +74,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Models
 			{
 				totalCalories += (ingredient.CaloriesPerUnit * ingredient.Quantity);
 			}
+
 			return Math.Round(totalCalories, 2);
 		}
 

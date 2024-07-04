@@ -3,7 +3,7 @@ using ChadFairlie_PROG6221_POE_GUI.Services;
 using System.Text;
 using System.Windows;
 
-namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Views.PopUpView
+namespace ChadFairlie_PROG6221_POE_GUI.MVVM.Views.PopUps
 {
 	/// <summary>
 	/// Interaction logic for AddIngredientView.xaml

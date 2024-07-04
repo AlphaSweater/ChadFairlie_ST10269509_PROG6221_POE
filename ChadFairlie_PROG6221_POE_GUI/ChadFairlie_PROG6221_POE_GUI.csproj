@@ -114,7 +114,7 @@
     <Compile Include="MVVM\Views\DetailedRecipeView.xaml.cs">
       <DependentUpon>DetailedRecipeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MVVM\Views\PopUpView\AddIngredientView.xaml.cs">
+    <Compile Include="MVVM\Views\PopUps\AddIngredientView.xaml.cs">
       <DependentUpon>AddIngredientView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\RecipeService.cs" />
@@ -141,7 +141,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MVVM\Views\PopUpView\AddIngredientView.xaml">
+    <Page Include="MVVM\Views\PopUps\AddIngredientView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

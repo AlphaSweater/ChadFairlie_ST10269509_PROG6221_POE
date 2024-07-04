@@ -11,7 +11,7 @@
 
 using ChadFairlie_PROG6221_POE_GUI.Core;
 using ChadFairlie_PROG6221_POE_GUI.MVVM.Models;
-using ChadFairlie_PROG6221_POE_GUI.MVVM.Views.PopUpView;
+using ChadFairlie_PROG6221_POE_GUI.MVVM.Views.PopUps;
 using ChadFairlie_PROG6221_POE_GUI.Services;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,6 +21,9 @@ using System.Windows.Input;
 
 namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 {
+	// Delegate for handling events when total calories exceed a certain threshold.
+	public delegate void ExceededCaloriesDelegate(double totalCalories);
+
 	// ViewModel for adding a new recipe through the UI.
 	public class AddRecipeViewModel : ObservableObject
 	{
@@ -32,6 +35,12 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 
 		private double _totalCalories;
 		private string _caloriesMessage;
+
+		// Event triggered when the total calories of the recipe exceed a certain limit.
+		public event ExceededCaloriesDelegate OnCaloriesExceeded;
+
+		// Flag to track if the calories exceeded notification has been triggered.
+		private bool _caloriesExceededNotified = false;
 
 		private readonly RecipeService _recipeService;
 
@@ -45,7 +54,11 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 
 			AddIngredientCommand = new RelayCommand(OpenAddIngredientWindow);
 			AddStepCommand = new RelayCommand(AddStep);
+
 			SubmitRecipeCommand = new RelayCommand(SubmitRecipe);
+			ClearRecipeCommand = new RelayCommand(ClearRecipe);
+
+			OnCaloriesExceeded += HandleCaloriesExceeded; // Subscribe to the event
 		}
 
 		// Properties for data binding in the UI.
@@ -88,12 +101,20 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 		// Calculates the total calories of the recipe.
 		private double CalculateTotalCalories()
 		{
-			double total = 0;
+			double totalCalories = 0;
 			foreach (var ingredient in Ingredients)
 			{
-				total += ingredient.PreciseCaloriesPerUnit * ingredient.PreciseQuantity;
+				totalCalories += ingredient.PreciseCaloriesPerUnit * ingredient.PreciseQuantity;
 			}
-			return total;
+
+			// Check if total calories exceed 300 and if the notification has not been triggered before
+			if (totalCalories > 300 && !_caloriesExceededNotified)
+			{
+				OnCaloriesExceeded?.Invoke(totalCalories);
+				_caloriesExceededNotified = true; // Set flag to true after notification
+			}
+
+			return totalCalories;
 		}
 
 		// Updates the total calories and the message based on the calorie content.
@@ -101,6 +122,13 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 		{
 			TotalCalories = CalculateTotalCalories();
 			UpdateCaloriesMessage();
+
+			// Check if total calories exceed 300 and trigger the event if needed
+			if (TotalCalories > 300 && !_caloriesExceededNotified)
+			{
+				OnCaloriesExceeded?.Invoke(TotalCalories);
+				_caloriesExceededNotified = true; // Set flag to true after notification
+			}
 		}
 
 		// Updates the message displayed to the user based on the total calorie content.
@@ -198,6 +226,35 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 			Steps.Clear();
 			TotalCalories = 0;
 			CaloriesMessage = string.Empty;
+		}
+
+		public ICommand ClearRecipeCommand { get; }
+
+		private void ClearRecipe()
+		{
+			var result = MessageBox.Show("Are you sure you want to clear all the data?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+			if (result == MessageBoxResult.Yes)
+			{
+				RecipeName = string.Empty;
+				Ingredients.Clear();
+				Steps.Clear();
+				TotalCalories = 0;
+				CaloriesMessage = string.Empty;
+				_caloriesExceededNotified = false; // Reset the flag
+			}
+		}
+
+		// Handles the event when the total calories of a recipe exceed a certain limit, displaying an alert.
+		private void HandleCaloriesExceeded(double totalCalories)
+		{
+			string message = $"Alert: The total calories of this recipe exceed 300. Current Total Calories: {totalCalories} kcal\n\n" +
+							 "You are approaching the recommended calorie intake for a good meal. Here are some suggestions:\n\n" +
+							 "- Consider reducing the portion sizes of high-calorie ingredients.\n" +
+							 "- Look for lower-calorie alternatives for some ingredients.\n" +
+							 "- Balance your meal with more low-calorie vegetables or side dishes.\n\n" +
+							 "Remember, the recommended daily calorie intake varies based on age, sex, and activity level.";
+			MessageBox.Show(message, "Calories Exceeded", MessageBoxButton.OK, MessageBoxImage.Warning);
 		}
 	}
 }
