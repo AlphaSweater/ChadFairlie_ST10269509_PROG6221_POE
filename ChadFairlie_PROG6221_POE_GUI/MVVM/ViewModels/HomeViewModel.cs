@@ -11,7 +11,6 @@
 //<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 
 using ChadFairlie_PROG6221_POE_GUI.Core;
-using ChadFairlie_PROG6221_POE_GUI.MVVM.Models;
 using ChadFairlie_PROG6221_POE_GUI.Services;
 using System.Collections.ObjectModel;
 using System.Linq;

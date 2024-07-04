@@ -27,6 +27,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 	// ViewModel for adding a new recipe through the UI.
 	public class AddRecipeViewModel : ObservableObject
 	{
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		private string _recipeName;
 
 		private ObservableCollection<Ingredient> _ingredients;
@@ -44,6 +45,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 
 		private readonly RecipeService _recipeService;
 
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		// Constructor initializes the ViewModel, including commands and services.
 		public AddRecipeViewModel()
 		{
@@ -61,43 +63,61 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 			OnCaloriesExceeded += HandleCaloriesExceeded; // Subscribe to the event
 		}
 
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		// Properties for data binding in the UI.
+
+		//------------------------------------------------------------------------------------------------------------------------//
+		// Gets or sets the name of the recipe.
 		public string RecipeName
 		{
 			get => _recipeName;
 			set => SetProperty(ref _recipeName, value);
 		}
 
+		//------------------------------------------------------------------------------------------------------------------------//
+		// Collection of ingredients in the recipe.
 		public ObservableCollection<Ingredient> Ingredients
 		{
 			get => _ingredients;
 			set => SetProperty(ref _ingredients, value);
 		}
 
+		//------------------------------------------------------------------------------------------------------------------------//
+		// Collection of cooking steps in the recipe.
 		public ObservableCollection<Step> Steps
 		{
 			get => _steps;
 			set => SetProperty(ref _steps, value);
 		}
 
+		//------------------------------------------------------------------------------------------------------------------------//
+		// Gets or sets the description of the current cooking step.
 		public string StepDescription
 		{
 			get => _stepDescription;
 			set => SetProperty(ref _stepDescription, value);
 		}
 
+		//------------------------------------------------------------------------------------------------------------------------//
+		// Gets the total calories of the recipe.
 		public double TotalCalories
 		{
 			get => _totalCalories;
 			private set => SetProperty(ref _totalCalories, value);
 		}
 
+		//------------------------------------------------------------------------------------------------------------------------//
+		// Gets the message to display based on the calorie content of the recipe.
 		public string CaloriesMessage
 		{
 			get => _caloriesMessage;
 			private set => SetProperty(ref _caloriesMessage, value);
 		}
 
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
+		// Methods for calculating and updating the total calories of the recipe.
+
+		//------------------------------------------------------------------------------------------------------------------------//
 		// Calculates the total calories of the recipe.
 		private double CalculateTotalCalories()
 		{
@@ -117,6 +137,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 			return totalCalories;
 		}
 
+		//------------------------------------------------------------------------------------------------------------------------//
 		// Updates the total calories and the message based on the calorie content.
 		private void UpdateTotalCalories()
 		{
@@ -131,6 +152,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 			}
 		}
 
+		//------------------------------------------------------------------------------------------------------------------------//
 		// Updates the message displayed to the user based on the total calorie content.
 		private void UpdateCaloriesMessage()
 		{
@@ -152,7 +174,11 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 			}
 		}
 
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		// Commands for UI actions.
+
+		//------------------------------------------------------------------------------------------------------------------------//
+		// Command to open the window to add a new ingredient.
 		public ICommand AddIngredientCommand { get; }
 
 		// Opens the window to add a new ingredient.
@@ -167,6 +193,8 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 			}
 		}
 
+		//------------------------------------------------------------------------------------------------------------------------//
+		// Command to add a new cooking step to the recipe.
 		public ICommand AddStepCommand { get; }
 
 		// Adds a new cooking step to the recipe, including the step number in the description.
@@ -183,6 +211,8 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 			}
 		}
 
+		//------------------------------------------------------------------------------------------------------------------------//
+		// Command to submit the new recipe.
 		public ICommand SubmitRecipeCommand { get; }
 
 		// Submits the new recipe, performing validation and using the RecipeService to save it.
@@ -221,15 +251,14 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 			MessageBox.Show("Recipe submitted successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
 			// Clear the form after successful submission.
-			RecipeName = string.Empty;
-			Ingredients.Clear();
-			Steps.Clear();
-			TotalCalories = 0;
-			CaloriesMessage = string.Empty;
+			ClearRecipe();
 		}
 
+		//------------------------------------------------------------------------------------------------------------------------//
+		// Command to clear all data in the recipe form.
 		public ICommand ClearRecipeCommand { get; }
 
+		// Clears all data in the recipe form.
 		private void ClearRecipe()
 		{
 			var result = MessageBox.Show("Are you sure you want to clear all the data?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -245,6 +274,10 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 			}
 		}
 
+		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
+		// Event handling methods.
+
+		//------------------------------------------------------------------------------------------------------------------------//
 		// Handles the event when the total calories of a recipe exceed a certain limit, displaying an alert.
 		private void HandleCaloriesExceeded(double totalCalories)
 		{
@@ -258,3 +291,5 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 		}
 	}
 }
+
+//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//

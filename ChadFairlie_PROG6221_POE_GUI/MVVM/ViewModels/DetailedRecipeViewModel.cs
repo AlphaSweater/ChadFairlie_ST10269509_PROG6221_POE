@@ -189,6 +189,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 		//<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
 		// Commands section contains ICommand properties for binding UI actions to methods in the ViewModel.
 
+		//------------------------------------------------------------------------------------------------------------------------//
 		// ResetStepsCommand resets the IsCompleted property of all steps in the recipe.
 		public ICommand ResetStepsCommand { get; }
 
@@ -201,6 +202,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
+		// UpScaleCommand scales the recipe up by a specified factor.
 		public ICommand UpScaleCommand { get; }
 
 		private void UpScale(object parameter)
@@ -220,6 +222,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
+		// DownScaleCommand scales the recipe down by a specified factor.
 		public ICommand DownScaleCommand { get; }
 
 		private void DownScale(object parameter)
@@ -239,6 +242,7 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
+		// ResetScaleCommand resets the current scale of the recipe to 1.0.
 		public ICommand ResetScaleCommand { get; }
 
 		private void ResetScale()
