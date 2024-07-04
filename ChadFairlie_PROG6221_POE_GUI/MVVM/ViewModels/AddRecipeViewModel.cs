@@ -251,7 +251,12 @@ namespace ChadFairlie_PROG6221_POE_GUI.MVVM.ViewModels
 			MessageBox.Show("Recipe submitted successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
 			// Clear the form after successful submission.
-			ClearRecipe();
+			RecipeName = string.Empty;
+			Ingredients.Clear();
+			Steps.Clear();
+			TotalCalories = 0;
+			CaloriesMessage = string.Empty;
+			_caloriesExceededNotified = false; // Reset the flag
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------//
