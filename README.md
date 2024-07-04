@@ -32,7 +32,7 @@ If you have no prior experience with coding, don't worry! Just follow these step
 
 7. Once the project is open in Visual Studio, you can compile it by clicking on "Build" in the menu at the top, and then "Build Solution".
 
-8. After the project has been compiled, you can run it by clicking on "Start" in the menu at the top, and then it should start up.
+8. After the project has been compiled, you can run it by right clicking on the GUI project in the solution explorer and then click "Set as Startup Project" then click on "Start" in the menu at the top, and then it should start up.
 
 And that's it! You should now see the command-line interface of the application in a new window, ready for you to start entering and managing your recipes.
 
